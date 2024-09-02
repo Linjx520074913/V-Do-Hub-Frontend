@@ -1,0 +1,93 @@
+import  { EventEmitter } from 'events'
+
+enum ObEvent{
+    LOG_BUFFER_CHANGED = "LOG_BUFFER_CHANGED",            // 日志缓存发生变化
+
+    WINDOW_MINIMIZE = 'WINDOW_MINIMIZE',                  // 窗口最大化
+    WINDOW_MAXIMIZE = 'WINDOW_MAXIMIZE',                  // 窗口最小化
+    WINDOW_CLOSE = 'WINDOW_CLOSE',                        // 窗口关闭
+    WINDOW_FULLSCREEN = 'WINDOW_FULLSCREEN',
+    
+    UI_MOUNTED = "UI_MOUNTED",                            // UI 已挂载
+
+    OPEN_DEV_TOOL = 'OPEN_DEV_TOOL',                      // 打开开发者
+
+    OPEN_DIRECTORY = "OPEN_DIRECTORY",                    // 打开文件夹
+    REMOVE_DIRECTORY = "REMOVE_DIRECTORY",                // 删除文件夹
+    OPEN_FILE = "OPEN_FILE",                              // 打开文件
+    SAVE_FILE = "SAVE_FILE",                              // 保存文件
+    
+    OPEN_DIRECTORY_ASYNC = "OPEN_DIRECTORY_ASYNC",
+    OPEN_FILE_ASYNC = "OPEN_FILE_ASYNC",
+    SAVE_FILE_ASYNC = "SAVE_FILE_ASYNC",
+    OPEN_FILE_OR_DIRECTORY_ASYNC = "OPEN_FILE_OR_DIRECTORY_ASYNC",
+
+
+    LAUNCH_EXE = "LAUNCH_EXE",                            // 启动可执行程序
+    KILL_CURRENT_EXE = "KILL_CURRENT_EXE",                // 终止当前 exe
+    AUTO_TOGGLE_EXE = "AUTO_TOGGLE_EXE",                  // 自动切换 exe
+
+    SHOW_HIDE_IFRAME = "SHOW_HIDE_IFRAME",                // 显示、隐藏 IFRAME
+
+    DEVICE_CONNECTED = "DEVICE_CONNECTED",                // 设备连接
+    DEVICE_DISCONNECTED = "DEVICE_DISCONNECTED",          // 设备断开
+    DEVICE_UPGRADE = "DEVICE_UPGRADE",                    // 设备升级
+    DEVICE_QUERY = "DEVICE_QUERY",                        // 设备查询 
+ 
+    SHOW_NOTIFICATION = "SHOW_NOTIFICATION",              // 显示通知框
+
+    APP_RELAUNCH = "APP_RELAUNCH",                        // 重启应用
+
+    REMOTE_CONTROL = "REMOTE_CONTROL",                    // 远程控制
+
+    TOGGLE_LANGUAGE = "TOGGLE_LANGUAGE",                  // 切换语言
+
+    CHANGE_IMAGE_PATH = "CHANGE_IMAGE_PATH",               // 修改图片保存路径
+
+    SEND_ZOOM_FACTOR = "SEND_ZOOM_FACTOR",
+    REMOVE_LOCALSTORAGE = "REMOVE_LOCALSTORAGE",
+    TEST_CHANNEL = "TEST_CHANNEL",
+    SWITCH_LOCALE = "SWITCH_LOCALE",
+    WINDOW_MAXIMIZE_UNMAXIMIZE = "WINDOW_MAXIMIZE_UNMAXIMIZE",
+    REMOVE_LOG_FILES = "REMOVE_LOG_FILES",
+
+    LAUNCH_BACKEND = "LAUNCH_BACKEND",
+    ON_APP_CLOSE_UNIX = "ON_APP_CLOSE_UNIX",
+
+    LAUNCH_LOCAL_SERVER = "LAUNCH_LOCAL_SERVER",
+    LOCAL_SERVER_LAUNCHED_SUCCESS = "LOCAL_SERVER_LAUNCHED_SUCCESS",
+    SHUT_LOCAL_SERVER = "SHUT_LOCAL_SERVER",
+    LOCAL_SERVER_DOWN = "LOCAL_SERVER_DOWN",
+
+    ON_FILE_TRANSFER = "ON_FILE_TRANSFER",
+    FILE_TRANSFER_SUCCESS = "FILE_TRANSFER_SUCCESS",
+    FILE_TRANSFER_FAILED = "FILE_TRANSFER_FAILED",
+    FILE_TRANSFER_ERROR = "FILE_TRANSFER_ERROR",
+
+    APP_FORCE_QUIT = "APP_FORCE_QUIT",
+
+    WRITE_ARRBUF_TO_DISK = "WRITE_ARRBUF_TO_DISK",
+    WRITE_STR_TO_DISK = "WRITE_STR_TO_DISK",
+    READ_STR_FROM_DISK = "READ_STR_FROM_DISK",
+    UPDATE_SOFTWARE = "UPDATE_SOFTWARE",
+    REMOVE_HISTORICAL_INSTALLER = "REMOVE_HISTORICAL_INSTALLER",
+    START_UP_ARGS = "START_UP_ARGS",
+
+    SHOW_NATIVE_MESSAGE_DIALOG = "SHOW_NATIVE_MESSAGE_DIALOG",
+
+    VALIDATE_PATH = "VALIDATE_PATH",
+    PROJECT_RENAME = "PROJECT_RENAME",
+
+    LAUNCH_THIRD_PARTY_APP = "LAUNCH_THIRD_PARTY_APP",
+    GET_LOCAL_LOGS = "GET_LOCAL_LOGS",
+    QUIT_APP = "QUIT_APP"
+}
+
+enum ObCode{
+    REQUEST = "REQUEST", // 请求 
+    RESPONS = "RESPONS"  // 响应
+}
+
+class ObEventBus extends EventEmitter{ }
+
+export { ObEvent, ObEventBus, ObCode }

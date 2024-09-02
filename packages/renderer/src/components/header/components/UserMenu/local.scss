@@ -1,0 +1,103 @@
+$-main-bg-color: #303641;
+$-main-border-color: $--line-color;
+
+$-default-font-color: #90A1B4;
+$-default-font-size: $--font-size-p4;
+
+$-line-item-line-height: 29px;
+$-line-item-bg-color: transparent;
+$-line-item-bg-color--hover: $--bg-color-p4;
+
+$-user-section-bg-color: $--theme-color-p2;
+
+#user-menu {
+      // transform: translate(10px, -30px);
+      transform-origin: top;
+      transform: scale(1.148);
+}
+
+.select-menu {
+      // transform: scale(1.1);
+      height: fit-content;
+      width: 122px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 7px;
+      
+      background-color: $-main-bg-color;
+      border-radius: 7px;
+      color: $-default-font-color;
+      font-size: $-default-font-size;
+
+      border: 1px solid #6B7B8C;
+
+      > * {
+            padding: 0px 7px 0px 7px;
+            position: relative;
+      }
+
+
+            /* el-divider 修改高度&虚线效果 */
+      > :deep(.el-divider--horizontal) {
+            width: 100%;
+            margin: 7px 0 14px 0;
+      
+            background: 0 0;
+            border-top: 1px solid #414955!important;
+      }
+}
+
+.sub-menu {
+      transform: translate(-5px, -8px);
+}
+
+.menu-item {
+      font-size: 10px;
+      // width: 130px;
+      width: 108px;
+      height: 29px;
+      border-radius: 7px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      white-space: nowrap;
+      word-break: keep-all;
+
+      // transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+      color: #FFFFFF;
+      background-color: #49A2DD;
+}
+
+.non-selectable-item {
+      color: #FFFFFF!important;
+      background-color: transparent!important;
+}
+
+.dot-btn-group {
+      // max-height: 66.58px;
+      // overflow-y: hidden;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 22px;
+      grid-gap: 14px;
+
+      > * {
+            width: 22px;
+            height: 22px;
+            background-color: #3B4351;
+            border-radius: 29px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor:pointer;
+      }
+}

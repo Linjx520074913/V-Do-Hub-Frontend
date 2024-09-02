@@ -1,0 +1,59 @@
+#float-window-template {
+    height: 100%;
+    width: 100%;
+
+    position: fixed;
+    z-index: 2;
+    top: 0%;
+
+    background-color: transparent;
+}
+
+#float-background {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+}
+
+.backdrop-blur {
+    // background-color: rgba(0, 0, 0, 0.281);
+    backdrop-filter: blur(2px);
+}
+
+.pointer-events__none {
+    pointer-events: none;
+}
+
+#float-main__center {
+    width: fit-content;
+    height: fit-content;
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#float-main__center-bottom {
+    width: fit-content;
+    height: fit-content;
+
+    position: absolute;
+
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#float-main__top-right {
+    width: fit-content;
+    height: fit-content;
+
+
+    position: absolute;
+    top: 40px;
+    right: 110px;
+    margin-left: -150px;
+}

@@ -1,0 +1,55 @@
+$-bg-color-main: var(--bg-color-main, #0000ff);
+$-bg-color-second: var(--bg-color-second, #ff0000);
+
+// 主色系 3级分色, p1 三级透明度
+$--theme-color-p1: var(--theme-color-p1, #2860E0);
+$--theme-color-p1--a70: var(--theme-color-p1--a70, #2860e0b3);
+$--theme-color-p1--a20: var(--theme-color-p1--a20, #2860e033);
+$--theme-color-p2: var(--theme-color-normal, #164AC2);
+$--theme-color-p3: var(--theme-color-dark, #1C439D);
+
+
+// 背景色 4级分色 深->浅（后->前）
+$--bg-color-p1: var(--bg-color-p1, #131A20);
+$--bg-color-p2: var(--bg-color-p2, #1F2831);
+$--bg-color-p3: var(--bg-color-p3, #1A222A);
+$--bg-color-p4: var(--bg-color-p4, #18212A);
+
+// 线框色
+$--line-color: var(--line-color, #575757);
+
+// 功能默认色
+$--util-color-default: var(--util-color-default, #474747);
+
+// 警示色
+$--util-color-alert-p1: var(--util-color-alert-p1, #e20909);
+$--util-color-alert-p2: var(--util-color-alert-p2, #e2090999);
+
+// 成功色
+$--util-color-success-p1: var(--util-color-success-p1, #2FBF65);
+$--util-color-success-p2: var(--util-color-success-p2, #2FBF6599);
+
+// 提示色
+$--util-color-warning-p1: var(--util-color-warning-p1, #D99825);
+$--util-color-warning-p2: var(--util-color-warning-p2, #D9982599);
+
+// 字色
+$--font-color-p1: var(--font-color-p1, #FFFFFF);
+$--font-color-p2: var(--font-color-p2, #ACACAC);
+$--font-color-p3: var(--font-color-p3, #838383);
+
+
+// 字体
+$--font-family: var(--font-family, "HarmonyOS Sans SC");
+
+// 字号
+$--font-size-p1: var(--font-size-p1, 14px);
+$--font-size-p2: var(--font-size-p2, 13px);
+$--font-size-p3: var(--font-size-p3, 14px);
+$--font-size-p4: var(--font-size-p4, 13px);
+
+// 行高
+$--line-height-p1: var(--line-height-p1, 21px);
+$--line-height-p2: var(--line-height-p2, 19px);
+$--line-height-p3: var(--line-height-p3, 18px);
+$--line-height-p4: var(--line-height-p4, 15px);

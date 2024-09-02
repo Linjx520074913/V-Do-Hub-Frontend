@@ -1,0 +1,83 @@
+// Variables
+$-font-size-normal: 15px;
+$-icon-size-normal: 20px;
+
+$-font-color-grey: $--font-color-p2;
+$-font-color-normal: $--font-color-p2;
+$-font-color-brighter: $--font-color-p1;
+$-font-color-hightlight: $--font-color-p1;
+
+$-icon-color-grey: $--font-color-p2;
+$-icon-color-normal: $--font-color-p2;
+$-icon-color-brighter: $--font-color-p1;
+$-icon-color-hightlight: $--font-color-p1;
+
+$-bg-color-grey: $--util-color-default;
+$-bg-color-normal: transparent;
+$-bg-color-brighter: $--theme-color-p3;
+$-bg-color-hightlight: $--theme-color-p3;
+
+
+#tab {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-start;   /* 子元素垂直置顶 */
+    align-items: center;       /* 子元素水平居中 */
+}
+
+
+.tab__item {
+    height: 43px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    margin: 0px 5px 0px 5px;
+
+    justify-content: center;   /* 子元素水平居中 */
+    align-items: center;       /* 子元素垂直居中 */
+
+}
+
+
+.tab__item--icon {
+    height: $-icon-size-normal;
+}
+
+.tab__item--label {
+    font-size: $-font-size-normal;
+    color: $-font-color-normal;
+}
+
+.tab__item--selected {
+    // border-top: 5px solid $--ob-xw-theme-color-main;
+    color: $-font-color-hightlight;
+    background-color: $-bg-color-hightlight;
+
+    .tab__item--icon {
+        color: $-icon-color-hightlight;
+    }
+
+    .tab__item--label {
+        color: $-font-color-hightlight;
+    }
+}
+
+.tab__item:hover {
+    cursor: pointer;
+    color: $-font-color-brighter;
+    background-color: $-bg-color-brighter;
+
+    .tab__item--icon {
+        color: $-icon-color-brighter;
+    }
+
+    .tab__item--label {
+        color: $-font-color-brighter;
+    }
+}

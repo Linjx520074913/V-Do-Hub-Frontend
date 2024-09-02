@@ -1,0 +1,18 @@
+{
+    "broadcast":{
+        "port": {
+            "bind": 8060,
+            "target": 8061  
+        },
+        "interval": 500,
+        "timeout": 4000
+    },
+    "addonPath" : "",
+    "backendPath": "",
+    
+    "contentPath": "",
+    "resourcePath": "",
+    "dataPath": "",
+    "platform": "",
+    "logBasePath": ""
+}

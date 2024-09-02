@@ -1,0 +1,32 @@
+@font-face {
+      font-family: "FZLanTingHeiS-R-GB";
+      src: url("./FZLTHJW.ttf");
+}
+
+@font-face {
+      font-family: "FZLanTingHeiS-B-GB";
+      src: url("./FZLTCHJW.ttf");
+}
+
+@font-face {
+      font-family: "PingFang SC";
+      src: url("./PingFangSC.ttf");
+}
+
+@font-face {
+      font-family: "PingFang SC-Semibold";
+      src: url("./PingFangSCSemibold.ttf");
+}
+
+/* HarmonyOS Sans SC */
+@font-face {
+      font-family: "HarmonyOS Sans SC";
+      src: url("./HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Regular.ttf");
+      font-weight: normal;
+}
+
+@font-face {
+      font-family: "HarmonyOS Sans SC";
+      src: url("./HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Bold.ttf");
+      font-weight: bold;
+}

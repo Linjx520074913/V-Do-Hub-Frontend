@@ -1,0 +1,92 @@
+/** Scrollbar样式 */
+
+::-webkit-scrollbar {
+    background-color: transparent;
+    display: none;
+    width: 4px;
+}
+
+::-webkit-scrollbar {
+    display: flex;
+}
+
+::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 2px;
+    // -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: $--line-color;
+    // display: none;
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    // background-color: rgba(166, 166, 166, 0.6);
+}
+
+::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    // -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    // background: #EDEDED;
+}
+
+// 自定义滚动条后右下角存在小白块问题解法
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+.jse-menu .svelte-v4jelk{
+    display: none;
+}
+.jse-navigation-bar.svelte-5lwyke.svelte-5lwyke{
+    display: none !important;
+}
+
+.jse-main.svelte-1tkifqe{
+    min-height:unset !important;
+}
+
+// .jse-json-node.jse-root.svelte-uj4yd7.svelte-uj4yd7.svelte-uj4yd7.svelte-uj4yd7{
+//     background-color: #BBB !important;
+// }
+.jse-tree-mode.svelte-1chflnh .jse-contents.svelte-1chflnh{
+    padding:unset !important;
+    border: unset !important
+}
+
+#log-resize {
+    height: 1px;
+    background-color: $--bg-color-p4;
+    cursor:ns-resize;
+}
+
+#log-resize:hover::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+
+    background-color: $--font-color-p1;
+}
+
+#log-main {
+    height: 126px;
+    min-height: 50px;
+    // TODO: Max-height
+}
+
+.div-hide {
+    display: none;
+}
+
+.collapse-button {
+    background-color: transparent;
+    color: $--font-color-p1;
+}
+
+.collapse-button:hover {
+    background-color: $--util-color-default;
+}
+
+.collapse-button:focus {
+    background-color: $--util-color-default;
+}

@@ -1,0 +1,388 @@
+$-font-size-normal: 12px;
+
+$-row-item-top-bottom-gap: 5px;
+$-row-item-left-right-gap: 5px;
+
+$-label-font-size-normal: 12px;
+
+$-label-font-color-normal: white;
+
+$-switch-font-color-normal: gray;
+$-switch-font-color-active: white;
+
+$-switch-core-color-normal: white;
+$-switch-core-color-active: black;
+$-switch-core-border-color-normal: black;
+$-switch-core-border-color-active: white;
+
+$-switch-slider-color-normal: black;
+$-switch-slider-color-active: white;
+
+$-slider-runway-color: gray;
+$-slider-progress-color: white;
+
+$-slider-slider-color: black;
+$-slider-slider-border-color: white;
+
+$-selector-font-size: 10px;
+$-selector-height: 20px;
+$-selector-bg-color: black;
+$-selector-font-color: white;
+$-selector-border-color: red;
+
+$-input-font-size: 10px;
+$-input-height: 30px;
+$-input-font-color: white;
+
+$-radio-button-font-size: 11px;
+$-radio-button-font-color-normal: white;
+$-radio-button-font-color-hover: red;
+$-radio-button-font-color-selected: black;
+$-radio-button-bg-color-normal: black;
+$-radio-button-bg-color-hover: red;
+$-radio-button-bg-color-selected: white;
+$-radio-button-border-color-normal: white;
+$-radio-button-border-color-hover: white;
+$-radio-button-border-color-selected: black;
+
+$-collapse-header-bg-color-normal: black;
+$-collapse-header-bg-color-expand: rgb(196, 196, 196);
+$-collapse-header-font-size: $-font-size-normal;
+$-collapse-header-font-color-normal: white;
+$-collapse-header-font-color-expand: black;
+$-collapse-header-border-color: gray;
+
+
+.row-control-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      margin: $-row-item-top-bottom-gap $-row-item-left-right-gap $-row-item-top-bottom-gap $-row-item-left-right-gap;
+
+      > :nth-child(1) {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+
+            font-size: $-label-font-size-normal;
+            color: $-label-font-color-normal;
+      }
+
+      > :nth-child(2) {
+            display: flex;
+            width: fit-content;
+
+            margin: 0px 10px 0px 10px;
+      }
+
+      > :nth-child(n+3) {
+            display: none;
+            width: fit-content;
+            justify-self: flex-end;
+
+            background-color: rgb(222, 222, 222);
+      }
+}
+
+.slider-control-item {
+      display: grid;
+
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: 2;
+
+      margin: $-row-item-top-bottom-gap $-row-item-left-right-gap $-row-item-top-bottom-gap $-row-item-left-right-gap;
+
+      > :nth-child(1) {
+            grid-column-start: 1;
+            grid-column-end: 4;
+
+            grid-row-start: 1;
+            grid-row-end: 2;
+
+            display: flex;
+            align-items: center;
+
+            font-size: $-label-font-size-normal;
+            color: $-label-font-color-normal;
+      }
+
+      > :nth-child(2) {
+            display: flex;
+            grid-column-start: 8;
+            grid-column-end: 10;
+
+            grid-row-start: 1;
+            grid-row-end: 2;
+            margin: 0px 10px 0px 10px;
+      }
+
+      > :nth-child(3) {
+            grid-column-start: 10;
+            grid-column-end: 11;
+
+            grid-row-start: 1;
+            grid-row-end: 2;
+
+            display: flex;
+            
+            justify-content: center;
+            align-items: center;
+
+      }
+
+      > :nth-child(4) {
+            grid-column-start: 1;
+            grid-column-end: 11;
+
+            grid-row-start: 2;
+            grid-row-end: 3;
+            margin: 0px 12px 0px 15px;
+      }
+
+}
+
+
+/** el-switch */
+// 标签Inactive
+::v-deep .el-switch__label {
+      color: $-switch-font-color-normal;
+}
+// 标签Active
+::v-deep .el-switch__label.is-active {
+      color: $-switch-font-color-active;
+}
+// 内部关闭
+::v-deep .el-switch__core {
+      min-width: 30px;
+      height: 15px;
+
+      border-color: $-switch-core-border-color-normal;
+      background-color: $-switch-core-color-normal;
+}
+// 内部开启
+::v-deep .el-switch.is-checked .el-switch__core {
+      border-color: $-switch-core-border-color-active;
+      background-color: $-switch-core-color-active;
+}
+// 滑块关闭
+::v-deep .el-switch .el-switch__core .el-switch__action {
+      width: 10px;
+      height: 10px;
+      
+      background-color: $-switch-slider-color-normal;
+}
+// 滑块开启
+::v-deep .el-switch.is-checked .el-switch__core .el-switch__action {
+      left: calc(100% - 12px);
+
+      background-color: $-switch-slider-color-active;
+}
+
+// Slider滑块
+::v-deep .el-slider .el-slider__button {
+      width: 15px;
+      height: 15px;
+}
+
+
+/** el-slider */
+// Slider条本体
+::v-deep .el-slider .el-slider__runway {
+      background-color: $-slider-runway-color;
+}
+// Slider条进度
+::v-deep .el-slider .el-slider__bar {
+      background-color: $-slider-progress-color;
+}
+// Slider滑块
+::v-deep .el-slider .el-slider__button {
+      background-color: $-slider-slider-color;
+      border-color: $-slider-slider-border-color;
+}
+// // 输入框边框
+// ::v-deep .el-slider .el-input .el-input__wrapper {
+//       // --el-input-border-color: red;
+//       // --el-input-hover-border-color: blue;
+//       // --el-input-focus-border-color: green;
+//       background-color: $--ob-xw-control-color-third;
+//       --el-input-text-color: white;
+//       --el-input-border-color: $--ob-xw-control-color-third;
+// }
+
+// Disabled
+// Slider条本体
+// ::v-deep .el-slider .el-slider__runway.is-disabled {
+//       background-color: red;
+// }
+// // Slider条进度
+// ::v-deep .el-slider .el-slider__runway.is-disabled .el-slider__bar {
+//       background-color: red;
+// }
+// // Slider滑块
+// ::v-deep .el-slider .el-slider__runway.is-disabled .el-slider__button {
+//       background-color: blue;
+//       border-color: red;
+// }
+
+
+/** el-select */
+::v-deep .el-select {
+
+}
+// 选框svg箭头
+::v-deep .el-select svg {
+    color: $-selector-font-color;
+}
+
+// 选框字体
+::v-deep .el-select .el-input__inner {
+      color: $-selector-font-color!important;
+      font-size: $-selector-font-size!important;
+}
+  
+// 选框背景
+::v-deep .el-select .el-input__wrapper {
+    background-color: $-selector-bg-color!important;
+    box-shadow: none;
+    border: 1px solid white;
+    border-radius: 0;
+    > * {
+      height: $-selector-height;
+    }
+
+}
+
+// // DropDown部分见Global
+
+// ::v-deep .device-select .el-button {
+//     color: $--ob-xw-control-color-main;
+// }
+
+/** el-button */
+::v-deep .el-button {
+      padding: 3px 5px 3px 5px;
+      height: fit-content;
+
+      border-radius: 0;
+}
+
+/** el-input-number */
+::v-deep .el-input-number .el-input-number__decrease,
+::v-deep .el-input-number .el-input-number__increase {
+      border-radius: 0;
+      display: none;
+}
+
+::v-deep .el-input-number .el-input .el-input__wrapper {
+      padding: 0px 2px 0px 2px;
+      background-color: gray;
+      // box-shadow: 0 0 0 1px white;
+      // border: 1px solid white;
+      border-radius: 0;
+
+      > * {
+            height: $-input-height;
+      }
+
+      .el-input__inner {
+            color: $-input-font-color;
+            font-size: $-input-font-size;
+      }
+}
+
+::v-deep .el-input input::-webkit-outer-spin-button,
+::v-deep .el-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none!important;
+}
+
+
+/** el-radio-button */
+::v-deep .el-radio-group {
+      flex-wrap: nowrap;
+      width: 100%;
+      height: 100%;
+}
+::v-deep .el-radio-button {
+      margin: 5px 3% 5px 3%;
+
+
+      .el-radio-button__inner {
+            padding: 5px 10px 5px 10px;
+            font-size: $-radio-button-font-size;
+            border-radius: 0px!important;
+
+            border: 1px solid $-radio-button-border-color-normal;
+            color: $-radio-button-font-color-normal;
+            background-color: $-radio-button-bg-color-normal;
+      }
+
+      .el-radio-button__original-radio:checked+ .el-radio-button__inner {
+            color: $-radio-button-font-color-selected;
+            border-color: $-radio-button-border-color-selected;
+            background-color: $-radio-button-bg-color-selected;
+      }
+}
+
+
+/** el-input */
+::v-deep .el-input .el-input__wrapper {
+      padding: 0px 2px 0px 2px;
+      background-color: gray;
+      // box-shadow: 0 0 0 1px white;
+      // border: 1px solid white;
+      border-radius: 0;
+
+      > * {
+            height: $-input-height;
+      }
+
+      .el-input__inner {
+            color: $-input-font-color;
+            font-size: $-input-font-size;
+      }
+}
+
+/** el-collapse */
+::v-deep .el-collapse {
+      border: 0px;
+}
+// 头部标签收缩
+::v-deep .el-collapse-item__header {
+      --el-collapse-header-height: 30px;
+      margin: 5px 0px 5px 0px;
+      font-size: $-collapse-header-font-size;
+
+      color: $-collapse-header-font-color-normal;
+      background-color: $-collapse-header-bg-color-normal;
+      border-color: $-collapse-header-border-color;
+}
+// 头部标签展开
+::v-deep .el-collapse-item__header.is-active {
+      color: $-collapse-header-font-color-expand;
+      background-color: $-collapse-header-bg-color-expand;
+}
+// 选框svg箭头
+::v-deep .el-collapse-item__header svg {
+      // color: red;
+}
+// collapse内部
+      ::v-deep .el-collapse-item__wrap {
+      --el-collapse-content-bg-color: transparent;
+}
+  
+  
+  /** el-select */
+  // 选框svg箭头
+  ::v-deep .el-select svg {
+      // color: red;
+  }
+  // 选框背景
+  ::v-deep .el-select .el-input__wrapper {
+      //height: 32px;
+  }
+  
+  // 选框字体
+  ::v-deep .el-select .el-input__wrapper {
+      font-size: $-font-size-normal;
+  }

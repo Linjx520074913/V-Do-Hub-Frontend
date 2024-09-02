@@ -1,0 +1,385 @@
+enum OBScanControlMessageID {
+    //***********************Pioneer start*****************************************
+    OB_SCAN_MESSAGE_ID_PIONEER_MIDDLE_BUTTON_SHORT_PRESS = 0,
+    OB_SCAN_MESSAGE_ID_PIONEER_MIDDLE_BUTTON_LONG_PRESS  = 0x14700200,
+    OB_SCAN_MESSAGE_ID_PIONEER_UP_BUTTON_SHORT_PRESS     = 0x14700201,
+    OB_SCAN_MESSAGE_ID_PIONEER_UP_BUTTON_LONG_PRESS      = 0x14700202,
+    OB_SCAN_MESSAGE_ID_PIONEER_DOWN_BUTTON_SHORT_PRESS   = 0x14700203,
+    OB_SCAN_MESSAGE_ID_PIONEER_DOWN_BUTTON_LONG_PRESS    = 0x14700204,
+    OB_SCAN_MESSAGE_ID_PIONEER_LEFT_BUTTON_SHORT_PRESS   = 0x14700205,
+    OB_SCAN_MESSAGE_ID_PIONEER_LEFT_BUTTON_LONG_PRESS    = 0x14700206,  // data->float
+    OB_SCAN_MESSAGE_ID_PIONEER_RIGHT_BUTTON_SHORT_PRESS  = 0x14700207,
+    OB_SCAN_MESSAGE_ID_PIONEER_RIGHT_BUTTON_LONG_PRESS   = 0x14700208,  // data->float
+    //***********************Pioneer end*****************************************
+    //***********************Avatar start****************************************
+    OB_SCAN_MESSAGE_ID_AVATAR_ON_OFF_BUTTON_SHORT_PRESS            = 0x14700209,
+    OB_SCAN_MESSAGE_ID_AVATAR_ON_OFF_BUTTON_LONG_PRESS             = 0x14700210,
+    OB_SCAN_MESSAGE_ID_AVATAR_EXPOSURE_PLUS_BUTTON_SHORT_PRESS     = 0x14700211,
+    OB_SCAN_MESSAGE_ID_AVATAR_EXPOSURE_PLUS_BUTTON_LONG_PRESS      = 0x14700212,
+    OB_SCAN_MESSAGE_ID_AVATAR_EXPOSURE_SUBTRACT_BUTTON_SHORT_PRESS = 0x14700213,
+    OB_SCAN_MESSAGE_ID_AVATAR_EXPOSURE_SUBTRACT_BUTTON_LONG_PRESS  = 0x14700214,
+    //***********************Avatar end******************************************
+};
+
+enum OBScanCalibDistState{
+    OB_SCAN_CALIB_BOARD_NO_DETECT          = 0,
+    OB_SCAN_CALIB_BOARD_UNQUALIFIED        = 1,
+    OB_SCAN_CALIB_QUALIFIED_DATA           = 2,
+    OB_SCAN_CALIB_UNQUALIFIED_DATA         = 3,
+};
+
+// 扩展标定状态枚举
+enum OBScanCalibrationState{
+    // 扫描二维码
+    OB_SCAN_CALIB_CAPTURE_QR_CODE_SUCCESS  = 0,
+    OB_SCAN_CALIB_CAPTURE_QR_CODE_FAILED   = 1,
+
+    // 采集标定角度数据
+    OB_SCAN_CALIB_CAPTURING_ONE_ANGLE      = 2,
+    OB_SCAN_CALIB_CAPTURING_ONE_ANGLE_DONE = 3,
+    OB_SCAN_CALIB_CAPTURING_ALL_ANGEL_DONE = 4,
+    
+    // 标定处理
+    OB_SCAN_CALIB_PROCESSING               = 5,
+    OB_SCAN_CALIB_PROCESS_SUCCESS          = 6,
+    OB_SCAN_CALIB_PROCESS_FALIED           = 7,
+
+    OB_SCAN_CALIB_DEVICE_REBOOT_SUCCESS    = 8,
+    OB_SCAN_CALIB_DEVICE_REBOOT_FAILED     = 9,
+
+    OB_SCAN_CALIB_OUT_OF_MEMORY            = 10,
+    OB_SCAN_UNMATCH_CALIB_BOARD            = 11   // 添加这个枚举值
+};
+
+enum OBScanCalibDistID {
+    OB_SCAN_CALIB_DIST_ID_INVALID_DATA      = -1,
+    OB_SCAN_CALIB_DIST_ID_TOO_CLOSE         = 0,
+    OB_SCAN_CALIB_DIST_ID_FIRST_DIST_DATA   = 1,
+    OB_SCAN_CALIB_DIST_ID_SECOND_DIST_DATA  = 2,
+    OB_SCAN_CALIB_DIST_ID_THIRD_DIST_DATA   = 3,
+    OB_SCAN_CALIB_DIST_ID_FORTH_DIST_DATA   = 4,
+    OB_SCAN_CALIB_DIST_ID_FIFTH_DIST_DATA   = 5,
+    OB_SCAN_CALIB_DIST_ID_SIXTH_DIST_DATA   = 6,
+    OB_SCAN_CALIB_DIST_ID_SEVENTH_DIST_DATA = 7,
+    OB_SCAN_CALIB_DIST_ID_TOO_FAR           = 8,
+};
+
+enum OBScanDistanceAdvice {
+    OB_SCAN_DISTANCE_MOVE_FURTHER = 0,   // move further
+    OB_SCAN_DISTANCE_GOOD_MOVE_FURTHER,  // good, move further
+    OB_SCAN_DISTANCE_OPTIMAL,            // optimal distance, keep it up
+    OB_SCAN_DISTANCE_GOOD_MOVE_CLOSER,   // good, move closer
+    OB_SCAN_DISTANCE_MOVE_CLOSER,        // move closer
+    OB_SCAN_DISTANCE_INVALID_VALUE,      // cannot given distance advice
+};
+
+enum OBScanProjection {
+    OB_SCAN_INFRARED   = 0,
+    OB_SCAN_BLUE_LIGHT = 1,
+};
+
+enum OBScanMode{
+    OB_SCAN_MODE_FACE = 0,
+    OB_SCAN_MODE_OBJECT_SMALL,
+    OB_SCAN_MODE_OBJECT_MEDIUM,
+    OB_SCAN_MODE_OBJECT_BIG,
+    OB_SCAN_MODE_HUMAN,
+    OB_SCAN_MODE_CALIBRATION
+};
+
+enum OBScanObjectMode{
+    OB_SCAN_OBJECT_SMALL = 0,
+    OB_SCAN_OBJECT_MEDIUM,
+    OB_SCAN_OBJECT_BIG
+};
+
+enum OBScanAccuracy{
+    OB_SCAN_ACCURACY_FAST = 0,
+    OB_SCAN_ACCURACY_HIGH
+};
+
+enum OBScanRange{
+    OB_SCAN_RANGE_NEAR = 0,
+    OB_SCAN_RANGE_FAR
+};
+
+enum OBScanFuseMode{
+    OB_SCAN_FUSE_MODE_GEOMETRY = 0,
+    OB_SCAN_FUSE_MODE_RGBD,
+    OB_SCAN_FUSE_MODE_MARKER
+};
+
+enum OBScanRefCamera{
+    OB_SCAN_REF_CAM_LEFT = 0,
+    OB_SCAN_REF_CAM_RIGHT
+};
+
+enum OBScanFrameRate{
+    OB_SCAN_FRAME_RATE_5 = 0,
+    OB_SCAN_FRAME_RATE_10,
+    OB_SCAN_FRAME_RATE_15,
+    OB_SCAN_FRAME_RATE_20,
+    OB_SCAN_FRAME_RATE_30,
+    OB_SCAN_FRAME_RATE_60
+};
+
+enum OBScanExportFormat{
+    OB_SCAN_EXPORT_FORMAT_ASC = 0,
+    OB_SCAN_EXPORT_FORMAT_STL,
+    OB_SCAN_EXPORT_FORMAT_PLY,
+    OB_SCAN_EXPORT_FORMAT_OBJ
+};
+
+// 扩展追踪状态枚举
+enum OBScanTrackingStatus {
+    OB_SCAN_TRACKING_SUCCESS         = 0,  // 跟踪成功/tracking success
+    OB_SCAN_TRACKING_LOST            = 1,  // 跟丢/tracking lost
+    OB_SCAN_TRACKING_AMBIGUOUS_PLANE = 2,  // 数据是平面/the data is mostly plane
+    OB_SCAN_TRACKING_FAILURE_INSUFF_VALID_POINTS = 3,  // 点云数量不够/valid points
+    OB_SCAN_TRACKING_FAILURE_TEXTURELESS         = 4,  // 纹理不够/textureless
+    OB_SCAN_TRACKING_FAILURE_MARKERLESS          = 5,  // 标志点不够
+};
+
+enum OBScanColorMap{
+    OB_SCAN_COLOR_MAP_BONE = 0,
+    OB_SCAN_COLOR_MAP_JET,
+    OB_SCAN_COLOR_MAP_RAINBOW
+};
+
+enum OBScanComputeSpeed{
+    OB_SCAN_SPEED_FAST = 0,
+    OB_SCAN_SPEED_NORMAL
+};
+
+enum OBScanAction{
+    OB_SCAN_ACTION_DISCONNECT = 0,
+    OB_SCAN_ACTION_CONNECT,
+    OB_SCAN_ACTION_PREVIEW,
+    OB_SCAN_ACTION_START,
+    OB_SCAN_ACTION_PAUSE,
+    OB_SCAN_ACTION_STOP,
+    OB_SCAN_ACTION_DESTROY,
+    OB_SCAN_ACTION_OPTIMIZATION,
+    OB_SCAN_ACTION_CLIPPINGPLANE,
+    OB_SCAN_ACTION_MESHLIZATION,
+    OB_SCAN_ACTION_TEXTURIZATION
+};
+
+enum OBScanModelCloudColor{
+    OB_SCAN_MODEL_COLOR_NONE = 0,
+    OB_SCAN_MODEL_COLOR_SPECTROGRAM,
+    OB_SCAN_MODEL_COLOR_REALITY
+};
+
+enum OBScanMessageID{
+    OB_SCAN_MESSAGE_ID_NEW_RGB_IMAGE = 0,
+    OB_SCAN_MESSAGE_ID_NEW_DEPTH_IMAGE,
+    OB_SCAN_MESSAGE_ID_NEW_IR_IMAGE,
+    OB_SCAN_MESSAGE_ID_FRAME_READY,
+    OB_SCAN_MESSAGE_ID_USB_DEVICE_CONNECT,
+    OB_SCAN_MESSAGE_ID_USB_DEVICE_DISCONNECT,
+    OB_SCAN_MESSAGE_ID_WIFI_DEVICE_CONNECT,
+    OB_SCAN_MESSAGE_ID_WIFI_DEVICE_DISCONNECT,
+    OB_SCAN_MESSAGE_ID_WIFI_DEVICE_BUSY,
+    OB_SCAN_MESSAGE_ID_DEVICE_CONNECT_SUPPORT_RESCAN,
+    OB_SCAN_MESSAGE_ID_FRAME_BUFFER_FULL,
+    OB_SCAN_MESSAGE_ID_SCANNING_SUCCESS,
+    OB_SCAN_MESSAGE_ID_SCANNING_FAILED,
+    OB_SCAN_MESSAGE_ID_OPTIMIZATION_SUCCESS,
+    OB_SCAN_MESSAGE_ID_OPTIMIZATION_FAILED,
+    OB_SCAN_MESSAGE_ID_OPTIMIZATIONCANCEL_SUCCESS,
+    OB_SCAN_MESSAGE_ID_OPTIMIZATIONCANCEL_FAILED,
+    OB_SCAN_MESSAGE_ID_MESHLIZATION_SUCCESS,
+    OB_SCAN_MESSAGE_ID_MESHLIZATION_FAILED,
+    OB_SCAN_MESSAGE_ID_MESHLIZATIONCANCEL_SUCCESS,
+    OB_SCAN_MESSAGE_ID_MESHLIZATIONCANCEL_FAILED,
+    OB_SCAN_MESSAGE_ID_TEXTURIZATION_SUCCESS,
+    OB_SCAN_MESSAGE_ID_TEXTURIZATION_FAILED,
+    OB_SCAN_MESSAGE_ID_TEXTURIZATIONCANCEL_SUCCESS,
+    OB_SCAN_MESSAGE_ID_TEXTURIZATIONCANCEL_FAILED,
+    OB_SCAN_MESSAGE_ID_DEVICE_UPGRADE_SUCCESS,
+    OB_SCAN_MESSAGE_ID_DEVICE_UPGRADE_FAILED,
+    OB_SCAN_MESSAGE_ID_DEVICE_UPGRADE_REBOOT_FAILED,
+    OB_SCAN_MESSAGE_ID_DEVICE_UPGRADE_FAILED_IMAGE_PROBLEM,  // image size or verify problem
+    OB_SCAN_MESSAGE_ID_REWIND_PREVIEW_SUCCESS,
+    OB_SCAN_MESSAGE_ID_REWIND_PREVIEW_FAILED,
+    OB_SCAN_MESSAGE_ID_REWIND_COMMIT_SUCCESS,
+    OB_SCAN_MESSAGE_ID_REWIND_COMMIT_FAILED,
+    OB_SCAN_MESSAGE_ID_PROJECT_IMPORT_SUCCESS,
+    OB_SCAN_MESSAGE_ID_PROJECT_IMPORT_FAILED,
+    OB_SCAN_MESSAGE_ID_PROJECT_MERGE_SUCCESS,
+    OB_SCAN_MESSAGE_ID_PROJECT_MERGE_FAILED,
+    OB_SCAN_MESSAGE_ID_AUTO_REGISTRATION_SUCCESS,
+    OB_SCAN_MESSAGE_ID_AUTO_REGISTRATION_FAILED,
+    OB_SCAN_MESSAGE_ID_POINT_PAIR_REGISTRATION_SUCCESS,
+    OB_SCAN_MESSAGE_ID_POINT_PAIR_REGISTRATION_FAILED,
+    OB_SCAN_MESSAGE_ID_COMBINATION_OPTIMIZATION_SUCCESS,
+    OB_SCAN_MESSAGE_ID_COMBINATION_OPTIMIZATION_FAILED,
+    OB_SCAN_MESSAGE_ID_COMBINATION_OPTIMIZATIONCANCEL_SUCCESS,
+    OB_SCAN_MESSAGE_ID_COMBINATION_OPTIMIZATIONCANCEL_FAILED,
+    OB_SCAN_MESSAGE_ID_COMBINATION_MESHLIZATION_SUCCESS,
+    OB_SCAN_MESSAGE_ID_COMBINATION_MESHLIZATION_FAILED,
+    OB_SCAN_MESSAGE_ID_COMBINATION_MESHLIZATIONCANCEL_SUCCESS,
+    OB_SCAN_MESSAGE_ID_COMBINATION_MESHLIZATIONCANCEL_FAILED,
+    OB_SCAN_MESSAGE_ID_COMBINATION_TEXTURIZATION_SUCCESS,
+    OB_SCAN_MESSAGE_ID_COMBINATION_TEXTURIZATION_FAILED,
+    OB_SCAN_MESSAGE_ID_COMBINATION_TEXTURIZATIONCANCEL_SUCCESS,
+    OB_SCAN_MESSAGE_ID_COMBINATION_TEXTURIZATIONCANCEL_FAILED,
+
+    OB_SCAN_MESSAGE_ID_OPTIMATING,
+    OB_SCAN_MESSAGE_ID_MESHLIZATING,
+    OB_SCAN_MESSAGE_ID_TEXTURIZATING,
+    OB_SCAN_MESSAGE_ID_UPGRADING,
+    OB_SCAN_MESSAGE_ID_IMPORTING,
+    OB_SCAN_MESSAGE_ID_REGISTING,
+    OB_SCAN_MESSAGE_ID_COMBINATION_OPTIMATING,
+    OB_SCAN_MESSAGE_ID_PROJECT_MERGING,
+    OB_SCAN_MESSAGE_ID_POINTS_PAIRING,
+    OB_SCAN_MESSAGE_ID_EXPORTING,
+    OB_SCAN_MESSAGE_ID_EXPORT_SUCCESS,
+    OB_SCAN_MESSAGE_ID_EXPORT_FAILED,
+
+    OB_SCAN_MESSAGE_ID_DEVICE_CONNECT_NEED_CALIBRATION,
+    OB_SCAN_MESSAGE_ID_MAX_FRAMES_REACHED,
+    OB_SCAN_MESSAGE_ID_TEST_COMPUTER_PERFORMANCE_FINISHED,
+    OB_SCAN_MESSAGE_ID_TEST_COMPUTER_PERFORMANCE_FAILED,
+    OB_SCAN_MESSAGE_ID_SCANNING_PREVIEW_SUCCESS,
+    OB_SCAN_MESSAGE_ID_SCANNING_PREVIEW_FAILED
+
+};
+
+enum OBScanTexture{
+    OB_SCAN_HAVE_TEXTURE = 0,
+    OB_SCAN_NO_TEXTURE = 1
+};
+
+enum OBScanStatus {
+    /// The operation was successful.
+        // 成功，每个接口只有返回这个值才代表正确执行了对应的处理
+        OB_SCAN_SUCCESS = 0,
+
+        /// One of the argument was invalid
+        // 参数无效，意味着参数有问题
+        OB_SCAN_ERROR_INVALID_ARGUMENT = 0x32620100,
+
+        ///   An internal error occurred that the application should not attempt to
+        /// recover from.
+        /// 处理发生错误
+        OB_SCAN_ERROR_FATAL = 0x32620101,
+
+        /// Device disconnect
+        // 相机没有连接
+        OB_SCAN_ERROR_DEVICE_DISCONNECT = 0x32620102,
+
+        ///   An operation was attempted that requires the session be running, but the
+        /// session was paused.
+        /// 已经暂停
+        OB_SCAN_ERROR_SESSION_PAUSED = 0x32620103,
+
+        ///   An operation was attempted that requires the session be paused, but the
+        /// session was running.
+        /// 当尝试处理一些操作时，需要session是暂停或者结束的状态，但是session还在运行中
+        OB_SCAN_ERROR_SESSION_NOT_PAUSED = 0x32620104,
+
+        /// The configuration supplied to obscan_session_configure() is unsupported.
+        // 配置的扫描模式不支持
+        OB_SCAN_ERROR_UNSUPPORTED_CONFIGURATION = 0x32620105,
+
+        /// The application does not have camera permission
+        // 应用没有相机权限
+        OB_SCAN_ERROR_CAMERA_PERMISSION_NOT_GRANTED = 0x32620106,
+
+        /// Acquire failed because the object being acquired was already released.
+        // 指向的内存已释放
+        OB_SCAN_ERROR_DEADLINE_EXCEEDED = 0x32620107,
+
+        /// Depth image with insufficient valid pixel
+        // 深度图没有足够的有效数据
+        OB_SCAN_ERROR_DEPTH_INSUFFICIENT_VALID = 0x32620108,
+
+        /// The listener tobe removed call by @c obscan_context_remove_msg_listener is not found
+        // 消息监听不存在
+        OB_SCAN_ERROR_LISTENER_NOT_FOUND = 0x32620109,
+
+        // Each function of the object can be called only once
+        // 多次调用
+        OB_SCAN_ERROR_MULTI_CALLED = 0x32620110,
+
+        /// The camera not register
+        // 相机没有注册
+        OB_SCAN_ERROR_CAMERA_NOT_REGISTER = 0x32620111,
+
+        // out of memory
+        // 内存不够
+        OB_SCAN_ERROR_OUT_MEMORY = 0x32620112,
+
+        // the file is not exists
+        // 文件不存在
+        OB_SCAN_ERROR_FILE_NOT_EXIST = 0x32620113,
+
+        // the file read failed
+        // 文件读取失败
+        OB_SCAN_ERROR_FILE_READ_FAILED = 0x32620114,
+
+        // the file write failed
+        // 文件写入失败
+        OB_SCAN_ERROR_FILE_WRITE_FAILED = 0x32620115,
+
+        // graphics card driver problem
+        // 显卡驱动问题
+        OB_SCAN_ERROR_GRAPHICS_PROBLEM = 0x32620116,
+
+        // 没有标志点
+        // have not marker points
+        OB_SCAN_ERROR_HAVE_NOT_MARKER = 0x32620117,
+
+        // import empty project
+        // 导入空工程
+        OB_SCAN_ERROR_IMPORT_EMPTY_PROJ = 0x32620118,
+
+        // import self project
+        // 导入当前已打开的工程
+        OB_SCAN_ERROR_IMPORT_SELF_PROJ = 0x32620119,
+};
+
+enum OBSessionState {
+    DestroyScan = 0,
+    CreateScan,
+    Preview,
+    Start,
+    Pause,
+    Stop,
+    Optimization,
+    ClippingPlane,
+    Meshlization,
+    Texturization
+};
+
+export {
+    OBScanControlMessageID,
+    OBScanCalibDistState,
+    OBScanCalibrationState,
+    OBScanCalibDistID,
+    OBScanProjection,
+    OBScanMode,
+    OBScanObjectMode,
+    OBScanAccuracy,
+    OBScanRange,
+    OBScanFuseMode,
+    OBScanRefCamera,
+    OBScanFrameRate,
+    OBScanMessageID,
+    OBScanStatus
+};
+
+export {
+    OBScanDistanceAdvice,
+    OBScanExportFormat,
+    OBScanTrackingStatus,
+    OBScanColorMap,
+    OBScanComputeSpeed,
+    OBScanAction,
+    OBScanModelCloudColor,
+    OBScanTexture,
+    OBSessionState
+};

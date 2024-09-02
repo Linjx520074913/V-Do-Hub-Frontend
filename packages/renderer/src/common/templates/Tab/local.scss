@@ -1,0 +1,121 @@
+// Variables
+$-font-size-normal: 15px;
+$-icon-size-normal: 20px;
+
+$-font-color-grey: $--font-color-p2;
+$-font-color-normal: $--font-color-p2;
+$-font-color-brighter: $--font-color-p1;
+$-font-color-highlight: linear-gradient(135deg, #3FB3FF 0%, #49DDC2 100%);
+
+$-icon-color-grey: $--font-color-p2;
+$-icon-color-normal: $--font-color-p2;
+$-icon-color-brighter: $--font-color-p1;
+$-icon-color-highlight: linear-gradient(135deg, #3FB3FF 0%, #49DDC2 100%);
+
+$-bg-color-grey: $--util-color-default;
+$-bg-color-normal: #222930;
+$-bg-color-brighter: #222930;
+$-bg-color-highlight: #1B232B;
+
+
+#tab {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: flex-end;
+    // justify-content: flex-end;
+
+    > :first-child {
+        border-top-left-radius: 7px;
+    }
+
+    > :last-child {
+        border-top-right-radius: 7px;
+    }
+
+    background-color: #131A20;
+}
+
+
+.tab__item {
+    height: 37px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    // margin: 0px 5px 0px 5px;
+
+    justify-content: center;   /* 子元素水平居中 */
+    align-items: center;       /* 子元素垂直居中 */
+
+    background-color: $-bg-color-normal;
+}
+
+
+.tab__item--icon {
+    height: $-icon-size-normal;
+}
+
+.tab__item--label {
+    font-size: $-font-size-normal;
+    color: $-font-color-normal;
+}
+
+.tab__item--selected {
+    height: 43px;
+    position: relative;
+
+    // border-top: 5px solid $--ob-xw-theme-color-main;
+    color: $-font-color-highlight!important;
+    background-color: $-bg-color-highlight!important;
+
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+
+    font-weight: bolder;
+
+    .tab__item--icon {
+        background-image: $-font-color-highlight;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .tab__item--label {
+        background-image: $-font-color-highlight;
+        background-clip: text;
+        color: transparent;
+    }
+}
+
+.tab__item--selected::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 34.532%;
+    height: 1px;
+    border-radius: 7px;
+
+    background: $-font-color-highlight;
+}
+
+.tab__item--disabled {
+    cursor: no-drop!important;
+}
+
+.tab__item:hover {
+    cursor: pointer;
+    // color: $-font-color-brighter;
+    // background-color: $-bg-color-brighter;
+
+    // .tab__item--icon {
+    //     color: $-icon-color-brighter;
+    // }
+
+    // .tab__item--label {
+    //     color: $-font-color-brighter;
+    // }
+}

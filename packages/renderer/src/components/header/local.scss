@@ -1,0 +1,136 @@
+$-client-name-font-size: $--font-size-p1;
+$-client-name-font-color: $--font-color-p1--a80;
+$-client-name-font-family: "Helvetica";
+
+$-client-logo-size: 25px;
+$-client-logo-color: $--font-color-p1;
+
+$-header-height: 40px;
+
+$-header-bg-color-normal: $--bg-color-p3;
+
+#client-header {
+    width: 100%;
+    height: $-header-height;
+    padding-right: 90px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;   /* 子元素主轴居中 */
+    align-items: center;       /* 子元素辅轴居中 */
+
+    background-color: $-header-bg-color-normal;
+
+    position: relative;
+
+    > * {
+        height: 100%;
+        
+        display: flex;
+        flex-direction: row;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    > :nth-child(2) {
+        flex: 1;
+    }
+
+    > :last-child {
+        margin-left: 10px;
+        // margin-right: 90px;
+    }
+};
+
+#unblockable-window-control {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    height: 40px;
+
+    z-index: 10000;
+
+    // background-color: $-header-bg-color-normal;
+};
+
+.right-side-option {
+    cursor: pointer;
+    width: 25px;
+    border-radius: 50%;
+}
+
+#header__left {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 10px 5px 10px;
+
+    > .app-logo {
+        height: 100%;
+        width: fit-content;
+        font-size: $-client-logo-size;
+        color: $-client-logo-color;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        padding: 7px 10px 7px 0px;
+    }
+
+    > .app-name {
+        font-size: $-client-name-font-size;
+        color: $-client-name-font-color;
+
+        font-family: $-client-name-font-family;
+        font-weight: bold;
+        font-style: oblique;
+
+        line-height: 1.5;
+        
+        padding-right: 10px;
+    }
+
+    > .app-version {
+        font-size: $-client-name-font-size;
+        color: gray;
+
+        font-family: $-client-name-font-family;
+        font-weight: bold;
+        font-style: oblique;
+
+        line-height: 1.5;
+        // margin-left: 10px;
+    }
+};
+
+#header__middle {
+    position: absolute;
+    
+
+}
+
+.reserved-button {
+    color: $--icon-color-p6;
+    margin: 12px 14px 12px 0px;
+}
+.reserved-button:hover {
+    color: $--icon-color-p5;
+};
+
+.static-img {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;  
+};
+
+.darwin-header {
+    padding-left: 50px!important;
+    padding-right: 0px!important;
+}
+
+.darwin-fullscreen {
+    padding-left: 0px!important;
+}

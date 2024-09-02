@@ -1,0 +1,469 @@
+$-font-size-normal: 12px;
+
+$-row-item-top-bottom-gap: 5px;
+$-row-item-left-right-gap: 5px;
+
+$-label-font-size-normal: $--font-size-p3;
+
+$-label-font-color-normal: $--font-color-p1;
+
+$-switch-font-color-normal: $--font-color-p1;
+$-switch-font-color-active: $--font-color-p1;
+
+$-switch-core-color-normal: #3B5A73;
+$-switch-core-color-active: #3B5A73;
+$-switch-core-border-color-normal: transparent;
+$-switch-core-border-color-active: transparent;
+
+$-switch-slider-color-normal: #49A2DD;
+$-switch-slider-color-active: #49A2DD;
+
+$-slider-runway-color: #141A21;
+$-slider-progress-color: #3C8099;
+
+$-slider-slider-color: #A3F3FE;
+$-slider-slider-border-color: #69E6FC;
+
+$-selector-font-size: $--font-size-p4;
+$-selector-height: 30px;
+$-selector-bg-color: #131A20;
+$-selector-font-color: #4D5B68;
+$-selector-border-color: transparent;
+
+$-input-font-size: $--font-size-p4;
+$-input-bg-color: #24313E;
+$-input-height: 30px;
+$-input-width: 36px;
+$-input-font-color: $--font-color-p1;
+
+$-radio-button-font-size: $--font-size-p4;
+$-radio-button-font-color-normal: $--font-color-p1;
+$-radio-button-font-color-hover: $--font-color-p1;
+$-radio-button-font-color-selected: $--font-color-p1;
+$-radio-button-font-color-disabled: $--font-color-p2;
+$-radio-button-bg-color-normal: $--theme-color-secondary-p2;
+$-radio-button-bg-color-hover: $--theme-color-secondary-p2;
+$-radio-button-bg-color-selected: $--theme-color-primary-p3--a;
+$-radio-button-bg-color-disabled: $--util-color-default;
+// $-radio-button-border-color-normal: white;
+// $-radio-button-border-color-hover: white;
+// $-radio-button-border-color-selected: black;
+
+$-radio-bg-color-normal: #384858;
+$-radio-bg-color-selected: #384858;
+$-radio-label-color-normal: #6D94BA;
+$-radio-label-color-selected: #51AECE;
+$-radio-label-font-size: 15px;
+$-radio-check-color: #2CC0EA;
+
+$-checkbox-bg-color-normal: #141A21;
+$-checkbox-bg-color-selected: #51AECE;
+$-checkbox-check-color: #1C1A32;
+$-checkbox-label-color-normal: #6D94BA;
+$-checkbox-label-color-selected: #6D94BA;
+
+$-collapse-header-bg-color-normal: $--util-color-default;
+$-collapse-header-bg-color-expand: $--theme-color-p1;
+$-collapse-header-font-size: $--font-size-p3;
+$-collapse-header-font-color-normal: $--font-color-p1;
+$-collapse-header-font-color-expand: $--font-color-p1;
+$-collapse-header-border-color: $--bg-color-p4;
+
+$-button-font-color-normal: $--font-color-p1;
+$-button-bg-color-normal: transparent;
+$-button-font-color-hover: $--font-color-p1;
+$-button-bg-color-hover: $--util-color-default;
+
+// $-progress-outer-color: #1A252E;
+$-progress-outer-color: #2f4356;
+
+$-progress-inner-color: #2B97CD;
+
+
+/** el-switch */
+// 标签Inactive
+:deep( .el-switch__label ) {
+      color: $-switch-font-color-normal;
+}
+// 标签Active
+:deep( .el-switch__label.is-active ) {
+      color: $-switch-font-color-active;
+}
+// 内部关闭
+:deep( .el-switch__core ) {
+      min-width: 36px;
+      height: 16px;
+
+      border-color: $-switch-core-border-color-normal;
+      background-color: $-switch-core-color-normal;
+}
+// 内部开启
+:deep( .el-switch.is-checked .el-switch__core ) {
+      border-color: $-switch-core-border-color-active;
+      background-color: $-switch-core-color-active;
+}
+// 滑块关闭
+:deep( .el-switch .el-switch__core .el-switch__action ) {
+      width: 11px;
+      height: 11px;
+      top: 1.5px;
+      
+      background-color: $-switch-slider-color-normal;
+}
+// 滑块开启
+:deep( .el-switch.is-checked .el-switch__core .el-switch__action ) {
+      left: calc(100% - 12px);
+
+      background-color: $-switch-slider-color-active;
+}
+
+
+/** el-slider */
+// Slider条本体
+:deep( .el-slider .el-slider__runway ) {
+      height: 5px;
+      background-color: $-slider-runway-color;
+}
+// Slider条进度
+:deep( .el-slider .el-slider__bar ) {
+      height: 5px;
+      background-color: $-slider-progress-color;
+}
+
+:deep( .el-slider .el-slider__button-wrapper ) {
+      top: -15.5px;
+}
+
+// Slider滑块
+:deep( .el-slider .el-slider__button ) {
+      width: 9px;
+      height: 9px;
+
+      background-color: $-slider-slider-color;
+      border-color: $-slider-slider-border-color;
+}
+// // 输入框边框
+// :deep( .el-slider .el-input .el-input__wrapper ) {
+//       // --el-input-border-color: red;
+//       // --el-input-hover-border-color: blue;
+//       // --el-input-focus-border-color: green;
+//       background-color: $--ob-xw-control-color-third;
+//       --el-input-text-color: white;
+//       --el-input-border-color: $--ob-xw-control-color-third;
+// }
+
+// Disabled
+// Slider条本体
+// :deep( .el-slider .el-slider__runway.is-disabled ) {
+//       background-color: red;
+// }
+// // Slider条进度
+// :deep( .el-slider .el-slider__runway.is-disabled .el-slider__bar ) {
+//       background-color: red;
+// }
+// // Slider滑块
+// :deep( .el-slider .el-slider__runway.is-disabled .el-slider__button ) {
+//       background-color: blue;
+//       border-color: red;
+// }
+
+
+/** el-select */
+:deep( .el-select ) {
+      
+}
+// 选框svg箭头
+:deep( .el-select svg ) {
+    color: $-selector-font-color;
+}
+
+// 选框字体
+:deep( .el-select .el-input__inner ) {
+      color: $-selector-font-color!important; // !important
+      font-size: $-selector-font-size!important;    // !important
+}
+  
+// 选框背景
+:deep( .el-select .el-input__wrapper ) {
+    background-color: $-selector-bg-color!important;
+      
+    box-shadow: none!important;
+    border: 0px!important;
+    border-radius: 6px!important;
+    padding: 5px 10px 5px 10px!important;
+
+    font-size: $-selector-font-size;
+
+    height: $-selector-height;
+
+}
+
+// // DropDown部分见Global
+
+// :deep( .device-select .el-button {
+//     color: $--ob-xw-control-color-main;
+// }
+
+/** el-button */
+:deep( .el-button ) {
+      padding: 3px 5px 3px 5px;
+      height: fit-content;
+
+      border-radius: 0;
+      border: none;
+
+      --el-button-hover-text-color: $-button-font-color-hover;
+      --el-button-hover-bg-color: $-button-bg-color-hover;
+
+      --el-button-disabled-bg-color: transparent;
+
+      // > span {
+      //       width: 100%;
+      //       height: 100%;
+      // }
+}
+
+
+/** el-input-number */
+:deep( .el-input-number .el-input-number__decrease ),
+:deep( .el-input-number .el-input-number__increase ) {
+      width: fit-content;
+      border-radius: 0;
+      // display: none;
+      background-color: transparent;
+      border: none!important;
+}
+
+:deep( .el-input-number .el-input .el-input__wrapper ) {
+      padding: 0px;
+      background-color: $-input-bg-color;
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+
+      width: $-input-width;
+      height: $-input-height;
+
+      .el-input__inner {
+            color: $-input-font-color;
+            font-size: $-input-font-size;
+      }
+}
+
+:deep( .el-input input::-webkit-outer-spin-button ),
+:deep( .el-input input::-webkit-inner-spin-button ) {
+  -webkit-appearance: none!important;
+}
+
+
+/** el-radio-button */
+:deep( .el-radio-group ) {
+      flex-wrap: nowrap;
+      width: 100%;
+      height: 100%;
+
+      // border-radius: 8px;
+      // overflow: hidden;
+      // background-color: $-radio-button-bg-color-normal;
+}
+:deep( .el-radio-button ) {
+      // padding: 5px 3.5px 5px 3.5px;
+
+      .el-radio-button__inner {
+            padding: 5px 0px 5px 0px;
+            
+            width: 107px;
+            height: 36px;
+
+            font-size: $-radio-button-font-size;
+            border-radius: 8px!important;
+
+            border: none!important;
+            color: $-radio-button-font-color-normal;
+            background-color: $-radio-button-bg-color-normal;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+      }
+
+      .el-radio-button__original-radio:checked+ .el-radio-button__inner {
+            box-shadow: none;
+            color: $-radio-button-font-color-selected;
+            background-color: $-radio-button-bg-color-selected;
+      }
+
+      .el-radio-button__original-radio:disabled+.el-radio-button__inner {
+            color: $-radio-button-font-color-disabled;
+            background-color: $-radio-button-bg-color-disabled;
+      }
+}
+
+/** el-radio */
+:deep( .el-radio ) {
+      // flex-direction: row-reverse;
+
+      .el-radio__inner {
+            border: none;
+            border-radius: 4px;
+            background-color: $-radio-bg-color-normal!important;
+      }
+
+      .el-radio__inner::after {
+            border-radius: 1px;
+            box-sizing: content-box;
+            content: "";
+            border: 3px solid $-radio-check-color;
+            border-left: 0;
+            border-top: 0;
+            height: 11px;
+            width: 6px;
+            left: 4px;
+            position: absolute;
+            top: -3px;
+            transform: rotate(45deg) scaleY(0);
+            transition: transform .15s ease-in 50ms;
+            transform-origin: center;
+            background-color: transparent;
+      }
+
+      .el-radio__label {
+            color: $-radio-label-color-normal;
+      }
+}
+
+:deep( .el-radio__input.is-checked + .el-radio__label ) {
+      color: $-radio-label-color-normal;
+}
+
+:deep( .el-radio__input.is-disabled .el-radio__inner::after ) {
+      background-color: transparent!important;
+}
+
+:deep( .el-radio.is-disabled ) {
+      cursor: default;
+}
+
+/** el-checkbox */
+:deep( .el-radio__input.is-checked ) {
+      .el-radio__inner::after {
+            transform: rotate(45deg) scaleY(1);
+      }
+}
+
+:deep( .el-checkbox ) {
+      color: $-checkbox-label-color-normal;
+
+      .el-checkbox__inner {
+            border: none;
+            border-radius: 4px;
+            background-color: $-radio-bg-color-normal!important;
+      }
+
+      .el-checkbox__inner::after {
+            border-radius: 1px;
+            box-sizing: content-box;
+            content: "";
+            border: 3px solid $-radio-check-color;
+            border-left: 0;
+            border-top: 0;
+            height: 11px;
+            width: 6px;
+            left: 4px;
+            position: absolute;
+            top: -3px;
+            transform: rotate(45deg) scaleY(0);
+            transition: transform .15s ease-in 50ms;
+            transform-origin: center;
+            background-color: transparent;
+      }
+}
+
+:deep( .el-checkbox__input.is-checked ) {
+      .el-checkbox__inner {
+            color: $-radio-label-color-normal;
+      }
+
+      .el-checkbox__inner::after {
+            transform: rotate(45deg) scaleY(1);
+      }
+}
+
+:deep( .el-checkbox__input.is-checked+.el-checkbox__label ) {
+      color: $-checkbox-label-color-selected;
+}
+
+/** el-input */
+:deep( .el-input .el-input__wrapper ) {
+      padding: 0px 2px 0px 2px;
+      background-color: $-input-bg-color;
+      box-shadow: none;
+      border: none;
+      border-radius: 3px;
+      height: $-input-height;
+
+      > * {
+            height: 20px;
+      }
+
+      .el-input__inner {
+            color: $-input-font-color;
+            font-size: $-input-font-size;
+      }
+}
+
+:deep( .el-input.is-disabled .el-input__wrapper ) {
+      background-color: $-input-bg-color;
+      box-shadow: none;
+      border: none;
+}
+
+/** el-collapse */
+:deep( .el-collapse ) {
+      border: 0px;
+}
+// 头部标签收缩
+:deep( .el-collapse-item__header ) {
+      --el-collapse-header-height: 29px;
+      padding: 8px 0px 8px 15px;
+      margin: 0px;
+      border-bottom: 1px solid $-collapse-header-border-color;
+
+      font-size: $-collapse-header-font-size;
+
+      color: $-collapse-header-font-color-normal;
+      background-color: $-collapse-header-bg-color-normal;
+}
+// 头部标签展开
+:deep( .el-collapse-item__header.is-active ) {
+      color: $-collapse-header-font-color-expand;
+      background-color: $-collapse-header-bg-color-expand;
+}
+// 选框svg箭头
+:deep( .el-collapse-item__header svg ) {
+      // color: red;
+}
+// collapse内部
+:deep( .el-collapse-item__wrap ) {
+      --el-collapse-content-bg-color: transparent;
+}
+
+:deep( .el-collapse-item ) {
+      --el-collapse-border-color: transparent;
+}
+
+
+/** el-divider */
+:deep( .el-divider--horizontal ) {
+      border-top: 1px solid $--line-color;
+}
+
+
+/** el-progress */
+:deep( .el-progress .el-progress-bar__outer ) {
+      background-color: $-progress-outer-color;
+}
+
+:deep( .el-progress .el-progress-bar__inner ) {
+      background-color: $-progress-inner-color;
+}
