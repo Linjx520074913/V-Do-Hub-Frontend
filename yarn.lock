@@ -2029,8 +2029,10 @@
     "@vue/compiler-dom" "3.2.33"
     "@vue/shared" "3.2.33"
 
-"@vue/devtools-api@^6.2.1":
-  version "6.2.1"
+"@vue/devtools-api@^6.2.1", "@vue/devtools-api@^6.6.3":
+  version "6.6.3"
+  resolved "https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.6.3.tgz"
+  integrity sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==
 
 "@vue/reactivity-transform@3.2.33":
   version "3.2.33"
@@ -8057,6 +8059,13 @@ vue-resize-directive@^1.2.0:
 
 vue-resize-observer@^2.0.15:
   version "2.0.15"
+
+vue-router@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.npmmirror.com/vue-router/-/vue-router-4.4.3.tgz"
+  integrity sha512-sv6wmNKx2j3aqJQDMxLFzs/u/mjA9Z5LCgy6BE0f7yFWMjrPLnS/sPNn8ARY/FXw6byV18EFutn5lTO6+UsV5A==
+  dependencies:
+    "@vue/devtools-api" "^6.6.3"
 
 vue-tsc@^0.34.11:
   version "0.34.12"

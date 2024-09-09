@@ -1,33 +1,28 @@
 <template>
   <div class="home-page-root">
     <div class="left">
-      <div class="camera-container">
-        <img class="camera" />
-        <hr class="white-line" />
-        <div>
-          <el-button type="primary">录像</el-button>
-          <el-button type="primary">拍照</el-button>
+      <div class="logo"></div>
+      <div class="menu">
+        <div v-for="item in menu" class="item">
+          <div class="content" @click="handleClickMenuItem(item)">
+            <span class="icon icon-open-up" />
+            <span class="title">{{ item.title }}</span>
+          </div>
+
+          <span class="right-border" />
         </div>
       </div>
-      <div class="motor"></div>
     </div>
     <div class="middle">
-      <img class="wafer" />
+      <div class="infomation-bar">
+        <div class="navi">
+          <div class="name">{{ selectedItem.title }}</div>
+          <div class="free"></div>
+        </div>
+        <div class="account"></div>
+      </div>
+      <RouterView />
     </div>
-    <div class="right"></div>
-    <!-- <ObPlayer class="player" ref="player" />
-    <el-button type="primary" @click="AutoFocus">AutoFocus</el-button>
-    <el-button type="primary" @click="Capture">Capture</el-button>
-    <el-button type="primary" @click="Record">Record</el-button>
-
-    <div style="margin-top: 30px">
-      <el-button type="primary" @click="GoHome">GoHome</el-button>
-      <el-button type="primary" @click="MoveAbsolute">MoveAbsolute</el-button>
-      <el-button type="primary" @click="MoveRelative">MoveRelative</el-button>
-    </div>
-
-    <p>{{ infomation0 }}</p>
-    <p>{{ infomation1 }}</p> -->
   </div>
 </template>
 
@@ -37,17 +32,7 @@ import { FloatWindowTemplate, ObMessage, ObProgress } from "@/common/templates";
 import { t } from "@/components/index";
 import { Props } from "@/common/export/interface";
 
-import {
-  AutoFocus,
-  Capture,
-  Record,
-  player,
-  GoHome,
-  MoveAbsolute,
-  MoveRelative,
-  infomation0,
-  infomation1,
-} from "./index";
+import { menu, handleClickMenuItem, selectedItem } from "./index";
 import { ObPlayer } from "ob-xw-common";
 
 export default {
@@ -67,15 +52,9 @@ export default {
       t,
       FloatWindowTemplate,
       ObMessage,
-      AutoFocus,
-      Capture,
-      Record,
-      player,
-      GoHome,
-      MoveAbsolute,
-      MoveRelative,
-      infomation0,
-      infomation1,
+      menu,
+      selectedItem,
+      handleClickMenuItem,
     };
   },
 };
