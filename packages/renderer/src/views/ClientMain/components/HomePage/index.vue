@@ -5,7 +5,7 @@
       <div class="menu">
         <div v-for="item in menu" class="item">
           <div class="content" @click="handleClickMenuItem(item)">
-            <span class="icon icon-open-up" />
+            <span :class="['icon', item.icon]" />
             <span class="title">{{ item.title }}</span>
           </div>
 
@@ -21,13 +21,15 @@
         </div>
         <div class="account"></div>
       </div>
-      <RouterView />
+      <n-dialog-provider>
+        <RouterView />
+      </n-dialog-provider>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted } from "vue";
+import { SetupContext, onMounted, ref } from "vue";
 import { FloatWindowTemplate, ObMessage, ObProgress } from "@/common/templates";
 import { t } from "@/components/index";
 import { Props } from "@/common/export/interface";

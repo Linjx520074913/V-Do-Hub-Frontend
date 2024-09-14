@@ -18,6 +18,8 @@ import AudioPlayer from "./AudioPlayer/index.vue";
 
 import ObDialog from "./ObMessageFunc/index";
 
+import ObButton from "./ObButton/index.vue";
+
 
 import { ObScanner } from "./ob-scan-worker/index";
 
@@ -39,6 +41,7 @@ export {
     ObSelect3,
     ObTooltip,
     AudioPlayer,
+    ObButton
 
 };
 

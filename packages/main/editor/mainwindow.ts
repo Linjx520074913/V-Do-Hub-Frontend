@@ -60,13 +60,11 @@ export default class MainWindow{
 
 
 		this.win = new BrowserWindow({
-			// width: 1200,
-			// height: 800,
+			width: 1200,
+			height: 800,
 			// minWidth: 1200,
 			// minHeight: 800,
-            width: screen.getPrimaryDisplay().workAreaSize.width, 
-            height: screen.getPrimaryDisplay().workAreaSize.height, 
-            resizable: false,
+            // resizable: false,
 			title: this.windowConfig.title,
 			frame: browserWindowConfig.frame,
 			titleBarStyle: browserWindowConfig.titleBarStyle,
@@ -423,7 +421,7 @@ export default class MainWindow{
 			(this.win as BrowserWindow).webContents.send(ObEvent.LOG_BUFFER_CHANGED, this.parseLog(msg));
 		}else{
 			// 启动后端应用
-			this.launchBackend(config.backendPath);
+			// this.launchBackend(config.backendPath);
 		}
 		
 	}

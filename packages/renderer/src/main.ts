@@ -29,11 +29,11 @@ import { Setting, Gallery, Create, Mall } from './views/ClientMain/components/in
 
 
 const routes = [
-    { path: '/', component: Create },
-    { path: '/Create', component: Create },
+    { path: '/',        component: Create },
+    { path: '/Create',  component: Create },
     { path: '/Setting', component: Setting },
     { path: '/Gallery', component: Gallery },
-    { path: '/Mall', component: Mall }
+    { path: '/Mall',    component: Mall }
 ]
 
 export const router = createRouter({
