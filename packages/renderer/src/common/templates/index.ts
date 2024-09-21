@@ -42,7 +42,6 @@ export {
     ObTooltip,
     AudioPlayer,
     ObButton
-
 };
 
 export {

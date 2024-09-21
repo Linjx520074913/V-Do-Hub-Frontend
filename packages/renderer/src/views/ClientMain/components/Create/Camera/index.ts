@@ -3,6 +3,8 @@ import { Messenger } from "@/components/index";
 
 const player = ref(null);
 
+const enable = ref(true);
+
 function init(){
     onMounted(() => {
         Messenger.methods.subscribe("update-image", () => {
@@ -13,4 +15,4 @@ function init(){
         });
     });
 }
-export { init, player }
+export { init, player, enable }

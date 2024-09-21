@@ -36,15 +36,95 @@
         height: 100px;
         width: 100%;
         background-color: #FFFFFF;
+
+        display: flex;
+        // align-items: center;
+        justify-content: center;
+
+        .green-circle-button {  
+            margin-top: 5px;
+            background-color: #0099A1; /* 默认背景色 */  
+            border: none; /* 去除边框 */  
+            border-radius: 50%; /* 圆形按钮 */  
+            color: white; /* 文字颜色 */  
+            cursor: pointer; /* 鼠标悬停时显示指针样式 */  
+            font-size: 16px; /* 文字大小 */  
+            height: 50px; /* 按钮高度 */  
+            width: 50px; /* 按钮宽度 */  
+            line-height: 50px; /* 文字垂直居中 */  
+            text-align: center; /* 文字水平居中 */  
+            transition: background-color 0.3s; /* 过渡效果 */  
+        }  
+          
+        .green-circle-button:active {  
+            background-color: darkgreen; /* 按下时的背景色 */  
+        }
     }
 }
 .player{
     width: 80%;
     height: 100%;
     border-radius: 5px;
+    border: 1px solid red
 }
 .camera-setting{
     width: 230px;
     background-color: 0xFFFFFF;
     box-shadow: -5px 0 20px -5px rgba(243, 227, 227, 0.5);
+    display: flex;
+    flex-direction: column;
+    padding: 50px 10px 10px 10px;
+
+    .panel{
+        width: 100%;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        background-color: #FAFAFC;
+        display: flex;
+        flex-direction: column;
+
+        .item{
+            width: 100%;
+            height: 35px;
+            // background: blue;
+            margin-bottom: 1px;
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            padding: 0 10px 0 10px;
+            border-radius: 5px;
+            color: #363E5C
+        }
+    }
 }
+
+.divider {  
+    border: 0;  
+    height: 1px;  
+    background-color: #ECEDF0;   
+  }
+
+
+  /* 样式化下拉框 */  
+select {  
+    margin-left: 10px;
+    width: 90%; /* 宽度 */  
+    padding: 10px; /* 内边距 */  
+    font-size: 16px; /* 字体大小 */  
+    line-height: 1; /* 行高 */  
+    border: 1px solid #ccc; /* 边框 */  
+    border-radius: 4px; /* 边框圆角 */  
+    background-color: white; /* 背景色 */  
+  }  
+    
+  /* 可选：样式化选项（但注意，大多数浏览器对<option>的样式支持有限） */  
+  option {  
+    background-color: #f9f9f9; /* 背景色 */  
+    color: black; /* 字体颜色 */  
+  }  
+    
+  /* 当选项被选中时 */  
+  option:checked {  
+    background-color: #ddd; /* 选中时的背景色，但注意，这个属性在option上并不工作，仅作为示例 */  
+  } 
