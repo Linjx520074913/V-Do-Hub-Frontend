@@ -5,7 +5,7 @@ const player = ref(null);
 
 const enable = ref(true);
 
-const isPreviewVisible = ref(false);
+const drawer = ref(true);
 
 function OpenCamera(){
     Messenger.methods.publish("open-camera", {}, () => {
@@ -19,10 +19,10 @@ function CloseCamera(){
     });
 }
 
-
-
-function TakePhoto(){
-    isPreviewVisible.value = true;
+function OpenDrawer(){
+    
+    drawer.value = true;
+    console.log("FFFFFFFF OpenDrawer", drawer)
 }
 
 function init(){
@@ -38,4 +38,4 @@ function init(){
         CloseCamera();
     });
 }
-export { init, player, enable, TakePhoto, isPreviewVisible }
+export { init, player, enable, OpenDrawer, drawer }

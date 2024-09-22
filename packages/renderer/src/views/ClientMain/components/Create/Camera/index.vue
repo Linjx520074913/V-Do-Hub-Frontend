@@ -6,7 +6,7 @@
           <ObPlayer class="player" ref="player" />
         </div>
         <div class="bottom">
-          <div class="green-circle-button"></div>
+          <div class="green-circle-button" @click="TakePhoto"></div>
         </div>
       </div>
       <div class="camera-setting">
@@ -60,10 +60,20 @@
             <el-switch />
           </div>
         </div>
+        <button @click="close">关闭</button>
       </div>
-      <!-- <button @click="close">关闭</button> -->
     </div>
   </div>
+  <teleport to=".home-page-root">
+    <Preview
+      v-if="isPreviewVisible"
+      @close="
+        () => {
+          isPreviewVisible = false;
+        }
+      "
+    />
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -71,14 +81,16 @@ import { SetupContext, onMounted, ref } from "vue";
 import { Props } from "@/common/export/interface";
 
 import { ObPlayer } from "ob-xw-common";
-import { player, init, enable } from "./index";
+import { player, init, enable, TakePhoto, isPreviewVisible } from "./index";
+
+import Preview from "../Preview/index.vue";
 
 export default {
   name: "Camera",
   props: {},
 
   emits: ["close"],
-  components: { ObPlayer },
+  components: { ObPlayer, Preview },
 
   setup(props: Props<any>, context: SetupContext) {
     function close() {
@@ -87,7 +99,7 @@ export default {
 
     init();
 
-    return { close, player, init, enable };
+    return { close, player, init, enable, TakePhoto, isPreviewVisible };
   },
 };
 </script>

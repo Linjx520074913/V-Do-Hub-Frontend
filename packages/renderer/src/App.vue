@@ -1,15 +1,5 @@
 <template>
-  <!-- 主布局 从上往下 -->
-  <!-- 菜单栏 -->
-  <!-- 内容区 -->
-  <!-- 状态栏 -->
-  <n-notification-provider placement="bottom-right">
-    <n-message-provider :max="1">
-      <n-dialog-provider>
-        <Main />
-      </n-dialog-provider>
-    </n-message-provider>
-  </n-notification-provider>
+  <Main />
 </template>
 
 <script>

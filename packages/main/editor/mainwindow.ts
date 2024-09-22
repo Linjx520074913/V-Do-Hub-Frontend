@@ -6,6 +6,7 @@ import { ChildProcess, execFile, exec, spawn } from "child_process";
 import { format } from "date-fns";
 
 import { ThirdPartyLauncher, RWHelper, LogHelper, IpHelper } from "../common/index";
+import { ExcuteSegmentTask } from "./segmentaion";
 
 // import sudo from "sudo-prompt";
 
@@ -293,6 +294,11 @@ export default class MainWindow{
 
 			return result;
 		});
+
+        ipcMain.handle(ObEvent.IMAGE_SEGMENTAION, async(event, args) => {
+            console.log("FFFFFFFFFFFFFFFF")
+            ExcuteSegmentTask("D://UN-0002.png")
+        })
 
 		ipcMain.handle(ObEvent.LAUNCH_BACKEND, async (event, args) => {
 			const username = args.username;

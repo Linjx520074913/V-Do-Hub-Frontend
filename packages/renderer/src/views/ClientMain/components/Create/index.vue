@@ -78,6 +78,7 @@ import { SetupContext, onMounted, ref } from "vue";
 import { Props } from "@/common/export/interface";
 import { ObButton } from "@/common/templates/index";
 import Camera from "./Camera/index.vue";
+import { ipcRenderer } from "electron";
 
 export default {
   name: "Create",
@@ -88,13 +89,12 @@ export default {
 
   setup(props: Props<any>, context: SetupContext) {
     const isCameraVisible = ref(false);
-    function ShowCamera() {
-      isCameraVisible.value = true;
-    }
+
     const visible = ref(false);
     function AddMediaCamera() {
       isCameraVisible.value = true;
       console.log("AddMediaCamera");
+      //   ipcRenderer.invoke("IMAGE_SEGMENTAION");
     }
     function UploadMedia() {
       console.log("UploadMedia");
@@ -104,7 +104,6 @@ export default {
       UploadMedia,
       visible,
       isCameraVisible,
-      ShowCamera,
     };
   },
 };
