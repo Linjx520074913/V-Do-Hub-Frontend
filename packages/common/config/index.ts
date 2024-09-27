@@ -38,6 +38,7 @@ switch (config.platform) {
     case "win32":
         config.dataPath = config.contentPath;
         // config.addonPath = path.join(process.resourcesPath, "extraResources", "addon", process.platform, process.arch, "ob-xw-wrapper-node.node");
+        // config.backendPath = path.join(process.resourcesPath, "extraResources", "backend", process.platform, process.arch, "V-DoHub-Backend.exe");
         config.backendPath = "D:/code/V-DoHub/Source/v-dohubbackend/build/Release/V-DoHub-Backend.exe";
         config.addonPath = "D:/code/ob-xw-wrapper/output/Release/ob-xw-wrapper-node.node";
         config.logBasePath = path.join(config.dataPath, "logs");

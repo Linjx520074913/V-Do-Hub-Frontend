@@ -5,11 +5,14 @@ const player = ref(null);
 
 const enable = ref(true);
 
+const isCameraConnected = ref(false);
+
 const isPreviewVisible = ref(false);
 
 function OpenCamera(){
-    Messenger.methods.publish("open-camera", {}, () => {
-
+    Messenger.methods.publish("open-camera", {}, (result: any) => {
+        console.log("############## open-camera ##############", result);
+        isCameraConnected.value = result.value;
     });
 }   
 
@@ -38,4 +41,4 @@ function init(){
         CloseCamera();
     });
 }
-export { init, player, enable, TakePhoto, isPreviewVisible }
+export { init, player, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera }

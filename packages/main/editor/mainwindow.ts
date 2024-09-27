@@ -296,8 +296,10 @@ export default class MainWindow{
 		});
 
         ipcMain.handle(ObEvent.IMAGE_SEGMENTAION, async(event, args) => {
-            console.log("FFFFFFFFFFFFFFFF")
-            ExcuteSegmentTask("D://UN-0002.png")
+            const filePath = args.filePath;
+            console.log("##############", filePath);
+            const imgUrl = ExcuteSegmentTask(filePath);
+            return imgUrl;
         })
 
 		ipcMain.handle(ObEvent.LAUNCH_BACKEND, async (event, args) => {

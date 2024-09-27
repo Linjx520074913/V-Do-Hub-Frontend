@@ -2,78 +2,68 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  "appId": "com.orbbec.imucalibrator",
-  "productName": "ImuCalibrator",
-  "asar": true,
-  "npmRebuild": "false",
-  "directories": {
-    "output": "release/${version}"
+  appId: "com.lingxi.V-DoHub",
+  productName: "V-DoHub",
+  asar: true,
+  npmRebuild: "false",
+  directories: {
+    output: "release/${version}",
   },
 
-  "files": [
-    "dist"
-  ],
+  files: ["dist"],
 
-  "extraResources":[
-    "./extraResources/**",
-    "./build/mac/icon.icns"
-  ],
+  extraResources: ["./extraResources/**", "./build/mac/icon.icns"],
 
-  "win": {
-    "icon":"./build/nsis/logo.ico",
-    "artifactName": "${productName}_${version}.${ext}",
-    "requestedExecutionLevel": "requireAdministrator",
-    "target": [
+  win: {
+    icon: "./build/nsis/logo.ico",
+    artifactName: "${productName}_${version}.${ext}",
+    requestedExecutionLevel: "requireAdministrator",
+    target: [
       {
-        "target": "nsis",
-        "arch": [
-          "x64"
-        ]
-      }
-    ]
+        target: "nsis",
+        arch: ["x64"],
+      },
+    ],
   },
 
-  "nsis": {
-    "oneClick": false,
-    "perMachine": true,
-    "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": true,
-    "include": "./build/nsis/nsisConfig.nsh"
+  nsis: {
+    oneClick: false,
+    perMachine: true,
+    allowToChangeInstallationDirectory: true,
+    deleteAppDataOnUninstall: true,
+    include: "./build/nsis/nsisConfig.nsh",
   },
 
-  "appx": {
-    "applicationId": "com.orbbec.ImuCalibrator",
-    "backgroundColor": "#a3a693",
-    "publisherDisplayName": "Orbbec",
+  appx: {
+    applicationId: "com.lingxi.V-DoHub",
+    backgroundColor: "#a3a693",
+    publisherDisplayName: "LingXi",
   },
 
-  "mac": {
-    "hardenedRuntime": "true",
-    "entitlements": "build/mac/entitlements.mac.plist",
-    "entitlementsInherit": "build/mac/entitlements.mac.plist",
-    "gatekeeperAssess": "false",
-    "artifactName": "${productName}_${version}_${arch}.${ext}",
-    "category": "public.app-category.utilities",
-    "icon": "./build/mac/logo.icns",
-    "minimumSystemVersion": "10.15",
-    "target": [
+  mac: {
+    hardenedRuntime: "true",
+    entitlements: "build/mac/entitlements.mac.plist",
+    entitlementsInherit: "build/mac/entitlements.mac.plist",
+    gatekeeperAssess: "false",
+    artifactName: "${productName}_${version}_${arch}.${ext}",
+    category: "public.app-category.utilities",
+    icon: "./build/mac/logo.icns",
+    minimumSystemVersion: "10.15",
+    target: [
       {
-        "target": "dmg",
-        "arch": [
-          "x64",
-          "arm64"
-        ]
-      }
-    ]
+        target: "dmg",
+        arch: ["x64", "arm64"],
+      },
+    ],
   },
-  "dmg": {
-    "sign": "false"
+  dmg: {
+    sign: "false",
   },
-  "afterAllArtifactBuild": "scripts/afterBuild.js",
+  afterAllArtifactBuild: "scripts/afterBuild.js",
 
-  "linux":{
-    "icon": "./build/logo.ico",
-    "target": "deb",
-    "maintainer": ""
+  linux: {
+    icon: "./build/logo.ico",
+    target: "deb",
+    maintainer: "",
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="floating-window">
-    <div class="content">
+    <div v-if="isCameraConnected" class="content">
       <div class="camera-container">
         <div class="top">
           <ObPlayer class="player" ref="player" />
@@ -63,6 +63,18 @@
         <button @click="close">关闭</button>
       </div>
     </div>
+    <div v-else class="no-camera-prompt">
+        <div class="popup">
+            <div class="device"/>
+            <p style="margin: 20px 0px 20px 0px">确保您的摄像头已正确连接到您的笔记本电脑</p>
+            <ObButton
+                text="摄像头已连接"
+                icon="icon-quit"
+                class="media-btn"
+                @click="OpenCamera"
+                />
+        </div>
+    </div>
   </div>
   <teleport to=".home-page-root">
     <Preview
@@ -81,16 +93,18 @@ import { SetupContext, onMounted, ref } from "vue";
 import { Props } from "@/common/export/interface";
 
 import { ObPlayer } from "ob-xw-common";
-import { player, init, enable, TakePhoto, isPreviewVisible } from "./index";
+import { player, init, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera } from "./index";
 
 import Preview from "../Preview/index.vue";
+
+import { ObButton } from "@/common/templates/index";
 
 export default {
   name: "Camera",
   props: {},
 
   emits: ["close"],
-  components: { ObPlayer, Preview },
+  components: { ObPlayer, Preview, ObButton },
 
   setup(props: Props<any>, context: SetupContext) {
     function close() {
@@ -99,7 +113,7 @@ export default {
 
     init();
 
-    return { close, player, init, enable, TakePhoto, isPreviewVisible };
+    return { close, player, init, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera };
   },
 };
 </script>
