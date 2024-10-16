@@ -14,6 +14,7 @@ import ObSelect from "./ObSelect/index.vue";
 import ObSelect2 from "./ObSelect2/index.vue";
 import ObSelect3 from "./ObSelect3/index.vue";
 import ObTooltip from "./ObTooltip/index.vue";
+import ObTab from "./ObTab/index.vue";
 import AudioPlayer from "./AudioPlayer/index.vue";
 
 import ObDialog from "./ObMessageFunc/index";
@@ -41,7 +42,8 @@ export {
     ObSelect3,
     ObTooltip,
     AudioPlayer,
-    ObButton
+    ObButton,
+    ObTab
 };
 
 export {

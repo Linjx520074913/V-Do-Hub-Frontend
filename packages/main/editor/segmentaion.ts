@@ -49,6 +49,7 @@ function createTask(filePath: string) {
         json: true
       },
       function (error: any, response: any) {
+        console.log("#########", response.body)
         if (response.body.data) {
           resolve(response.body.data.task_id)
         } else {
@@ -83,15 +84,15 @@ function getTaskResult(taskId: any) {
 
 export async function ExcuteSegmentTask(filePath: string){
     return new Promise(async (resolve, reject) => {
+        console.log("MainThread : ExcuteSegmentTask")
         const taskId = await createTask(filePath);
+        console.log("MainThread : ExcuteSegmentTask ", taskId)
         const result = await polling(() => getTaskResult(taskId));
-        console.log('------------------------------------------------');
             
-        let stream = fs.createWriteStream("D://test.png");
+        let stream = fs.createWriteStream(filePath);
         request(result.data.image).pipe(stream).on("close", function (err: any) {
             console.log("文件下载完毕");
         });
         resolve(result.data.image);
-        // console.log("@@@@@@@@@@@@@@@@@@@@", result.data.image);
     });
 }

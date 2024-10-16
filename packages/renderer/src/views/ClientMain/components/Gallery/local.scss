@@ -1,0 +1,43 @@
+.gallery-root{
+    padding: 10px 20px 10px 20px;
+    overflow-y: auto;
+}
+
+.item{
+    border: 1px solid #E4E9F1;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.item:hover{
+    border: 1px solid #555;
+}
+
+.item img{
+    width: 100%;
+    height: 80%;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.information{
+    width: 100%;
+    flex: 1;
+    color: blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider {
+    border: 0;
+    width:100%;
+    height: 1px;
+    background-color: #ECEDF0;
+}

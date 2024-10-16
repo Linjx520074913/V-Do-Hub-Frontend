@@ -297,7 +297,7 @@ export default class MainWindow{
 
         ipcMain.handle(ObEvent.IMAGE_SEGMENTAION, async(event, args) => {
             const filePath = args.filePath;
-            console.log("##############", filePath);
+			console.log("MainThread Handle ObEvent.IMAGE_SEGMENTAION", filePath);
             const imgUrl = ExcuteSegmentTask(filePath);
             return imgUrl;
         })
@@ -429,9 +429,8 @@ export default class MainWindow{
 			(this.win as BrowserWindow).webContents.send(ObEvent.LOG_BUFFER_CHANGED, this.parseLog(msg));
 		}else{
 			// 启动后端应用
-			// this.launchBackend(config.backendPath);
+			this.launchBackend(config.backendPath);
 		}
-		
 	}
 
 	/** Launch backend */

@@ -1,15 +1,14 @@
 <template>
   <div class="home-page-root">
     <div class="left">
-      <div class="logo"></div>
+      <div class="logo"/>
       <div class="menu">
         <div v-for="item in menu" class="item">
-          <div class="content" @click="handleClickMenuItem(item)">
+          <div :class="['content', selectedItem.title == item.title ? 'highlight': '']" @click="handleClickMenuItem(item)">
             <span :class="['icon', item.icon]" />
             <span class="title">{{ item.title }}</span>
           </div>
-
-          <span class="right-border" />
+          <span :class="[selectedItem.title == item.title ? 'right-border': '']" />
         </div>
       </div>
     </div>
@@ -17,13 +16,11 @@
       <div class="infomation-bar">
         <div class="navi">
           <div class="name">{{ selectedItem.title }}</div>
-          <div class="free"></div>
+          <div class="free"> Free </div>
         </div>
         <div class="account"></div>
       </div>
-      <n-dialog-provider>
-        <RouterView />
-      </n-dialog-provider>
+      <RouterView />
     </div>
   </div>
 </template>

@@ -241,7 +241,6 @@ class XwWrapper{
     keepAlive(){
 
         setInterval(() => {
-            console.log("############## alive")
         }, 5000);
 
     }

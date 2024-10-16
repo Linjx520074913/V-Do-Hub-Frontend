@@ -2,16 +2,25 @@
   <div class="floating-window-preview">
     <div class="preview">
       <div class="preview-panel">
-        <p>预览</p>
-        <ObPlayer class="preview-image" ref="player" />
+        <div class="title">预览</div>
+        <ObPlayer class="preview-image" v-if="isPhoto" ref="player" />
+        <video v-else controls autoplay name="media" class="video">
+          <source :src="data[0]" type="video/mp4">
+        </video>
         <ObButton class="extract-btn" @click="ExtractForeground" text="抠图" />
-        <img
-          :src="img"
+        <img v-if="isPhoto"
+          :src="imgSrc"
           style="border: 1px solid blue; width: 200px; height: 200px"
         />
+        <div v-else class="screen-shot-container">
+          <div class="screen-shot" v-for="image in data">
+            <img :src="image" style="width:100%; height: 100%"/>
+          </div>
+        </div>
+        
         <div class="btn-group">
-          <el-button class="cancel" @click="close">取消</el-button>
-          <ObButton class="save" @click="close" text="保存到图库" />
+          <el-button class="cancel" @click="Cancel">取消</el-button>
+          <ObButton class="save" @click="Confirm" text="保存到图库" />
         </div>
       </div>
     </div>
@@ -19,75 +28,92 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted, ref } from "vue";
+import { SetupContext, onMounted, ref, toRefs } from "vue";
 import { Props } from "@/common/export/interface";
 import { ObButton } from "@/common/templates/index";
 import { ObPlayer } from "ob-xw-common";
 import { Messenger } from "@/components/index";
 import { ipcRenderer } from "electron";
 import { ObEvent } from "@common/event/ob-event-bus";
-import { newModelMaterial } from "@/common/templates/ob-scan-worker/src/shader/materials";
+import path from "path";
+import fs from "fs";
 
 export default {
   name: "Preview",
-  props: {},
+  props: {
+    data:{
+      type: Array
+    },
+    isPhoto:{
+      type: Boolean
+    },
+    autoExtract:{
+      type: Boolean
+    }
+  },
   components: { ObButton, ObPlayer },
 
   emits: ["close"],
 
   setup(props: Props<any>, context: SetupContext) {
     const player = ref(null);
-    function close() {
+    const { data, isPhoto, autoExtract } = toRefs(props);
+    console.log("##################", data);
+
+    const imgSrc = ref("");
+    // isPhoto.value = (filePath.value as string).includes('.png');
+    // console.log("###########", filePath, isPhoto.value);
+
+    function Cancel() {
+      // 取消则删除文件夹及文件
+      // const dir = path.dirname(filePath.value);
+      // try{
+      //   fs.rm(dir, { recursive: true, force: true }, (err) => {
+      //     if (err) {
+      //         console.error("Failed to delete folder:", err);
+      //     } else {
+      //         console.log("Folder deleted successfully!");
+      //     }
+      // });
+      // }catch(error){
+
+      // }
       context.emit("close");
     }
 
-    const img = ref("");
-    const filePath = ref("");
+    function Confirm(){
+      context.emit("close");
+    }
 
     function ExtractForeground() {
       ipcRenderer
-        .invoke(ObEvent.IMAGE_SEGMENTAION, { filePath: filePath.value })
+        .invoke(ObEvent.IMAGE_SEGMENTAION, { filePath: data.value[0] })
         .then((url: string) => {
-          img.value = url;
-          console.log("@@@@@@@@@@@@", url);
+          imgSrc.value = url;
         });
     }
 
     onMounted(() => {
-      // 获取当前日期
-      const now = new Date();
-
-      // 格式化日期为 "YYYY-MM-DD" 格式
-      const formattedDateTime = `${now.getFullYear()}-${String(
-        now.getMonth() + 1
-      ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}_${String(
-        now.getHours()
-      ).padStart(2, "0")}-${String(now.getMinutes()).padStart(2, "0")}-${String(
-        now.getSeconds()
-      ).padStart(2, "0")}`;
-
-      // 构建文件路径
-      filePath.value = "D://Data//" + formattedDateTime + ".png";
-
-      Messenger.methods.publish("take-photo", {
-        filePath: filePath.value,
-      });
-
       setTimeout(() => {
         Messenger.methods.publish("get-photo", {}, () => {
           Messenger.methods.getImage(1, 2, (info: any, data: Uint8Array) => {
-            (player.value as any).render(
+            if(player && player.value){
+              (player.value as any).render(
               data,
               info.width,
               info.height,
               info.format
             );
+            }
           });
         });
+        if(autoExtract.value){
+          ExtractForeground();
+        }
       }, 1000);
     });
 
-    return { close, player, ExtractForeground, img };
+    return { imgSrc, Cancel, Confirm, player, ExtractForeground };
   },
 };
 </script>

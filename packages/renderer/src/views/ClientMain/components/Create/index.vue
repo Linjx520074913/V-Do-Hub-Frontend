@@ -15,7 +15,7 @@
       <div class="media-entry">
         <p>添加媒体</p>
         <span style="margin-bottom: 30px"
-          >通过GemCam添加媒体,或者将您的媒体拖放到此页面的任何地方</span
+          >通过SwifCam添加媒体,或者将您的媒体拖放到此页面的任何地方</span
         >
         <ObButton
           text="通过 GemCam 添加媒体"
