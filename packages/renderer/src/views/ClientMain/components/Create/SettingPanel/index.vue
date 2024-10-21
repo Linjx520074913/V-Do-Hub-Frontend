@@ -28,18 +28,27 @@
           </div>
           
         </div>
-        <div class="panel">
+        <!-- <div class="panel">
           <div class="item">
             <p>缩放</p>
             <p>a</p>
           </div>
-        </div>
+        </div> -->
         <div class="panel">
           <div class="item">
             <p>GemAI</p>
           </div>
           <el-checkbox class="extractor" @change="ToggleExtract" v-model="enableExtract">AI 抠图</el-checkbox>
-          <el-checkbox class="beautifier" v-model="enableBeautify" disabled>AI 美化</el-checkbox>
+          <el-checkbox class="beautifier" disabled>AI 美化</el-checkbox>
+        </div>
+        <div class="panel">
+          <div class="item">
+            <p>滤镜</p>
+          </div>
+          <el-checkbox class="extractor" disabled>黄金</el-checkbox>
+          <el-checkbox class="extractor" disabled>K金</el-checkbox>
+          <el-checkbox class="extractor" disabled>银饰</el-checkbox>
+          <el-checkbox class="extractor" disabled>翡翠</el-checkbox>
         </div>
         <div class="panel">
           <div class="item">
@@ -58,7 +67,7 @@
         <div class="panel">
           <div class="item">
             <p>启用LOGO水印</p>
-            <el-switch v-model="enable" />
+            <el-switch/>
           </div>
         </div>
         <div class="panel">
@@ -99,6 +108,8 @@ export default {
       context.emit("close");
     }
 
+    const enableExtract = ref(false);
+
     function ChangeSpeed(value: any){
         cur_speed.value = value;
         context.emit("ChangeSpeed", cur_speed.value);
@@ -109,7 +120,7 @@ export default {
       context.emit("ToggleExtract", value);
     }
 
-    return { close, ToggleExtract, AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle, ChangeSpeed };
+    return { close, enableExtract, ToggleExtract, AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle, ChangeSpeed };
   },
 };
 </script>

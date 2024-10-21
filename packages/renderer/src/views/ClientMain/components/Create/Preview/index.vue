@@ -5,7 +5,7 @@
         <div class="title">预览</div>
         <ObPlayer class="preview-image" v-if="isPhoto" ref="player" />
         <video v-else controls autoplay name="media" class="video">
-          <source :src="data[0]" type="video/mp4">
+          <source :src="videoPath" type="video/mp4">
         </video>
         <ObButton class="extract-btn" @click="ExtractForeground" text="抠图" />
         <img v-if="isPhoto"
@@ -47,6 +47,9 @@ export default {
     isPhoto:{
       type: Boolean
     },
+    videoPath:{
+      type: String
+    },
     autoExtract:{
       type: Boolean
     }
@@ -57,7 +60,7 @@ export default {
 
   setup(props: Props<any>, context: SetupContext) {
     const player = ref(null);
-    const { data, isPhoto, autoExtract } = toRefs(props);
+    const { data, isPhoto, videoPath, autoExtract } = toRefs(props);
     console.log("##################", data);
 
     const imgSrc = ref("");

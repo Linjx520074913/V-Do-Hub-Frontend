@@ -17,7 +17,6 @@
       :animation-cancel="options.animationCancel"
       :lazyload="options.lazyload"
       :load-props="options.loadProps"
-      :cross-origin="options.crossOrigin"
       :align="options.align"
     >
       <template #default="{ item }">

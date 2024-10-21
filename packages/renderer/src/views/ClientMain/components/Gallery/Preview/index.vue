@@ -1,9 +1,10 @@
 <template>
   <div class="floating-window-preview">
-    <div class="preview">
+    <img v-if="enlarge" :src="info.screenShot" class="enlarge"  @click="EnlargeImage(false)"/>
+    <div v-else class="preview">
         <div class="title">详情</div>
         <div class="container">
-          <img :src="info.screenShot" v-if="info.type == 'image'">
+          <img :src="info.screenShot" v-if="info.type == 'image'" @click="EnlargeImage(true)">
           <video v-else controls autoplay name="media" class="video">
             <source :src="video" type="video/mp4">
         </video>
@@ -37,7 +38,13 @@ export default {
 
   setup(props: Props<any>, context: SetupContext) {
     const { info } = toRefs(props);
+    const enlarge = ref(false);
     console.log("############", info.value.type);
+
+    function EnlargeImage(value: boolean){
+      enlarge.value = value;
+    }
+
     function Close(){
       context.emit("close");
     }
@@ -45,7 +52,7 @@ export default {
     // const video = ref('https://media.w3.org/2010/05/sintel/trailer.mp4');
     const video = ref(info.value.video);
 
-    return { Close, video };
+    return { enlarge, EnlargeImage, Close, video };
   },
 };
 </script>

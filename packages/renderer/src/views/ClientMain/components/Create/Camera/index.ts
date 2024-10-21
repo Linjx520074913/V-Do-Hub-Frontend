@@ -3,6 +3,8 @@ import { Messenger } from "@/components/index";
 import fs from "fs";
 import path from "path";
 
+import CameraConfig from "./camera_config.json";
+
 const player = ref(null);
 
 const enable = ref(true);
@@ -23,7 +25,28 @@ function change(value: boolean){
 }
 
 function OpenCamera(){
-    Messenger.methods.publish("open-camera", {}, (result: any) => {
+    let config = CameraConfig;
+    try {
+        const data = fs.readFileSync('D://camera_config.json', 'utf8');
+        config = JSON.parse(data);
+        console.log(config);  // 输出 JSON 数据
+    } catch (err) {
+        console.error('Error reading the file:', err);
+    }
+    console.log("@@@@@@@@@@@@@@@@@@@", config);
+
+    Messenger.methods.publish("open-camera", { 
+        'CAP_PROP_AUTO_WB':        config.CAP_PROP_AUTO_WB,
+        'CAP_PROP_WB_TEMPERATURE': config.CAP_PROP_WB_TEMPERATURE,
+        'CAP_PROP_SHARPNESS':      config.CAP_PROP_SHARPNESS,
+        'CAP_PROP_BRIGHTNESS':     config.CAP_PROP_BRIGHTNESS,
+        'CAP_PROP_CONTRAST':       config.CAP_PROP_CONTRAST,
+        'CAP_PROP_SATURATION':     config.CAP_PROP_SATURATION,
+        'CAP_PROP_HUE':            config.CAP_PROP_HUE,
+        'CAP_PROP_AUTO_EXPOSURE':  config.CAP_PROP_AUTO_EXPOSURE,
+        'CAP_PROP_GAIN':           config.CAP_PROP_GAIN,
+        'CAP_PROP_EXPOSURE':       config.CAP_PROP_EXPOSURE
+    }, (result: any) => {
         console.log("############## open-camera ##############", result);
         isCameraConnected.value = result.value;
         // isCameraConnected.value = true;
@@ -45,6 +68,7 @@ const duration = ref(15);
 const data = ref([] as string[]);
 
 function TakePhoto(){
+    data.value = [];
     const root = "D://data//";
 
     const now = new Date();
@@ -138,4 +162,4 @@ function init(){
         CloseCamera();
     });
 }
-export { data, duration, filePath, time, change, isVideo, init, player, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera, autoExtract, enableBeautify }
+export { data, videoPath, duration, filePath, time, change, isVideo, init, player, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera, autoExtract, enableBeautify }

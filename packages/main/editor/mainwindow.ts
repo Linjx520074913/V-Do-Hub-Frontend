@@ -103,9 +103,9 @@ export default class MainWindow{
 				(this.win as BrowserWindow).webContents.reload()
 			});
 		} else {
-			// globalShortcut.register('CommandOrControl+i', () => {
-			// 	(this.win as BrowserWindow).webContents.toggleDevTools();
-			// });
+			globalShortcut.register('CommandOrControl+i', () => {
+				(this.win as BrowserWindow).webContents.toggleDevTools();
+			});
 		}
 
 		/** 取消菜单栏 */

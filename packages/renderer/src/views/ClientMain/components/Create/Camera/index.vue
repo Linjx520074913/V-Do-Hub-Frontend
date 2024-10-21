@@ -44,6 +44,7 @@
       v-if="isPreviewVisible"
       :data="data"
       :isPhoto="!isVideo"
+      :videoPath="videoPath"
       :autoExtract="autoExtract"
       @close="
         () => {
@@ -59,7 +60,7 @@ import { SetupContext, onMounted, ref } from "vue";
 import { Props } from "@/common/export/interface";
 
 import { ObPlayer } from "ob-xw-common";
-import { data, duration, filePath, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera, autoExtract, enableBeautify } from "./index";
+import { videoPath, data, duration, filePath, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera, autoExtract, enableBeautify } from "./index";
 
 import Preview from "../Preview/index.vue";
 import SettingPanel from "../SettingPanel/index.vue";
@@ -89,7 +90,7 @@ export default {
 
     init();
 
-    return { data, duration, ChangeSpeed, ToggleExtract, filePath, time, change, isVideo, close, player, init, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera, autoExtract, enableBeautify };
+    return { videoPath, data, duration, ChangeSpeed, ToggleExtract, filePath, time, change, isVideo, close, player, init, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera, autoExtract, enableBeautify };
   },
 };
 </script>

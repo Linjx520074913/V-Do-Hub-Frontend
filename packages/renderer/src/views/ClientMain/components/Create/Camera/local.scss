@@ -102,10 +102,10 @@
 }
 
 .player {
-    width: 70%;
-    height: 100%;
+    width: 95%;
+    aspect-ratio: 16 / 9; 
     border-radius: 5px;
-    border: 1px solid red
+    border: 1px solid rgba(200, 200, 200, 0.5)
 }
 
 .right-panel{
