@@ -61,7 +61,7 @@ export default {
   setup(props: Props<any>, context: SetupContext) {
     const player = ref(null);
     const { data, isPhoto, videoPath, autoExtract } = toRefs(props);
-    console.log("##################", data);
+    console.log("!!!!!!!!!!!!!!!!!!!!!!", videoPath);
 
     const imgSrc = ref("");
     // isPhoto.value = (filePath.value as string).includes('.png');

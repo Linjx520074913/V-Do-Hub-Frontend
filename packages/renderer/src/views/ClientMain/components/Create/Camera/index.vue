@@ -1,6 +1,6 @@
 <template>
   <div class="floating-window">
-    <div v-if="isCameraConnected" class="content">
+    <div v-if="Camera.data.isConnected" class="content">
       <div class="camera-container">
         <div class="top">
           <ObPlayer class="player" ref="player" />
@@ -33,7 +33,7 @@
               text="摄像头已连接"
               icon="icon-quit"
               class="media-btn"
-              @click="OpenCamera"
+              @click="Camera.methods.open"
               />
             <button class="fab icon-close" @click="close"></button> 
         </div>
@@ -60,7 +60,7 @@ import { SetupContext, onMounted, ref } from "vue";
 import { Props } from "@/common/export/interface";
 
 import { ObPlayer } from "ob-xw-common";
-import { videoPath, data, duration, filePath, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera, autoExtract, enableBeautify } from "./index";
+import { Camera, videoPath, data, duration, filePath, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify } from "./index";
 
 import Preview from "../Preview/index.vue";
 import SettingPanel from "../SettingPanel/index.vue";
@@ -90,7 +90,7 @@ export default {
 
     init();
 
-    return { videoPath, data, duration, ChangeSpeed, ToggleExtract, filePath, time, change, isVideo, close, player, init, enable, TakePhoto, isPreviewVisible, isCameraConnected, OpenCamera, autoExtract, enableBeautify };
+    return { Camera, videoPath, data, duration, ChangeSpeed, ToggleExtract, filePath, time, change, isVideo, close, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify };
   },
 };
 </script>
