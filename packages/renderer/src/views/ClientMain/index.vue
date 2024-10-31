@@ -1,39 +1,28 @@
 <template>
-  <HomePage class="checkerboard" />
+    <HomePage class="checkerboard" />
 </template>
 
 <script lang="ts">
-import { computed } from "vue";
-import { FloatWindowTemplate, ObMessage, ObProgress } from "@/common/templates";
 import { HomePage } from "./components/index";
-import { t, SelectLocal, Platform, UI, Sudoer } from "@/components/index";
 
 export default {
-  name: "ClientMain",
+    name: "ClientMain",
 
-  components: {
-    FloatWindowTemplate,
-    ObMessage,
-    ObProgress,
-    HomePage,
-  },
+    components: {
+        HomePage,
+    },
 
-  setup() {
-    return {
-      t,
-      Platform,
-      SelectLocal,
-      UI,
-      Sudoer,
-    };
-  },
+    setup() {
+        return {
+        };
+    },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "./local.scss";
+    @import "./local.scss";
 </style>
 
 <style lang="scss">
-@import "@/common/styles/global.scss";
+    @import "@/common/styles/global.scss";
 </style>

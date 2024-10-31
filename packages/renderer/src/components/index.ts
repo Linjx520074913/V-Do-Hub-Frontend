@@ -7,34 +7,7 @@ import path from "path";
 import fs from "fs";
 
 import { ObEvent, config } from "@common/";
-
-import {
-    ScanMode,
-    ProcessStage,
-    ObjectMode,
-    ProcessConfigOption,
-    PointCloudRenderMode,
-    ScanStatus,
-    VisibleState,
-    SpliceStage,
-    WorkMode,
-    LocalFileServerStatus,
-    ToolStep,
-    DistanceStatus,
-    CalibrationStatus,
-    DevicePid,
-    DialogId,
-    ExportOption
-} from "@/common/export/enum";
-
-
 import Footer from "./footer/index.vue";
-
-
-import { OBScanCalibDistID, OBScanCalibDistState, OBScanCalibrationState, OBScanControlMessageID, OBScanDistanceAdvice, OBScanExportFormat, OBScanMessageID, OBScanStatus } from "@/common/export/backendEnum";
-import { ObDialog } from "@/common/templates";
-
-import { BeDeviceInfo } from "@/common/export/backendInterface";
 
 import { 
     DSLocalStorage,

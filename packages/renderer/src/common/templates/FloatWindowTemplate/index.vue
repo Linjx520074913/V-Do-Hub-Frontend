@@ -24,7 +24,6 @@
 
 <script lang='ts'>
 import { SetupContext, toRefs } from 'vue';
-import { Props } from "@/common/export/interface";
 
 export default {
     name: 'FloatWindowTemplate',
@@ -43,7 +42,7 @@ export default {
         }
     },
 
-    setup(props: Props<any>, context: SetupContext) {
+    setup(props: any, context: SetupContext) {
 
         const { enableBlur, topRightRight } = toRefs(props);
 

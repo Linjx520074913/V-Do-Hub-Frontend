@@ -19,28 +19,6 @@
 
     <div id="header__middle"></div>
 
-    <!-- <div id="header__right" class="no-dragable">
-			<button
-				class="reserved-button icon-setting2"
-				
-				@click="toggleUserMenuVisibility()"
-			/>
-			<Teleport to="body">
-				<FloatWindowTemplate
-					v-if="userMenuVisible"
-					:enable-blur="false"
-					:top-right-right="Platform.computed.isDarwin ? '14px' : '110px'"
-					@onHide="toggleUserMenuVisibility()"
-				>
-					<template v-slot:top-right>
-						<UserMenu
-							@onClose="toggleUserMenuVisibility()"
-						/>
-					</template>
-				</FloatWindowTemplate>
-			</Teleport>
-		</div> -->
-
     <Teleport v-if="!Platform.computed.isDarwin" to="body">
       <div id="unblockable-window-control">
         <div id="header__reserved" class="no-dragable">
@@ -60,11 +38,6 @@
 <script lang="ts">
 import { computed, ref } from "vue";
 import { UI, Package, Platform, MainWindow } from "@/components/index";
-import {
-  FloatWindowTemplate,
-  Navigator,
-  Stepper,
-} from "@/common/templates/index";
 import { UserMenu } from "./components/index";
 import LogoWin32 from "@/assets/logo_win32.png";
 import LogoDarwin from "@/assets/logo_darwin.png";
@@ -72,7 +45,7 @@ import LogoDarwin from "@/assets/logo_darwin.png";
 export default {
   name: "Header",
 
-  components: { FloatWindowTemplate, Navigator, Stepper, UserMenu },
+  components: { UserMenu },
 
   setup() {
     let userMenuVisible = ref<boolean>(false);

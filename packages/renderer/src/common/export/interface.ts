@@ -1,4 +1,3 @@
-import { XwFrameInfo } from "@/common/xwwrapper/index";
 import { ComputeSpeed, ScannerType, VisibleState } from "./enum";
 
 interface Props<T> {
@@ -101,7 +100,6 @@ export {
       Select,
       Option,
       Range,
-      XwFrameInfo,
       ProcessConfig,
       Session,
 
