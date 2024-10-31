@@ -38,10 +38,7 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, toRefs, ref, onMounted, computed } from "vue";
-import { Props } from "@/common/export/interface";
-
-
+import { SetupContext, toRefs, computed } from "vue"
 
 export default {
     name: "ObHeader",
@@ -66,7 +63,7 @@ export default {
     emits: ["onCross"],
 
 
-    setup(props: Props<any>, context: SetupContext) {
+    setup(props: any, context: SetupContext) {
         const {
             crossEnabled,
             title,

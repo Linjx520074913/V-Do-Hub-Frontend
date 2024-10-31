@@ -1,23 +1,23 @@
 <template>
-  <div>Setting</div>
+    <div>Setting</div>
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted } from "vue";
-import { Props } from "@/common/export/interface";
+import { SetupContext, onMounted } from "vue"
 
 export default {
-  name: "Setting",
-  props: {},
+    name: "Setting",
+    props: {},
 
-  emits: [],
-  components: {},
+    emits: [],
+    components: {},
 
-  setup(props: Props<any>, context: SetupContext) {
-    return {};
-  },
+    setup(props: any, context: SetupContext) {
+        return {};
+    },
 };
 </script>
+
 <style lang="scss" scoped>
 @import "./local.scss";
 </style>

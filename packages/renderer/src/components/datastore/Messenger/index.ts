@@ -1,11 +1,8 @@
-import { ref, reactive, computed, onMounted, watch, onBeforeMount } from "vue";
-import type { Ref } from "vue";
+import { ref } from "vue";
 
-import { ObEvent, config } from "@common/";
+import { config } from "@common/";
 
 import { XwWrapper, XwStreamType, XwFrameInfo } from "@/common/xwwrapper/index";
-import { OBScanModelCloudColor, OBScanMode, OBScanAccuracy, OBScanFuseMode, OBScanTexture, OBScanExportFormat, OBScanComputeSpeed, OBSessionState, OBScanAction, OBScanProjection } from "@/common/export/backendEnum";
-import { Vector3 } from "three";
 
 // console.log(config.addonPath);
 const XwMessenger = new XwWrapper(config.addonPath);

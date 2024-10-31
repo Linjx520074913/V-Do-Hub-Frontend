@@ -82,15 +82,14 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted, ref } from "vue";
-import { Props } from "@/common/export/interface";
+import { SetupContext, onMounted, ref } from "vue"
 
-import { ObPlayer } from "ob-xw-common";
-import { AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle } from "./index";
+import { ObPlayer } from "ob-xw-common"
+import { AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle } from "./index"
 
-import Preview from "../Preview/index.vue";
+import Preview from "../Preview/index.vue"
 
-import { ObButton } from "@/common/templates/index";
+import { ObButton } from "@/common/templates/index"
 
 export default {
   name: "SettingPanel",
@@ -103,7 +102,7 @@ export default {
   emits: ["close", "ChangeSpeed"],
   components: { ObPlayer, Preview, ObButton },
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     function close() {
       context.emit("close");
     }

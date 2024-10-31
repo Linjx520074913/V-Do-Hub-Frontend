@@ -28,15 +28,12 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted, ref, toRefs } from "vue";
-import { Props } from "@/common/export/interface";
-import { ObButton } from "@/common/templates/index";
-import { ObPlayer } from "ob-xw-common";
-import { Messenger } from "@/components/index";
-import { ipcRenderer } from "electron";
-import { ObEvent } from "@common/event/ob-event-bus";
-import path from "path";
-import fs from "fs";
+import { SetupContext, onMounted, ref, toRefs } from "vue"
+import { ObButton } from "@/common/templates/index"
+import { ObPlayer } from "ob-xw-common"
+import { Messenger } from "@/components/index"
+import { ipcRenderer } from "electron"
+import { ObEvent } from "@common/event/ob-event-bus"
 
 export default {
   name: "Preview",
@@ -58,7 +55,7 @@ export default {
 
   emits: ["close"],
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     const player = ref(null);
     const { data, isPhoto, videoPath, autoExtract } = toRefs(props);
     console.log("!!!!!!!!!!!!!!!!!!!!!!", videoPath);

@@ -45,17 +45,16 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted, ref, reactive } from "vue";
-import { Props } from "@/common/export/interface";
-import { ObTab } from "@/common/templates/index";
-import { Options } from "./index";
+import { SetupContext, onMounted, ref, reactive } from "vue"
+import { ObTab } from "@/common/templates/index"
+import { Options } from "./index"
 
-import { Waterfall } from 'vue-waterfall-plugin-next';
-import 'vue-waterfall-plugin-next/dist/style.css';
-import path from "path";
-import fs from "fs";
+import { Waterfall } from 'vue-waterfall-plugin-next'
+import 'vue-waterfall-plugin-next/dist/style.css'
+import path from "path"
+import fs from "fs"
 
-import Preview from "./Preview/index.vue";
+import Preview from "./Preview/index.vue"
 
 export default {
   name: "Gallery",
@@ -64,7 +63,7 @@ export default {
   emits: [],
   components: { ObTab, Waterfall, Preview },
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     const centerDialogVisible = ref(false);
     function click() {
       centerDialogVisible.value = true;

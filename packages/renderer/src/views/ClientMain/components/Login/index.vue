@@ -18,8 +18,7 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, ref } from "vue";
-import { Props } from "@/common/export/interface";
+import { SetupContext, ref } from "vue"
 
 export default {
   name: "Login",
@@ -28,7 +27,7 @@ export default {
   emits: [],
   components: {},
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     const loginMethod = ref('weixin')
         const phone = ref('')
         const password = ref('')

@@ -3,8 +3,7 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted } from "vue";
-import { Props } from "@/common/export/interface";
+import { SetupContext, onMounted } from "vue"
 
 export default {
   name: "Mall",
@@ -13,7 +12,7 @@ export default {
   emits: [],
   components: {},
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     return {};
   },
 };

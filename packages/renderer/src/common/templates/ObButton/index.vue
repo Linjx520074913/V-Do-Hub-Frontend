@@ -6,8 +6,7 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, toRefs, ref, onMounted, computed } from "vue";
-import { Props } from "@/common/export/interface";
+import { SetupContext, toRefs } from "vue";
 
 export default {
   name: "ObButton",
@@ -26,7 +25,7 @@ export default {
 
   emits: ["update:target", "change"],
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     const { text, icon, click } = toRefs(props);
 
     function handleClick() {

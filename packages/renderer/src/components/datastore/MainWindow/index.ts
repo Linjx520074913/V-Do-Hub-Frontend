@@ -1,7 +1,5 @@
 
 import { computed, ref } from "vue";
-
-
 const MainWindowRef = ref({
       fullScreen: false,
       maximized: true,

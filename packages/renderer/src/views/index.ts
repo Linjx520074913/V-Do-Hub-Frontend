@@ -1,4 +1,4 @@
-import ClientMain from "./ClientMain/index.vue";
+import HomePage from './ClientMain/components/HomePage/index.vue'
 
 
-export { ClientMain };
+export { HomePage };

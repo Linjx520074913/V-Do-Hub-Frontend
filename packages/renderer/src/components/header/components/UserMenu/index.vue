@@ -25,57 +25,18 @@
                         @click="() => { Locale.methods.switchTo('zh-cn'); close() }"
                     >
                         {{ "中文" }}
-                    </div>       
-                    <!-- <div
-                        class="menu-item"
-                        @click="() => { Locale.switchTo('de-de'); close() }"
-                    >
-                        {{ "Deutsch" }}
-                    </div>    -->
-                    <!-- <div
-                        class="menu-item"
-                        @click="() => { Locale.methods.switchTo('ja-jp'); close() }"
-                    >
-                        {{ "日本語" }}
-                    </div>  -->
-                    <!-- <div
-                        class="menu-item"
-                        @click="() => { Locale.switchTo('es-es'); close() }"
-                    >
-                        {{ "español" }}
-                    </div>    
-                    <div
-                        class="menu-item"
-                        @click="() => { Locale.switchTo('pt-br'); close() }"
-                    >
-                        {{ "Português" }}
-                    </div>                               -->
+                    </div>                             -->
                     </div>
                     
                 </div>
             </template>
         </n-popover>
-        <!-- <div class="dot-btn-group">
-            <div>
-                <span class="icon-wiki" />
-            </div>
-            <div>  
-                <span class="icon-tutorial" />
-            </div>
-            <div>  
-                <span class="icon-community" /> 
-            </div>
-            <div>  
-                <span class="icon-support" />
-            </div>
-        </div> -->
     </div>
 </template>
 
 <script lang="ts">
-import { SetupContext, toRefs, ref, reactive, computed } from "vue";
-import { Props } from "@/common/export/interface";
-import { t, Locale, Theme, OpenLocal, ExternalLink, UI } from "@/components/index";
+import { SetupContext, ref } from "vue"
+import { t, Locale, Theme, OpenLocal, UI } from "@/components/index"
 
 export default {
     name: "UserMenu",
@@ -84,29 +45,28 @@ export default {
 
     emit: ["onClose"],
 
-    setup(props: Props<any>, context: SetupContext) {
+    setup(props: any, context: SetupContext) {
 
-      const popOverStyle = ref({
-          "padding": 0,
-          "background-color": "transparent",
-          "box-shadow": "none"
-      });
+        const popOverStyle = ref({
+            "padding": 0,
+            "background-color": "transparent",
+            "box-shadow": "none"
+        });
 
-      function close() {
-          context.emit("onClose");
-      }
+        function close() {
+            context.emit("onClose");
+        }
 
-      return {
-          t,
-          Locale,
-          Theme,
-          OpenLocal,
-          ExternalLink,
-          UI,
+        return {
+            t,
+            Locale,
+            Theme,
+            OpenLocal,
+            UI,
 
-          popOverStyle,
-          close,
-      }
+            popOverStyle,
+            close,
+        }
     }
 }
 </script>

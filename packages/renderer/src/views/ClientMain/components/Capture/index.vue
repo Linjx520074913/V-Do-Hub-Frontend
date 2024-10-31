@@ -74,11 +74,9 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted, ref } from "vue";
-import { Props } from "@/common/export/interface";
-import { ObButton } from "@/common/templates/index";
-import Camera from "./Camera/index.vue";
-import { ipcRenderer } from "electron";
+import { SetupContext, onMounted, ref } from "vue"
+import { ObButton } from "@/common/templates/index"
+import Camera from "./Camera/index.vue"
 
 export default {
   name: "CameraCapture",
@@ -87,7 +85,7 @@ export default {
   emits: [],
   components: { ObButton, Camera },
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     const isCameraVisible = ref(false);
 
     const visible = ref(false);

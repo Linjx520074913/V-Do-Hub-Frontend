@@ -11,8 +11,7 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, toRefs, ref, onMounted, computed } from "vue";
-import { Props } from "@/common/export/interface";
+import { SetupContext, toRefs, ref } from "vue";
 
 export default {
   name: "ObTab",
@@ -23,7 +22,7 @@ export default {
     }
   },
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     const { options } = toRefs(props);
    
     const selected = ref(options.value[0]);

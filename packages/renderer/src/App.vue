@@ -1,23 +1,15 @@
 <template>
-  <Main />
+    <Main />
 </template>
 
 <script>
-import Main from "@/components/main/index.vue";
-import { Platform } from "./components/index";
-import { onMounted } from "vue";
+import Main from "@/components/main/index.vue"
 
 export default {
-  components: { Main },
+    components: { Main },
 
-  setup() {
-    // onMounted(() => {
-    // 	console.log("cur platform: ", Platform.type);
-    // 	if (!Platform.computed.isDarwin) {
-    // 		import("./global.scss").then(() => {});
-    // 	}
-    // });
-  },
+    setup() {
+    },
 };
 </script>
 

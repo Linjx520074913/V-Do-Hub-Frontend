@@ -65,7 +65,6 @@
 
 <script lang="ts">
 import { SetupContext, ref } from "vue";
-import { Props } from "@/common/export/interface";
 
 import { ObPlayer } from "ob-xw-common";
 import { Camera, videoPath, data, duration, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify } from "./index";
@@ -83,7 +82,7 @@ export default {
   emits: ["close"],
   components: { ObPlayer, Preview, ObButton, SettingPanel },
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     function close() {
       context.emit("close");
     }

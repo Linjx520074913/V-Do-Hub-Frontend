@@ -94,8 +94,6 @@ const Messenger = meta.value.Messenger;
 const Requester = meta.value.Requester;
 const Sudoer = meta.value.Sudoer;
 
-const ExternalLink = meta.value.ExternalLink;
-
 
 function init(): void {
     console.log(">>>Current version: ", Package.version, "<<<");
@@ -167,6 +165,5 @@ export {
     SelectLocal,
 
     Requester,
-    Sudoer,
-    ExternalLink
+    Sudoer
 }

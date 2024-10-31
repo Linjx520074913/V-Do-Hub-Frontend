@@ -64,16 +64,15 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, ref } from "vue";
-import { Props } from "@/common/export/interface";
+import { SetupContext, ref } from "vue"
 
-import { ObPlayer } from "ob-xw-common";
-import { Camera, videoPath, data, duration, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify } from "./index";
+import { ObPlayer } from "ob-xw-common"
+import { Camera, videoPath, data, duration, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify } from "./index"
 
-import Preview from "../Preview/index.vue";
-import SettingPanel from "../SettingPanel/index.vue";
+import Preview from "../Preview/index.vue"
+import SettingPanel from "../SettingPanel/index.vue"
 
-import { ObButton } from "@/common/templates/index";
+import { ObButton } from "@/common/templates/index"
 
 
 export default {
@@ -83,7 +82,7 @@ export default {
   emits: ["close"],
   components: { ObPlayer, Preview, ObButton, SettingPanel },
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     function close() {
       context.emit("close");
     }

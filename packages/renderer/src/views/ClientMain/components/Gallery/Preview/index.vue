@@ -17,13 +17,9 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted, ref, toRefs } from "vue";
-import { Props } from "@/common/export/interface";
-import { ObButton } from "@/common/templates/index";
-import { ObPlayer } from "ob-xw-common";
-import { Messenger } from "@/components/index";
-import { ipcRenderer } from "electron";
-import { ObEvent } from "@common/event/ob-event-bus";
+import { SetupContext, onMounted, ref, toRefs } from "vue"
+import { ObButton } from "@/common/templates/index"
+import { ObPlayer } from "ob-xw-common"
 
 export default {
   name: "Preview",
@@ -36,7 +32,7 @@ export default {
 
   emits: ["close"],
 
-  setup(props: Props<any>, context: SetupContext) {
+  setup(props: any, context: SetupContext) {
     const { info } = toRefs(props);
     const enlarge = ref(false);
     console.log("############", info.value.type);
