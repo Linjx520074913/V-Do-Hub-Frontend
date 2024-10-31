@@ -1,9 +1,11 @@
 import { ref } from 'vue'
-import path, { format } from 'path'
 import fs from "fs"
+import path from 'path'
+
 import { Messenger } from "@/components/index"
-import CameraDefaultConfig from "./camera_config.json"
 import { VDoEvent } from '../EventBus/index'
+import CameraDefaultConfig from "./camera_config.json"
+
 
 const GlobalRef = ref({
     dataRootDir: 'D://data//',
@@ -76,7 +78,9 @@ const CameraRef = ref({
                 'CAP_PROP_EXPOSURE':       config.CAP_PROP_EXPOSURE
             }, (result: any) => {
                 console.log('[ Camera ] : connect = ', result.value)
-                Camera.data.isConnected = result.value;
+                // Camera.data.isConnected = result.value;
+                // TODO
+                Camera.data.isConnected = true
             })
         },
         close(){

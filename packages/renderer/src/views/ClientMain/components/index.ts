@@ -1,13 +1,15 @@
-import HomePage from "./HomePage/index.vue";
-import Setting from "./Setting/index.vue";
-import Gallery from "./Gallery/index.vue";
-import Create from "./Create/index.vue";
-import Mall from "./Mall/index.vue";
+import HomePage from "./HomePage/index.vue"
+import Setting  from "./Setting/index.vue"
+import Gallery  from "./Gallery/index.vue"
+import Mall     from "./Mall/index.vue"
+import Login    from "./Login/index.vue"
+import Capture  from './Capture/index.vue'
 
 export {
     HomePage,
     Setting,
     Gallery,
-    Create,
-    Mall
+    Capture,
+    Mall,
+    Login
 }

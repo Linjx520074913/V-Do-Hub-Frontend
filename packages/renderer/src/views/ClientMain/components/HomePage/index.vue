@@ -3,7 +3,7 @@
     <div class="left">
       <div class="logo"/>
       <div class="menu">
-        <div v-for="item in menu" class="item">
+        <div v-for="item in Menu.data.slider" class="item">
           <div :class="['content', selectedItem.title == item.title ? 'highlight': '']" @click="handleClickMenuItem(item)">
             <span :class="['icon', item.icon]" />
             <span class="title">{{ item.title }}</span>
@@ -31,7 +31,7 @@ import { FloatWindowTemplate, ObMessage, ObProgress } from "@/common/templates";
 import { t } from "@/components/index";
 import { Props } from "@/common/export/interface";
 
-import { menu, handleClickMenuItem, selectedItem } from "./index";
+import { menu, Menu, handleClickMenuItem, selectedItem } from "./index";
 import { ObPlayer } from "ob-xw-common";
 
 export default {
@@ -52,6 +52,7 @@ export default {
       FloatWindowTemplate,
       ObMessage,
       menu,
+      Menu,
       selectedItem,
       handleClickMenuItem,
     };

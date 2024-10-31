@@ -240,3 +240,8 @@ option:checked {
 .beautifier{
     margin-left: 10px;
 }
+
+.el-overlay{
+    height: calc(100% - 40px) !important;
+    top: 40px !important;
+}

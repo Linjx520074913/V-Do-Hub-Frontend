@@ -19,21 +19,15 @@ const app = createApp(App);
 
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import { Setting, Gallery, Create, Mall } from './views/ClientMain/components/index';
-			
-// var devInnerHeight = 1080.0 // 开发时的InnerHeight
-// var devDevicePixelRatio = 1.0// 开发时的devicepixelratio
-// var devScaleFactor = 2 // 开发时的ScaleFactor
-// var scaleFactor = screen.getPrimaryDisplay().scaleFactor
-// var zoomFactor = (window.innerHeight / devInnerHeight) * (window.devicePixelRatio / devDevicePixelRatio) * (devScaleFactor / scaleFactor)
-
+import { Setting, Gallery, Mall, Login, Capture } from './views/ClientMain/components/index';
 
 const routes = [
-    { path: '/',        component: Create },
-    { path: '/Create',  component: Create },
+    { path: '/',        component: Login   },
+    { path: '/Capture', component: Capture },
+    { path: '/Login',   component: Login   },
     { path: '/Setting', component: Setting },
     { path: '/Gallery', component: Gallery },
-    { path: '/Mall',    component: Mall }
+    { path: '/Mall',    component: Mall    }
 ]
 
 export const router = createRouter({

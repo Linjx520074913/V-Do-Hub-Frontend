@@ -39,7 +39,7 @@
         </div>
     </div>
   </div>
-  <teleport to=".home-page-root">
+  <!-- <teleport to=".home-page-root">
     <Preview
       v-if="isPreviewVisible"
       :data="data"
@@ -52,20 +52,29 @@
         }
       "
     />
-  </teleport>
+  </teleport> -->
+  <el-drawer
+    class="drawer"
+    title="我是标题"
+    :model-value="isPreviewVisible"
+    :visible.sync="isPreviewVisible"
+    :before-close="() => { isPreviewVisible = false }">
+    <span>我来啦!</span>
+  </el-drawer>
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted, ref } from "vue";
+import { SetupContext, ref } from "vue";
 import { Props } from "@/common/export/interface";
 
 import { ObPlayer } from "ob-xw-common";
-import { Camera, videoPath, data, duration, filePath, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify } from "./index";
+import { Camera, videoPath, data, duration, time, change, isVideo, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify } from "./index";
 
 import Preview from "../Preview/index.vue";
 import SettingPanel from "../SettingPanel/index.vue";
 
 import { ObButton } from "@/common/templates/index";
+
 
 export default {
   name: "Camera",
@@ -85,15 +94,16 @@ export default {
 
     function ChangeSpeed(value: any){
       duration.value = value.duration;
-      console.log("FFFChangeSpeed ", duration.value);
     }
 
     init();
 
-    return { Camera, videoPath, data, duration, ChangeSpeed, ToggleExtract, filePath, time, change, isVideo, close, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify };
+    const isCameraMode = ref(true)
+
+    return { isCameraMode, Camera, videoPath, data, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify };
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "./local.scss";
 </style>
