@@ -22,7 +22,6 @@ import {
     DSMainWindow,
     DSTheme,
     DSUI,
-    DSExternalLink,
     DSStaticResource,
     DSRequester,
     DSSudoer,
@@ -59,8 +58,6 @@ let meta = ref({
     SelectLocal: DSSelectLocal,
 
     OpenLocal: DSOpenLocal,
-
-    ExternalLink: DSExternalLink,
 
     OpenExternal: DSOpenExternal,
 

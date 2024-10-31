@@ -2,7 +2,6 @@ import { computed, ref } from "vue";
 import { ipcRenderer } from "electron";
 import { ObEvent } from "@common/";
 import { DSLocalStorage as LocalStorage } from "../index";
-import { ObDialog } from "@/common/templates";
 import { t } from "@/components";
 import { LSItem } from "@/common/export/enum";
 

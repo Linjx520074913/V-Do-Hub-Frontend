@@ -16,9 +16,6 @@ import { UI } from "./UI/index";
 import { Theme } from "./Theme/index";
 import { Sudoer } from "./Sudoer/index";
 
-import { ExternalLink } from "./ExternalLink/index";
-
-
 export {
       LocalStorage as DSLocalStorage,
       OpenLocal as DSOpenLocal,
@@ -36,7 +33,6 @@ export {
 export {
       Theme as DSTheme,
       UI as DSUI,
-      ExternalLink as DSExternalLink,
       StaticResource as DSStaticResource,
       Requester as DSRequester,
       Sudoer as DSSudoer,
