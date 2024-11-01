@@ -86,9 +86,13 @@ const CameraRef = ref({
         close(){
             Messenger.methods.publish(VDoEvent.CLOSE_CAMERA, {}, () => {});
         },
-        takeScreenshot(){
-            const { picName } = Global.methods.getCurrenDataInfo()
-            Messenger.methods.publish(VDoEvent.TAKE_SCREEN_SHOT, { filePath: picName })
+        async takeScreenshot(): Promise<string>{
+            return new Promise((resolve, reject) => {
+                const { picName, dir } = Global.methods.getCurrenDataInfo()
+                Messenger.methods.publish(VDoEvent.TAKE_SCREEN_SHOT, { filePath: picName }, () => {
+                    resolve(dir)
+                })
+            })
         },
         recordVideo(duration: number, onFinishCallback: any){
             const { rawVideoName, dstVideoName, screenShotName } = Global.methods.getCurrenDataInfo()

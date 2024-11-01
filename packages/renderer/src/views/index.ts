@@ -1,4 +1,2 @@
-import HomePage from './ClientMain/components/HomePage/index.vue'
-
-
+import HomePage from './components/HomePage/index.vue'
 export { HomePage };

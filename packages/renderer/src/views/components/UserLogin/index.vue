@@ -21,7 +21,7 @@
 import { SetupContext, ref } from "vue"
 
 export default {
-  name: "Login",
+  name: "UserLogin",
   props: {},
 
   emits: [],

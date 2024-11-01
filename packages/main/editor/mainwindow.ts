@@ -63,8 +63,8 @@ export default class MainWindow{
 		this.win = new BrowserWindow({
 			width: 1200,
 			height: 800,
-			// minWidth: 1200,
-			// minHeight: 800,
+			minWidth: 1200,
+			minHeight: 800,
             // resizable: false,
 			title: this.windowConfig.title,
 			frame: browserWindowConfig.frame,

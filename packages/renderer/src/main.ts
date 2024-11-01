@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-
 import App from './App.vue';
 
 import "tailwindcss/tailwind.css";
@@ -14,20 +13,19 @@ import '@/assets/font/fonts.css';
 import ObCommUI from 'ob-xw-common';
 
 const VueResizeObserver = require("vue-resize-observer");
+import { createMemoryHistory, createRouter } from 'vue-router';
+
+import { Setting, MediaLibrary, Mall, UserLogin, MediaCapture } from './views/components/index';
 
 const app = createApp(App);
 
-import { createMemoryHistory, createRouter } from 'vue-router';
-
-import { Setting, Gallery, Mall, Login, Capture } from './views/ClientMain/components/index';
-
 const routes = [
-    { path: '/',        component: Login   },
-    { path: '/Capture', component: Capture },
-    { path: '/Login',   component: Login   },
-    { path: '/Setting', component: Setting },
-    { path: '/Gallery', component: Gallery },
-    { path: '/Mall',    component: Mall    }
+    { path: '/',             component: MediaCapture },
+    { path: '/MediaCapture', component: MediaCapture },
+    { path: '/MediaLibrary', component: MediaLibrary },
+    { path: '/UserLogin',    component: UserLogin   },
+    { path: '/Setting',      component: Setting },
+    { path: '/Mall',         component: Mall    }
 ]
 
 export const router = createRouter({

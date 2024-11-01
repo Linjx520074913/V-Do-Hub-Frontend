@@ -1,11 +1,11 @@
 <template>
-  <div id="client">
-    <Header class="header header-bg dragable" />
-    <div id="app-main">
-      <HomePage />
+    <div id="client">
+        <Header class="header header-bg dragable" />
+        <div id="app-main">
+            <HomePage />
+        </div>
+        <Footer class="footer" />
     </div>
-    <Footer class="footer" />
-  </div>
 </template>
 
 <script>
@@ -14,18 +14,18 @@ import Footer from "@components/footer/index.vue";
 import { init } from "@components/index";
 import { mount } from "./index";
 
-import { ClientMain, HomePage } from "@/views/index"
+import { HomePage } from "@/views/index"
 
 export default {
-  name: "Main",
+    name: "Main",
 
-  components: { Header, Footer, ClientMain, HomePage },
+    components: { Header, Footer, HomePage },
 
-  setup() {
-    init();
-    mount();
-    return {};
-  },
+    setup() {
+        init();
+        mount();
+        return {};
+    },
 };
 </script>
 <style lang="scss">

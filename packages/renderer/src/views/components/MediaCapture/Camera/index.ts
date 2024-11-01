@@ -9,7 +9,6 @@ const player = ref(null);
 
 const enable = ref(true);
 
-const isPreviewVisible = ref(false);
 
 const isVideo = ref(false);
 
@@ -30,19 +29,20 @@ const duration = ref(15);
 
 const data = ref([] as string[]);
 
-function TakePhoto(){
+// Capture 数据源路径
+const source = ref('')
+
+async function TakePhoto(){
     data.value = [];
     
     if(!isVideo.value){
-        isPreviewVisible.value = true;
-
-        Camera.methods.takeScreenshot()
+        source.value = await Camera.methods.takeScreenshot()
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!FDFFF", source.value)
     }else{
         Camera.methods.recordVideo(duration.value, async () => {
             videoPath.value = Global.currentDstVideoName;
             const result = await FindFilesWithExtensions(path.dirname(Global.currentDstVideoName), ['.png']);
             data.value = result as any;
-            isPreviewVisible.value = true;
         })
 
         let id = setInterval(() => {
@@ -99,4 +99,4 @@ function init(){
         Camera.methods.close()
     });
 }
-export { Camera, data, videoPath, duration, filePath, time, change, isVideo, init, player, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify }
+export { source, Camera, data, videoPath, duration, filePath, time, change, isVideo, init, player, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify }
