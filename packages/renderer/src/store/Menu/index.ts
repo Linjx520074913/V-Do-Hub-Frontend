@@ -14,7 +14,7 @@ const MenuRef = ref({
             { title: '图库', icon: 'icon-texture', link: '/MediaLibrary' },
             { title: '设备', icon: 'icon-setting', link: '/Setting' },
             { title: '商城', icon: 'icon-mobile1', link: '/Mall' },
-            { title: '登录', icon: 'icon-mobile1', link: '/Login' }
+            { title: '登录', icon: 'icon-mobile1', link: '/UserLogin' }
         ],
         activedItem: null as MenuItem | null
     },
@@ -36,4 +36,4 @@ const Menu = MenuRef.value
 Menu.methods.init()
 
 
-export { Menu }
+export { Menu, MenuItem }

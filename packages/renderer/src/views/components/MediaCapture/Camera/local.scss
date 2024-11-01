@@ -1,3 +1,5 @@
+@import '../../../theme/index.scss';
+
 .floating-window {
     position: fixed;
     width: 100%;
@@ -213,7 +215,7 @@ option:checked {
             height: 35px;
             margin-bottom: 5px;
             margin-top: 40px;
-            background-color: #DB6929;
+            background-color: $-primary-color;
         }
     }
 }

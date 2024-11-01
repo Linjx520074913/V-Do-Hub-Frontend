@@ -29,30 +29,11 @@
             <div class="popup">
                 <div class="device"/>
                 <p style="margin: 20px 0px 20px 0px">确保您的摄像头已正确连接到您的笔记本电脑</p>
-                <ObButton
-                text="摄像头已连接"
-                icon="icon-quit"
-                class="media-btn"
-                @click="Camera.methods.open"
-                />
+                <el-button class="media-btn" @click="Camera.methods.open">摄像头已连接</el-button>
                 <button class="fab icon-close" @click="close"></button> 
             </div>
         </div>
     </div>
-    <!-- <teleport to=".home-page-root">
-        <Preview
-        v-if="isPreviewVisible"
-        :data="data"
-        :isPhoto="!isVideo"
-        :videoPath="videoPath"
-        :autoExtract="autoExtract"
-        @close="
-            () => {
-            isPreviewVisible = false;
-            }
-        "
-        />
-    </teleport> -->
     <el-drawer
         class="drawer"
         :with-header="false"
@@ -74,10 +55,7 @@ import { SetupContext, ref } from "vue"
 import { ObPlayer } from "ob-xw-common"
 import { source, Camera, duration, time, change, isVideo, player, init, TakePhoto, autoExtract, enableBeautify } from "./index"
 
-import Preview from "../Preview/index.vue"
 import SettingPanel from "../SettingPanel/index.vue"
-
-import { ObButton } from "@/common/templates/index"
 
 import MediaPreview from '../../MediaPreview/index.vue' 
 
@@ -86,7 +64,7 @@ export default {
   props: {},
 
   emits: ["close"],
-  components: { ObPlayer, Preview, ObButton, SettingPanel, MediaPreview },
+  components: { ObPlayer, SettingPanel, MediaPreview },
 
   setup(props: any, context: SetupContext) {
     const setting = ref({ bgRemoval: false, beauty: true })

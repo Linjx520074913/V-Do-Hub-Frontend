@@ -1,8 +1,14 @@
 import fs from 'fs'
 import path from 'path'
+import { MediaType } from '@/store/index'
+interface MediaMeta {
+    name: string,
+    type: MediaType,
+    url: string
+}
 
-function findFilesWithExtensions(folderPath: string, extensions: string[]): { data: { name: string; type: string; url: string }[]; hasVideo: boolean } {
-    let data = [] as any
+function findFilesWithExtensions(filePath: string, extensions: string[]): { data: MediaMeta[]; hasVideo: boolean } {
+    let data: MediaMeta[] = []
     let hasVideo = false
 
     function traverseFolder(currentPath: string) {
@@ -23,14 +29,26 @@ function findFilesWithExtensions(folderPath: string, extensions: string[]): { da
                     hasVideo = true
                 }
 
-                data.push({ name: fileName, type: fileExt == '.png' ? 'image' : 'video', url: fullPath })
+                const type: MediaType = fileExt === '.png' ? MediaType.IMAGE : MediaType.VIDEO;
+                data.push({ name: fileName, type: type, url: fullPath });
             }
         }
     }
-
-    traverseFolder(folderPath)
+    
+    if(filePath){
+        const stats = fs.statSync(filePath);
+        if(stats.isDirectory()){
+            traverseFolder(filePath)
+        }else if(stats.isFile()){
+            const fileExt = path.extname(filePath)
+            hasVideo = fileExt === '.mp4'
+            const type = fileExt === '.mp4'? MediaType.VIDEO : MediaType.IMAGE
+            data.push({ name: path.basename(filePath), type: type, url: filePath })
+        }
+    }
+    
     return { data, hasVideo }
 }
 
-export { findFilesWithExtensions }
+export { findFilesWithExtensions, MediaMeta, MediaType }
 

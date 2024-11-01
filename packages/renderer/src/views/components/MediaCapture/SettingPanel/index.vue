@@ -28,12 +28,6 @@
           </div>
           
         </div>
-        <!-- <div class="panel">
-          <div class="item">
-            <p>缩放</p>
-            <p>a</p>
-          </div>
-        </div> -->
         <div class="panel">
           <div class="item">
             <p>GemAI</p>
@@ -82,12 +76,10 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted, ref } from "vue"
+import { SetupContext, ref } from "vue"
 
 import { ObPlayer } from "ob-xw-common"
 import { AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle } from "./index"
-
-import Preview from "../Preview/index.vue"
 
 import { ObButton } from "@/common/templates/index"
 
@@ -100,7 +92,7 @@ export default {
   },
 
   emits: ["close", "ChangeSpeed"],
-  components: { ObPlayer, Preview, ObButton },
+  components: { ObPlayer, ObButton },
 
   setup(props: any, context: SetupContext) {
     function close() {

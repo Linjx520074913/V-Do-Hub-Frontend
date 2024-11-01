@@ -6,7 +6,7 @@ import { Messenger } from "@/components/index"
 import { VDoEvent } from '../EventBus/index'
 import CameraDefaultConfig from "./camera_config.json"
 
-
+// TODO: 这里的 dataRootDir 要换成程序安装目录
 const GlobalRef = ref({
     dataRootDir: 'D://data//',
     currentDataDir: '',
@@ -57,13 +57,15 @@ const CameraRef = ref({
     methods: {
         open(filePath?: string){
             let config = CameraDefaultConfig
-            if(filePath){
-                try{
-                    config = JSON.parse(fs.readFileSync(filePath, 'utf8'))
-                }catch(error){
-                    console.error('Error reading camera config file', error);
-                }
-            }
+            // console.log('QQQQQQQQQQQQ', filePath)
+            // if(filePath){
+            //     console.log('QEDWQWEQE')
+            //     try{
+            //         config = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+            //     }catch(error){
+            //         console.error('Error reading camera config file', error);
+            //     }
+            // }
             // TODO: 优化这里的参数设置
             Messenger.methods.publish(VDoEvent.OPEN_CAMERA, {
                 'CAP_PROP_AUTO_WB':        config.CAP_PROP_AUTO_WB,
@@ -78,9 +80,8 @@ const CameraRef = ref({
                 'CAP_PROP_EXPOSURE':       config.CAP_PROP_EXPOSURE
             }, (result: any) => {
                 console.log('[ Camera ] : connect = ', result.value)
-                // Camera.data.isConnected = result.value;
+                Camera.data.isConnected = result.value;
                 // TODO
-                Camera.data.isConnected = true
             })
         },
         close(){

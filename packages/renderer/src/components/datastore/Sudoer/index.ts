@@ -3,7 +3,7 @@ import { ipcRenderer } from "electron";
 import { ObEvent } from "@common/";
 import { DSLocalStorage as LocalStorage } from "../index";
 import { t } from "@/components";
-import { LSItem } from "@/common/export/enum";
+import { LSItem } from "@/common/export";
 
 const SudoerRef = ref({
       showPasswordPrompt: false,

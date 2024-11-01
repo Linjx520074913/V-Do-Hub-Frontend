@@ -8,7 +8,7 @@
             </video>
         </div>
         <div class="screen-shot flex flex-row gap-x-1">
-            <div v-for="(item, index) in data" :key="item.id" :class="['w-1/5', 'p-1', item.type =='image'? '': 'hidden']">
+            <div v-for="(item, index) in data" :key="item.id" :class="['w-1/5', 'p-1', item.type == MediaType.IMAGE? '': 'hidden']">
                 <img :src="item.url" class="w-full h-full border border-black rounded-md object-cover" />
             </div>
         </div>
@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, toRefs } from "vue"
-import { findFilesWithExtensions } from './index'
+import { SetupContext, toRefs, watch, ref } from "vue"
+import { findFilesWithExtensions, MediaMeta, MediaType } from './index'
 
 export default {
     name: "MediaPreview",
@@ -45,21 +45,9 @@ export default {
     setup(props: any, context: SetupContext) {
 
         const { source, setting } = toRefs(props)
-        console.log("###############", setting.value)
-        const { data, hasVideo } = findFilesWithExtensions(source.value, ['.png', '.mp4'])
 
-        // TODO: 添加抠图逻辑
-        if(setting.value.bgRemoval){
-            // ipcRenderer
-            // .invoke(ObEvent.IMAGE_SEGMENTAION, { filePath: data.value[0] })
-            // .then((url: string) => {
-            // imgSrc.value = url;
-            // });
-        }
-        // TODO：添加美颜逻辑
-        if(setting.value.beauty){
-
-        }
+        const data = ref<MediaMeta[]>([])
+        const hasVideo = ref(false)
 
         function cancel(){
             context.emit('cancel')
@@ -69,11 +57,34 @@ export default {
             context.emit('confirm')
         }
 
+        watch(source, (newSource) => {
+            if(source.value){
+                const result = findFilesWithExtensions(source.value, ['.png', '.mp4']);
+                data.value = result.data;
+                hasVideo.value = result.hasVideo;
+
+                // TODO: 添加抠图逻辑
+                if(setting.value.bgRemoval){
+                    // ipcRenderer
+                    // .invoke(ObEvent.IMAGE_SEGMENTAION, { filePath: data.value[0] })
+                    // .then((url: string) => {
+                    // imgSrc.value = url;
+                    // });
+                }
+                // TODO：添加美颜逻辑
+                if(setting.value.beauty){
+
+                }
+            }
+        }, { immediate: true }); // immediate 为 true 时初始执行一次
+
+
         return {
             cancel,
             confirm,
             data,
-            hasVideo
+            hasVideo,
+            MediaType
         };
     },
 };

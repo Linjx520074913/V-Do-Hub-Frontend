@@ -22,7 +22,6 @@ const duration = ref(15);
 const source = ref('')
 
 async function TakePhoto(){
-    
     if(!isVideo.value){
         source.value = await Camera.methods.takeScreenshot()
     }else{

@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { ipcRenderer } from "electron";
 import { MultiLingual, ObEvent } from "@common/index";
 import { LocalStorage } from "../Common/index";
-import { LSItem } from "@/common/export/enum";
+import { LSItem } from "@/common/export";
 
 const LocaleRef = ref({
     curLocale: "en-us",

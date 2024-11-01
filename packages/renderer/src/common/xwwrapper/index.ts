@@ -2,8 +2,6 @@ import fs from "fs";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { v4 as uuidv4 } from 'uuid';
-import { io } from "socket.io-client";
-import { Uint32BufferAttribute } from "three";
 
 const NUM_CHUNK_PER_DEVICE = 5;
 
