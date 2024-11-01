@@ -56,12 +56,14 @@
     <el-drawer
         class="drawer"
         :with-header="false"
+        :close-on-click-modal="false"
         :model-value="source != ''"
         :before-close="() => { source = '' }">
         <MediaPreview
             :source="source"
-            @cancel="() => { source = '' }"
-            @confirm="() => { source = '' }"
+            :setting="setting"
+            @cancel="cancel"
+            @confirm="confirm"
         />
     </el-drawer>
 </template>
@@ -70,7 +72,7 @@
 import { SetupContext, ref } from "vue"
 
 import { ObPlayer } from "ob-xw-common"
-import { source, Camera, videoPath, data, duration, time, change, isVideo, player, init, enable, TakePhoto, autoExtract, enableBeautify } from "./index"
+import { source, Camera, duration, time, change, isVideo, player, init, TakePhoto, autoExtract, enableBeautify } from "./index"
 
 import Preview from "../Preview/index.vue"
 import SettingPanel from "../SettingPanel/index.vue"
@@ -87,12 +89,14 @@ export default {
   components: { ObPlayer, Preview, ObButton, SettingPanel, MediaPreview },
 
   setup(props: any, context: SetupContext) {
+    const setting = ref({ bgRemoval: false, beauty: true })
     function close() {
       context.emit("close");
     }
 
     function ToggleExtract(value: any){
       autoExtract.value = value;
+      setting.value.bgRemoval = value;
     }
 
     function ChangeSpeed(value: any){
@@ -100,18 +104,19 @@ export default {
     }
 
     function cancel(){
-        console.log('cancel')
+        Camera.methods.delete()
+        source.value = ''
     }
 
     function confirm(){
-        console.log('confirm')
+        source.value = ''
     }
 
     init();
 
     const isCameraMode = ref(true)
 
-    return { source, cancel, confirm, isCameraMode, Camera, videoPath, data, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, enable, TakePhoto, autoExtract, enableBeautify };
+    return { setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
   },
 };
 </script>

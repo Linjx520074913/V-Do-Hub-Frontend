@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, ref, toRefs } from "vue"
+import { SetupContext, toRefs } from "vue"
 import { findFilesWithExtensions } from './index'
 
 export default {
@@ -29,6 +29,13 @@ export default {
     props: {
         source: {
             type: String
+        },
+        setting: {
+            type: Object,
+            default: () => ({
+                bgRemoval: false,   // 抠图
+                beauty: false       // 美颜
+            })
         }
     },
 
@@ -37,10 +44,23 @@ export default {
 
     setup(props: any, context: SetupContext) {
 
-        const { source } = toRefs(props);
-        
+        const { source, setting } = toRefs(props)
+        console.log("###############", setting.value)
         const { data, hasVideo } = findFilesWithExtensions(source.value, ['.png', '.mp4'])
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@", source.value, data)
+
+        // TODO: 添加抠图逻辑
+        if(setting.value.bgRemoval){
+            // ipcRenderer
+            // .invoke(ObEvent.IMAGE_SEGMENTAION, { filePath: data.value[0] })
+            // .then((url: string) => {
+            // imgSrc.value = url;
+            // });
+        }
+        // TODO：添加美颜逻辑
+        if(setting.value.beauty){
+
+        }
+
         function cancel(){
             context.emit('cancel')
         }

@@ -94,13 +94,26 @@ const CameraRef = ref({
                 })
             })
         },
-        recordVideo(duration: number, onFinishCallback: any){
-            const { rawVideoName, dstVideoName, screenShotName } = Global.methods.getCurrenDataInfo()
-            Messenger.methods.publish(VDoEvent.START_RECORD_VIDEO, { duration: duration, raw: rawVideoName, dst: dstVideoName, screenShot: screenShotName }, () => {
-                if(onFinishCallback){
-                    onFinishCallback()
-                }
+        async recordVideo(duration: number): Promise<string>{
+            return new Promise((resolve, reject) => {
+                const { dir, rawVideoName, dstVideoName, screenShotName } = Global.methods.getCurrenDataInfo()
+                Messenger.methods.publish(VDoEvent.START_RECORD_VIDEO, { duration: duration, raw: rawVideoName, dst: dstVideoName, screenShot: screenShotName }, () => {
+                    resolve(dir)
+                })
             })
+        },
+        delete(){
+            try{
+                fs.rm(Global.currentDataDir, { recursive: true, force: true }, (err) => {
+                if (err) {
+                    console.error("Failed to delete folder:", err);
+                } else {
+                    console.log("Folder deleted successfully!");
+                }
+            });
+            }catch(error){
+
+            }
         }
     },
 })

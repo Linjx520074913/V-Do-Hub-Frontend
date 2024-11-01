@@ -1,14 +1,9 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import { Messenger } from "@/components/index";
-import fs from "fs";
-import path from "path";
 
-import { Camera, Global } from '@/store/index'
+import { Camera } from '@/store/index'
 
 const player = ref(null);
-
-const enable = ref(true);
-
 
 const isVideo = ref(false);
 
@@ -21,30 +16,16 @@ function change(value: boolean){
     isVideo.value = value;
 }
 
-const filePath = ref("");
-
-const videoPath = ref("");
-
 const duration = ref(15);
-
-const data = ref([] as string[]);
 
 // Capture 数据源路径
 const source = ref('')
 
 async function TakePhoto(){
-    data.value = [];
     
     if(!isVideo.value){
         source.value = await Camera.methods.takeScreenshot()
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!FDFFF", source.value)
     }else{
-        Camera.methods.recordVideo(duration.value, async () => {
-            videoPath.value = Global.currentDstVideoName;
-            const result = await FindFilesWithExtensions(path.dirname(Global.currentDstVideoName), ['.png']);
-            data.value = result as any;
-        })
-
         let id = setInterval(() => {
             duration.value = duration.value - 1;
             if(duration.value == 1){
@@ -52,36 +33,9 @@ async function TakePhoto(){
                 clearInterval(id);
             }
         }, 1000);
+        source.value = await Camera.methods.recordVideo(duration.value)  
     }
 }
-
-async function FindFilesWithExtensions(folderPath: string, extensions: string[])  {
-    return new Promise<string[]>((resolve, reject) => {
-        let result = [] as any;
-
-        function TraverseFolder(currentPath: string) {
-            const files = fs.readdirSync(currentPath);
-    
-            for (const file of files) {
-                const fullPath = path.join(currentPath, file);
-                const stats = fs.statSync(fullPath);
-    
-                if (stats.isDirectory()) {
-                    // 递归遍历子文件夹
-                    TraverseFolder(fullPath);
-                } else if (stats.isFile() && extensions.some(ext => fullPath.endsWith(ext))) {
-                    const fileName = path.basename(fullPath);
-                    if(fileName.includes("part")){
-                        result.push(fullPath);
-                    }
-                }
-            }
-        }
-    
-        TraverseFolder(folderPath);
-        resolve(result)
-    })
-  }
 
 function init(){
     onMounted(() => {
@@ -99,4 +53,4 @@ function init(){
         Camera.methods.close()
     });
 }
-export { source, Camera, data, videoPath, duration, filePath, time, change, isVideo, init, player, enable, TakePhoto, isPreviewVisible, autoExtract, enableBeautify }
+export { source, Camera, duration, time, change, isVideo, init, player, TakePhoto, autoExtract, enableBeautify }
