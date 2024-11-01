@@ -15,16 +15,16 @@
                 >通过SwifCam添加媒体,或者将您的媒体拖放到此页面的任何地方</span
                 >
                 <ObButton
-                text="通过 SwifCam 添加媒体"
-                icon="icon-quit"
-                class="media-btn"
-                @click="AddMediaCamera"
+                    text="通过 SwifCam 添加媒体"
+                    icon="icon-quit"
+                    class="media-btn"
+                    @click="StartCapture"
                 />
                 <ObButton
-                text="上传"
-                icon="icon-help"
-                class="media-btn"
-                @click="UploadMedia"
+                    text="上传"
+                    icon="icon-help"
+                    class="media-btn"
+                    @click="UploadMedia"
                 />
             </div>
         </div>
@@ -85,14 +85,14 @@ export default {
     setup(props: any, context: SetupContext) {
         const isCameraVisible = ref(false);
 
-        function AddMediaCamera() {
+        function StartCapture() {
             isCameraVisible.value = true;
         }
         function UploadMedia() {
             console.log("UploadMedia");
         }
         return {
-            AddMediaCamera,
+            StartCapture,
             UploadMedia,
             isCameraVisible,
         };

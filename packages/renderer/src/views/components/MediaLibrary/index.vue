@@ -51,8 +51,7 @@ import { Options } from "./index"
 
 import { Waterfall } from 'vue-waterfall-plugin-next'
 import 'vue-waterfall-plugin-next/dist/style.css'
-import path from "path"
-import fs from "fs"
+import { fs, path } from '@common/index'
 
 import { MediaType } from '@/store/index'
 import MediaPreview from '../MediaPreview/index.vue'
@@ -116,11 +115,8 @@ export default {
             align: 'center',
         })
         let images;
-        const selectedItem = ref(null);
         function handleClick(item: any){
-            console.log("FAFAFA", selectedItem.value)
             source.value = item.url
-            selectedItem.value = item;
         }
 
         function FindFilesWithExtensions(folderPath: string, extensions: string[]): string[] {
@@ -141,6 +137,7 @@ export default {
                         const dir = path.dirname(fullPath);
                         const fileName = path.basename(fullPath);
                         const fileExt = path.extname(fullPath);
+                        // TODO: 这里添加视频截图的显示
                         if(fileName != 'screenShot.png'){
                             switch(fileExt){
                             case '.png':
@@ -162,13 +159,14 @@ export default {
 
         // 扫描图库信息
         function ScanGallery(){
+            // TODO : 替换位数据存放根路径
             const root = "D://data";
             images = FindFilesWithExtensions(root, ['.png', '.mp4']);
         }
 
         ScanGallery();
 
-        return { source, selectedItem, ScanGallery, Options, images, options, handleClick };
+        return { source, ScanGallery, Options, images, options, handleClick };
     }
 };
 </script>
