@@ -6,11 +6,14 @@ import MediaCapture  from './MediaCapture/index.vue'
 import MediaLibrary  from "./MediaLibrary/index.vue"
 import UserLogin     from "./UserLogin/index.vue"
 
+import AccountZone   from './AccountZone/index.vue'
+
 export {
     HomePage,
     Setting,
     MediaCapture,
     MediaLibrary,
     Mall,
-    UserLogin
+    UserLogin,
+    AccountZone
 }

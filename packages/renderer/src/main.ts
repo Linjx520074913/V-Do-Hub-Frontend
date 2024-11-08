@@ -12,20 +12,22 @@ import '@/assets/font/fonts.css';
 
 import ObCommUI from 'ob-xw-common';
 
+
 const VueResizeObserver = require("vue-resize-observer");
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import { Setting, MediaLibrary, Mall, UserLogin, MediaCapture } from './views/components/index';
+import { Setting, MediaLibrary, Mall, UserLogin, MediaCapture, AccountZone } from './views/components/index';
 
 const app = createApp(App);
 
 const routes = [
-    { path: '/',             component: MediaCapture },
+    { path: '/',             component: AccountZone },
     { path: '/MediaCapture', component: MediaCapture },
     { path: '/MediaLibrary', component: MediaLibrary },
     { path: '/UserLogin',    component: UserLogin   },
     { path: '/Setting',      component: Setting },
-    { path: '/Mall',         component: Mall    }
+    { path: '/Mall',         component: Mall    },
+    { path: '/AccountZone',  component: AccountZone }
 ]
 
 export const router = createRouter({

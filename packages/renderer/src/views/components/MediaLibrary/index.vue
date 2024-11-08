@@ -1,5 +1,5 @@
 <template>
-    <div class="gallery-root">
+    <div class="flex flex-col h-full">
         <ObTab :options="Options"/>
         <div>
             <Waterfall

@@ -3,12 +3,12 @@
         <div class="left">
             <div class="logo"/>
             <div class="menu">
-                <div v-for="item in Menu.data.slider" class="item">
-                <div :class="['content', Menu.methods.isActived(item) ? 'highlight': '']" @click="Menu.methods.active(item)">
-                    <span :class="['icon', item.icon]" />
-                    <span class="title">{{ item.title }}</span>
-                </div>
-                <span :class="[ Menu.methods.isActived(item) ? 'right-border': '']" />
+                <div v-for="item in Menu.data.slider" :class="[ item.visible? 'item': 'hidden' ]" >
+                    <div :class="['content', Menu.methods.isActived(item) ? 'highlight': '']" @click="Menu.methods.active(item)">
+                        <span :class="['icon', item.icon]" />
+                        <span class="title">{{ item.title }}</span>
+                    </div>
+                    <span :class="[ Menu.methods.isActived(item) ? 'right-border': '']" />
                 </div>
             </div>
         </div>
@@ -16,7 +16,9 @@
             <div class="infomation-bar">
                 <div class="navi">
                     <div class="name">{{ Menu.data.activedItem.title }}</div>
-                    <div class="free"> Free </div>
+                    <div class="free" v-if='Menu.data.activedItem.visible' @click="Menu.methods.activeAccountZone"
+                    
+                    > Free </div>
                 </div>
                 <div class="account"></div>
             </div>
@@ -27,6 +29,7 @@
 
 <script lang="ts">
 import { Menu } from "@/store/index"
+import { showAccountZone } from './index'
 
 export default {
     name: "HomePage",
@@ -38,7 +41,8 @@ export default {
 
     setup(props: any, context: any) {
         return {
-            Menu
+            Menu,
+            showAccountZone
         };
     },
 };

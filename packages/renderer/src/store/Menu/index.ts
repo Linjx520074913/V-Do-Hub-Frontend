@@ -10,11 +10,12 @@ interface MenuItem{
 const MenuRef = ref({
     data:{
         slider: [
-            { title: '创建', icon: 'icon-splice',  link: '/MediaCapture' },
-            { title: '图库', icon: 'icon-texture', link: '/MediaLibrary' },
-            { title: '设备', icon: 'icon-setting', link: '/Setting' },
-            { title: '商城', icon: 'icon-mobile1', link: '/Mall' },
-            { title: '登录', icon: 'icon-mobile1', link: '/UserLogin' }
+            { title: '创建',         icon: 'icon-splice',  visible: true,  link: '/MediaCapture' },
+            { title: '图库',         icon: 'icon-texture', visible: true,  link: '/MediaLibrary' },
+            { title: '设备',         icon: 'icon-setting', visible: true,  link: '/Setting' },
+            { title: '商城',         icon: 'icon-mobile1', visible: true,  link: '/Mall' },
+            { title: '登录',         icon: 'icon-mobile1', visible: true,  link: '/UserLogin' },
+            { title: '我的个人资料', icon: 'icon-mobile1', visible: false, link: '/AccountZone' },
         ],
         activedItem: null as MenuItem | null
     },
@@ -25,6 +26,10 @@ const MenuRef = ref({
         active(item: MenuItem){
             Menu.data.activedItem = item
             router.push(item.link)
+        },
+        activeAccountZone(){
+            const item = Menu.data.slider[Menu.data.slider.length - 1]
+            Menu.methods.active(item)
         },
         isActived(item: MenuItem){
             return (Menu.data.activedItem as MenuItem).title == item.title

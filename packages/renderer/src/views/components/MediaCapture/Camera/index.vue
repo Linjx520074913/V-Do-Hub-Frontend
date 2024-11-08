@@ -16,6 +16,21 @@
                 inactive-color="#ff4949"
                 style="margin: 0px 30px 40px 0">
             </el-switch>
+            <n-space style="width:100px;height:100px">
+                <n-switch style="width:100px;height:100px" v-model:value="active" size="medium">
+                <template #icon>
+                    🤔
+                </template>
+                </n-switch>
+                <n-switch v-model:value="active" size="large">
+                <template #checked-icon>
+                    <div class="icon-camera"></div>
+                </template>
+                <template #unchecked-icon>
+                    <div class="icon-camera"></div>
+                </template>
+                </n-switch>
+            </n-space>
             </div>
         </div>
         <div class="right-panel">
@@ -68,6 +83,7 @@ export default {
 
   setup(props: any, context: SetupContext) {
     const setting = ref({ bgRemoval: false, beauty: true })
+    const active = ref(false)
     function close() {
       context.emit("close");
     }
@@ -94,7 +110,7 @@ export default {
 
     const isCameraMode = ref(true)
 
-    return { setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
+    return { active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
   },
 };
 </script>

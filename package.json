@@ -39,7 +39,7 @@
 		"electron-builder": "^23.0.3",
 		"electron-notarize": "^1.2.2",
 		"electron-rebuild": "^3.2.9",
-		"naive-ui": "^2.34.4",
+		"naive-ui": "^2.40.1",
 		"nano-staged": "^0.8.0",
 		"postcss": "^8.4.13",
 		"sass": "^1.53.0",
