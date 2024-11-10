@@ -15,6 +15,8 @@ import { init } from "@components/index";
 import { mount } from "./index";
 
 import { HomePage } from "@/views/index"
+import { ipcRenderer } from 'electron';
+import { router } from '@/main'
 
 export default {
     name: "Main",
@@ -22,6 +24,11 @@ export default {
     components: { Header, Footer, HomePage },
 
     setup() {
+        // TODO: replace 'WECHAT-LOGIN-SUCCESS' with constant
+        ipcRenderer.on("WECHAT-LOGIN-SUCCESS", (event, code) => {
+          router.push(`/Setting?code=${code}`);
+        });
+
         init();
         mount();
         return {};

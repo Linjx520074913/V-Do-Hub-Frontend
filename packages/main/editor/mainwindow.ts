@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, ipcMain, ipcRenderer, Menu, screen, dialog, shell, powerSaveBlocker } from "electron";
+import { app, BrowserWindow, globalShortcut, ipcMain, ipcRenderer, Menu, screen, dialog, shell, powerSaveBlocker, session } from "electron";
 import path, { join, resolve } from "path";
 import { WindowConfig } from '../config/typing';
 import { ObEvent, Util, config, fs, MultiLingual, sudo } from "../../common/index";
@@ -166,6 +166,50 @@ export default class MainWindow{
 	 */
 	initListeners(){
 		const scope = this;
+
+		ipcMain.handle(ObEvent.WECHAT_LOGIN, async (event, args) => {
+			const defaultSession = session.defaultSession;
+			const interceptor = (details, callback) => {
+				console.log('Intercepted request:', details.url);
+
+				// TODO: 优化拦截的url提高用户体验
+				if (details.url.includes('/api/check-login') || details.url.includes('//www.swifaigo.cn') ||
+					details.url.includes('support')) {
+
+					// 拦截登陆回掉url，获取code，发送给渲染进程
+					if (details.url.includes('www.swifaigo.cn') && details.url.includes('code')) {
+						// 获取code
+						const code = details.url.match(/[?&]code=([^&]+)/);
+						const wechatCode = code ? code[1] : '';
+						if (wechatCode) {
+
+							// 关闭拦截
+							defaultSession.webRequest.onBeforeRequest(null);
+
+							// 阻止微信跳转，跳转回应用
+							callback({ redirectURL: `${this.win?.webContents.getURL()}?code=${wechatCode}` });
+							this.win?.webContents.on('did-finish-load', () => {
+								this.win?.webContents.send('WECHAT-LOGIN-SUCCESS', wechatCode);
+							});
+
+							return;
+						}
+					}
+
+					callback({ cancel: true });
+				} else {
+					console.log('allow request:', details.url);
+					callback({ cancel: false });
+				}
+			};
+			defaultSession.webRequest.onBeforeRequest(interceptor);
+		});
+
+		ipcMain.handle(ObEvent.WECHAT_LOGIN_FINISH, async (event, args) => {
+			console.log("Wechat Login Finish", args);
+			const defaultSession = session.defaultSession;
+			defaultSession.webRequest.onBeforeRequest(null);
+		});
 
 		// Handle on event
 		/**

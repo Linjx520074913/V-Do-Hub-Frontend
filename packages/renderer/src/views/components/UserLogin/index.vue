@@ -14,11 +14,13 @@
         <div v-else-if="loginMethod === 'weixin'" class="login-form">
             <button @click="loginWithWeixin">使用微信登录</button>
         </div>
+      <iframe v-if="displayQrCode" :src="wechatQrCodeUrl" width="500px" height="500px"></iframe>
     </div>
 </template>
 
 <script lang="ts">
-import { SetupContext, ref } from "vue"
+import { SetupContext, ref, onMounted } from "vue"
+import { ipcRenderer } from "electron";
 
 export default {
   name: "UserLogin",
@@ -28,6 +30,20 @@ export default {
   components: {},
 
   setup(props: any, context: SetupContext) {
+    const displayQrCode = ref(false);
+    // TODO, use an uuid to replace hardcode state
+    // TODO, 把appid放到配置里
+    const wechatQrCodeUrl = 'https://open.weixin.qq.com/connect/qrconnect?appid=wxa0d29e126c88138a&redirect_uri=http%3A%2F%2Fwww.swifaigo.cn&response_type=code&scope=snsapi_login&state=123456789#wechat_redirect'
+
+
+    onMounted(() => {
+        //TODO: 用常量代替WECHAT_LOGIN
+        ipcRenderer.invoke('WECHAT_LOGIN')
+            .then(() => {
+                displayQrCode.value = true;
+            });
+        });
+
     const loginMethod = ref('weixin')
         const phone = ref('')
         const password = ref('')
@@ -46,7 +62,7 @@ export default {
             console.log('微信登录')
         }
 
-        return { loginMethod, phone, password, switchMethod, loginWithPhone, loginWithWeixin }
+        return { loginMethod, phone, password, switchMethod, loginWithPhone, loginWithWeixin, displayQrCode }
   },
 };
 </script>
