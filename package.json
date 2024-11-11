@@ -103,7 +103,7 @@
 		"node-stream-zip": "^1.15.0",
 		"ob-xw-common": "0.1.41",
 		"progress-stream": "^2.0.0",
-		"qrcode": "^1.5.3",
+		"qrcode": "^1.5.4",
 		"request": "^2.88.2",
 		"rimraf": "^5.0.5",
 		"rtcmulticonnection": "^3.7.1",

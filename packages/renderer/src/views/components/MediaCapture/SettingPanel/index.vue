@@ -1,5 +1,5 @@
 <template>
-  <div class="camera-setting">
+  <div class="camera-setting overflow-y-scroll">
         <div class="panel">
           <div class="item">
             <p>设备</p>
@@ -33,16 +33,42 @@
             <p>GemAI</p>
           </div>
           <el-checkbox class="extractor" @change="ToggleExtract" v-model="enableExtract">AI 抠图</el-checkbox>
-          <el-checkbox class="beautifier" disabled>AI 美化</el-checkbox>
+          <el-checkbox class="beautifier" disabled>AI 磨皮</el-checkbox>
+          <el-checkbox class="beautifier" disabled>AI 去尘</el-checkbox>
         </div>
         <div class="panel">
-          <div class="item">
-            <p>滤镜</p>
-          </div>
-          <el-checkbox class="extractor" disabled>黄金</el-checkbox>
-          <el-checkbox class="extractor" disabled>K金</el-checkbox>
-          <el-checkbox class="extractor" disabled>银饰</el-checkbox>
-          <el-checkbox class="extractor" disabled>翡翠</el-checkbox>
+            <div class="item">
+                <p>滤镜</p>
+            </div>
+            <el-checkbox class="extractor" disabled>黄金</el-checkbox>
+            <el-checkbox class="extractor" disabled>K金</el-checkbox>
+            <el-checkbox class="extractor" disabled>银饰</el-checkbox>
+            <el-checkbox class="extractor" disabled>翡翠</el-checkbox>
+        </div>
+        <div class="panel">
+            <div class="item">
+                <p>调整</p>
+            </div>
+            <div class="flex flex-col w-5/6">
+                <span>亮度  :   {{ Camera.data.brightness }}</span>
+                <el-slider v-model="Camera.data.brightness" @change="Camera.methods.setBrightness"></el-slider>
+            </div>
+            <div class="flex flex-col w-5/6">
+                <span>色调  :   {{ Camera.data.hue }}</span>
+                <el-slider v-model="Camera.data.hue" @change="Camera.methods.setHue"></el-slider>
+            </div>
+            <div class="flex flex-col w-5/6">
+                <span>饱和度  :   {{ Camera.data.saturation }}</span>
+                <el-slider v-model="Camera.data.saturation" @change="Camera.methods.setSaturation"></el-slider>
+            </div>
+            <div class="flex flex-col w-5/6">
+                <span>锐度  :   {{ Camera.data.sharpness }}</span>
+                <el-slider v-model="Camera.data.sharpness" @change="Camera.methods.setSharpness"></el-slider>
+            </div>
+            <div class="flex flex-col w-5/6">
+                <span>对比度  :   {{ Camera.data.contrast }}</span>
+                <el-slider v-model="Camera.data.contrast" @change="Camera.methods.setContrast"></el-slider>
+            </div>
         </div>
         <div class="panel">
           <div class="item">
@@ -82,6 +108,7 @@ import { ObPlayer } from "ob-xw-common"
 import { AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle } from "./index"
 
 import { ObButton } from "@/common/templates/index"
+import { Camera } from '@/store/index'
 
 export default {
   name: "SettingPanel",
@@ -111,10 +138,18 @@ export default {
       context.emit("ToggleExtract", value);
     }
 
-    return { close, enableExtract, ToggleExtract, AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle, ChangeSpeed };
+    return { Camera, close, enableExtract, ToggleExtract, AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle, ChangeSpeed };
   },
 };
 </script>
 <style lang="scss" scoped>
+// .el-slider__button{
+//     height: 10px !important;
+//     width: 10px !important;
+// }
+::v-deep .el-slider__button{
+    width: 10px !important;
+    height: 10px !important
+}
 @import "./local.scss";
 </style>

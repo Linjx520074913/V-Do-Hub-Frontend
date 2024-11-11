@@ -13,14 +13,14 @@
 
         <div v-else-if="loginMethod === 'weixin'" class="login-form">
             <button @click="loginWithWeixin">使用微信登录</button>
+            <iframe v-if="displayQrCode" :src="wechatQrCodeUrl" width="500px" height="500px"></iframe>
         </div>
-      <iframe v-if="displayQrCode" :src="wechatQrCodeUrl" width="500px" height="500px"></iframe>
     </div>
 </template>
 
 <script lang="ts">
 import { SetupContext, ref, onMounted } from "vue"
-import { ipcRenderer } from "electron";
+import { ipcRenderer } from 'electron';
 
 export default {
   name: "UserLogin",
@@ -62,7 +62,7 @@ export default {
             console.log('微信登录')
         }
 
-        return { loginMethod, phone, password, switchMethod, loginWithPhone, loginWithWeixin, displayQrCode }
+        return { displayQrCode, wechatQrCodeUrl, loginMethod, phone, password, switchMethod, loginWithPhone, loginWithWeixin }
   },
 };
 </script>

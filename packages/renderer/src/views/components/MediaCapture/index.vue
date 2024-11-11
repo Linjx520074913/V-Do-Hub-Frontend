@@ -65,8 +65,19 @@
         </div>
         <div class="tutorial">
             <p>如何设置 SwifCam?</p>
-            <img src="@/assets/images/swifcam.png" style="width:130px;height: 100px"/>
+            <img src="@/assets/images/swifcam.png" style="width:130px;height: 100px" @click="showTutorial"/>
         </div>
+        <el-dialog
+            :model-value="showVideo"
+            :visible.sync="showVideo"
+            modal="true"
+            append-to-body="true"
+            :before-close="() => { showVideo = false }"
+            class="w-1/2 h-1/2 flex">
+            <video v-if="showVideo" controls autoplay name="media" class="image mt-4">
+                <source :src="videoURL" type="video/mp4">
+            </video>
+        </el-dialog>
     </div>
 </template>
 
@@ -84,14 +95,22 @@ export default {
 
     setup(props: any, context: SetupContext) {
         const isCameraVisible = ref(false);
+        const showVideo = ref(false)
+        const videoURL = ref('F://test.mp4')
 
         function StartCapture() {
             isCameraVisible.value = true;
         }
         function UploadMedia() {
-            console.log("UploadMedia");
+            console.log("UploadMedia")
+        }
+        function showTutorial(){
+            showVideo.value = true
         }
         return {
+            videoURL,
+            showVideo,
+            showTutorial,
             StartCapture,
             UploadMedia,
             isCameraVisible,

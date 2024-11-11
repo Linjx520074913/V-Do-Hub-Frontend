@@ -21,7 +21,7 @@ import { Setting, MediaLibrary, Mall, UserLogin, MediaCapture, AccountZone } fro
 const app = createApp(App);
 
 const routes = [
-    { path: '/',             component: AccountZone },
+    { path: '/',             component: MediaCapture },
     { path: '/MediaCapture', component: MediaCapture },
     { path: '/MediaLibrary', component: MediaLibrary },
     { path: '/UserLogin',    component: UserLogin   },

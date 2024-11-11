@@ -52,20 +52,16 @@ const HardwareRef = ref({
 
 const CameraRef = ref({
     data:{
-        isConnected: false
+        isConnected: true,
+        brightness: 50,     // 亮度
+        saturation: 50,     // 饱和度
+        contrast: 50,       // 对比度
+        sharpness: 50,      // 锐度
+        hue: 50             // 色调
     },
     methods: {
         open(filePath?: string){
             let config = CameraDefaultConfig
-            // console.log('QQQQQQQQQQQQ', filePath)
-            // if(filePath){
-            //     console.log('QEDWQWEQE')
-            //     try{
-            //         config = JSON.parse(fs.readFileSync(filePath, 'utf8'))
-            //     }catch(error){
-            //         console.error('Error reading camera config file', error);
-            //     }
-            // }
             // TODO: 优化这里的参数设置
             Messenger.methods.publish(VDoEvent.OPEN_CAMERA, {
                 'CAP_PROP_AUTO_WB':        config.CAP_PROP_AUTO_WB,
@@ -82,6 +78,7 @@ const CameraRef = ref({
                 console.log('[ Camera ] : connect = ', result.value)
                 Camera.data.isConnected = result.value;
                 // TODO
+                // Camera.data.isConnected = true
             })
         },
         close(){
@@ -115,6 +112,21 @@ const CameraRef = ref({
             }catch(error){
 
             }
+        },
+        setBrightness(value: number){
+            Messenger.methods.publish(VDoEvent.SET_BRIGHTNESS, { brightness: value } )
+        },
+        setSaturation(value: number){
+            Messenger.methods.publish(VDoEvent.SET_SATURAION, { saturation: value } )
+        },
+        setContrast(value: number){
+            Messenger.methods.publish(VDoEvent.SET_CONTRAST, { contrast: value } )
+        },
+        setSharpness(value: number){
+            Messenger.methods.publish(VDoEvent.SET_SHARPNESS, { sharpness: value } )
+        },
+        setHue(value: number){
+            Messenger.methods.publish(VDoEvent.SET_HUE, { hue: value } )
         }
     },
 })

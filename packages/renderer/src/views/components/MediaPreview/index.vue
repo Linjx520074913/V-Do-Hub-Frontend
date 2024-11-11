@@ -2,14 +2,14 @@
     <div class="media-preview">
         <p class="font-bold">预览</p>
         <div class="media-container flex flex-col">
-            <img v-if='!hasVideo' class="image" :src="data[0].url">
+            <img v-if='!hasVideo' class="image" :src="data[0].url" @click="enlarge">
             <video v-else controls autoplay name="media" class="image">
                 <source :src="data[0].url" type="video/mp4">
             </video>
         </div>
         <div class="screen-shot flex flex-row gap-x-1">
             <div v-for="(item, index) in data" :key="item.id" :class="['w-1/5', 'p-1', item.type == MediaType.IMAGE? '': 'hidden']">
-                <img :src="item.url" class="w-full h-full border border-black rounded-md object-cover" />
+                <img :src="item.url" class="w-full h-full border border-black rounded-md object-cover"/>
             </div>
         </div>
 
@@ -17,6 +17,17 @@
             <el-button class="button flex-1" type="primary" @click="cancel">取消</el-button>
             <el-button class="button flex-1" type="primary" @click="confirm">保存到图库</el-button>
         </div>
+
+        <el-dialog
+            :model-value="fullscreen"
+            :visible.sync="fullscreen"
+            fullscreen="true"
+            modal="true"
+            append-to-body="true"
+            :before-close="() => { fullscreen = false }"
+            class="w-full h-full flex">
+            <img v-if='!hasVideo' class="image w-full h-full" :src="data[0].url" @click="enlarge">
+        </el-dialog>
     </div>
 </template>
 
@@ -48,6 +59,7 @@ export default {
 
         const data = ref<MediaMeta[]>([])
         const hasVideo = ref(false)
+        const fullscreen = ref(false)
 
         function cancel(){
             context.emit('cancel')
@@ -55,6 +67,10 @@ export default {
 
         function confirm(){
             context.emit('confirm')
+        }
+
+        function enlarge(){
+            fullscreen.value = true
         }
 
         watch(source, (newSource) => {
@@ -80,6 +96,8 @@ export default {
 
 
         return {
+            fullscreen,
+            enlarge,
             cancel,
             confirm,
             data,
