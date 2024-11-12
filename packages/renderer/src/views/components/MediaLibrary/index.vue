@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-full">
         <ObTab :options="Options"/>
-        <div>
+        <div class="overflow-y-scroll">
             <Waterfall
             :list="images"
             :row-key="options.rowKey"
