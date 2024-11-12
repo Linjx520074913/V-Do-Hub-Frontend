@@ -12,6 +12,8 @@ import '@/assets/font/fonts.css';
 
 import ObCommUI from 'ob-xw-common';
 
+import VueVideoPlayer from '@videojs-player/vue'
+import 'video.js/dist/video-js.css' 
 
 const VueResizeObserver = require("vue-resize-observer");
 import { createMemoryHistory, createRouter } from 'vue-router';
@@ -39,6 +41,7 @@ app.use(ElementPlus)
    .use(VueResizeObserver)
    .use(ObCommUI)
    .use(router)
+   .use(VueVideoPlayer)
    .mount('#app')
    .$nextTick(window.removeLoading);
 

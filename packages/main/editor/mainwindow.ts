@@ -170,7 +170,7 @@ export default class MainWindow{
 		ipcMain.handle(ObEvent.WECHAT_LOGIN, async (event, args) => {
 			const defaultSession = session.defaultSession;
 			const interceptor = (details, callback) => {
-				console.log('Intercepted request:', details.url);
+				// console.log('Intercepted request:', details.url);
 
 				// TODO: 优化拦截的url提高用户体验
 				if (details.url.includes('/api/check-login') || details.url.includes('//www.swifaigo.cn') ||
@@ -473,7 +473,7 @@ export default class MainWindow{
 			(this.win as BrowserWindow).webContents.send(ObEvent.LOG_BUFFER_CHANGED, this.parseLog(msg));
 		}else{
 			// 启动后端应用
-			this.launchBackend(config.backendPath);
+			// this.launchBackend(config.backendPath);
 		}
 	}
 
