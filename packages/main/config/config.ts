@@ -41,7 +41,7 @@ const axiosConfig: AxiosConfig = {
 }
 
 const extensionConfig: ExtensionConfig = {
-  localPath: process.env['USERPROFILE'] + '\\.xuanwu\\extensions'
+  localPath: process.env['USERPROFILE'] + '\\.swifai\\extensions'
 }
 
 const logger = new Logger()

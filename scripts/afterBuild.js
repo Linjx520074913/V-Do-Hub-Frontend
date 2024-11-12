@@ -89,7 +89,7 @@ async function appNotarize(appPath) {
       return await notarize({
             tool: "notarytool",
             teamId: "",
-            appBundleId: 'com.orbbec.xuanwuclient',
+            appBundleId: 'com.lynxiv.swifai-hub',
             appPath: appPath,
             appleId: "",
             appleIdPassword: "",
