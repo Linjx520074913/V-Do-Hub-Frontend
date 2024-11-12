@@ -1,8 +1,8 @@
 {
-	"name": "V-DoHub",
-	"version": "1.1.4",
+	"name": "SwifAI-Hub",
+	"version": "0.1.0",
 	"main": "dist/main/index.cjs",
-	"author": "LingXi",
+	"author": "Lynxiv",
 	"license": "MIT",
 	"homepage": "",
 	"scripts": {

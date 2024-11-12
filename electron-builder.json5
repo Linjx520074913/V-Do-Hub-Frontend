@@ -2,8 +2,8 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  appId: "com.lingxi.V-DoHub",
-  productName: "V-DoHub",
+  appId: "com.lynxiv.SwifAI-Hub",
+  productName: "SwifAI-Hub",
   asar: true,
   npmRebuild: "false",
   directories: {
@@ -35,9 +35,9 @@
   },
 
   appx: {
-    applicationId: "com.lingxi.V-DoHub",
+    applicationId: "com.lynxiv.SwifAI-Hub",
     backgroundColor: "#a3a693",
-    publisherDisplayName: "LingXi",
+    publisherDisplayName: "Lynxiv",
   },
 
   mac: {
