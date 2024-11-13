@@ -53,6 +53,7 @@ const HardwareRef = ref({
 const CameraRef = ref({
     data:{
         isConnected: true,
+        smoothness: 0,      // 磨皮程度
         brightness: 50,     // 亮度
         saturation: 50,     // 饱和度
         contrast: 50,       // 对比度
@@ -112,6 +113,9 @@ const CameraRef = ref({
             }catch(error){
 
             }
+        },
+        setSmoothness(value: number){
+            Messenger.methods.publish(VDoEvent.SET_SMOOTHNESS, { smoothness: value } )
         },
         setBrightness(value: number){
             Messenger.methods.publish(VDoEvent.SET_BRIGHTNESS, { brightness: value } )
