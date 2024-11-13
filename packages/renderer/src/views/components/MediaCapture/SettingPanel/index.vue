@@ -30,11 +30,15 @@
         </div>
         <div class="panel">
           <div class="item">
-            <p>GemAI</p>
+            <p>SwifAI</p>
           </div>
-          <el-checkbox class="extractor" @change="ToggleExtract" v-model="enableExtract">AI 抠图</el-checkbox>
-          <el-checkbox class="beautifier" disabled>AI 磨皮</el-checkbox>
-          <el-checkbox class="beautifier" disabled>AI 去尘</el-checkbox>
+          <table style="width:100%">
+            <tr>
+              <td><el-checkbox class="extractor" @change="ToggleExtract" v-model="enableExtract">AI 抠图</el-checkbox></td>
+              <td><el-checkbox class="beautifier" disabled>AI 磨皮</el-checkbox></td>
+              <td><el-checkbox class="beautifier" disabled>AI 除尘</el-checkbox></td>
+            </tr>
+          </table>
         </div>
         <div class="panel">
             <div class="item">
@@ -55,23 +59,23 @@
             <div class="item">
                 <p>调整</p>
             </div>
-            <div class="flex flex-col w-5/6">
+            <div class="flex flex-col w-6/6">
                 <span>亮度  :   {{ Camera.data.brightness }}</span>
                 <el-slider v-model="Camera.data.brightness" @change="Camera.methods.setBrightness"></el-slider>
             </div>
-            <div class="flex flex-col w-5/6">
+            <div class="flex flex-col w-6/6">
                 <span>色调  :   {{ Camera.data.hue }}</span>
                 <el-slider v-model="Camera.data.hue" @change="Camera.methods.setHue"></el-slider>
             </div>
-            <div class="flex flex-col w-5/6">
+            <div class="flex flex-col w-6/6">
                 <span>饱和度  :   {{ Camera.data.saturation }}</span>
                 <el-slider v-model="Camera.data.saturation" @change="Camera.methods.setSaturation"></el-slider>
             </div>
-            <div class="flex flex-col w-5/6">
+            <div class="flex flex-col w-6/6">
                 <span>锐度  :   {{ Camera.data.sharpness }}</span>
                 <el-slider v-model="Camera.data.sharpness" @change="Camera.methods.setSharpness"></el-slider>
             </div>
-            <div class="flex flex-col w-5/6">
+            <div class="flex flex-col w-6/6">
                 <span>对比度  :   {{ Camera.data.contrast }}</span>
                 <el-slider v-model="Camera.data.contrast" @change="Camera.methods.setContrast"></el-slider>
             </div>
@@ -80,9 +84,14 @@
           <div class="item">
             <p>分辨率</p>
           </div>
-          <select name="cars" id="cars">
-            <option value="volvo">2160x2160px</option>
-            <option value="saab">1920x1080px</option>
+          <select name="resolution" id="resolution">
+            <option value="s_3000">1:1 3008x3008</option>
+            <option value="s_2160">1:1 2160x2160</option>
+            <option value="43_1920">4:3 1920x1440</option>
+            <option value="43_4K">4:3 4000x3000</option>
+            <option value="43_1600">4:3 1600x1200</option>
+            <option value="169_1920">16:9 1920x1080</option>
+            <option value="169_3840">16:9 3840x2160</option>
           </select>
           <div class="item">
             <input type="checkbox" name="interest" value="football" />
