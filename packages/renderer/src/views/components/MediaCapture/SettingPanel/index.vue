@@ -40,10 +40,16 @@
             <div class="item">
                 <p>滤镜</p>
             </div>
-            <el-checkbox class="extractor" disabled>黄金</el-checkbox>
-            <el-checkbox class="extractor" disabled>K金</el-checkbox>
-            <el-checkbox class="extractor" disabled>银饰</el-checkbox>
-            <el-checkbox class="extractor" disabled>翡翠</el-checkbox>
+            <table style="width:100%">
+              <tr>
+                <td><el-checkbox class="extractor" disabled>黄金</el-checkbox></td>
+                <td><el-checkbox class="extractor" disabled>K金</el-checkbox></td>
+              </tr>
+              <tr>
+                <td><el-checkbox class="extractor" disabled>银饰</el-checkbox></td>
+                <td><el-checkbox class="extractor" disabled>翡翠</el-checkbox></td>
+              </tr>
+            </table>
         </div>
         <div class="panel">
             <div class="item">
