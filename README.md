@@ -1,3 +1,7 @@
+安装Node.js
+https://nodejs.org/zh-cn
+
+
 # 安装
 > npm install
 # 运行
