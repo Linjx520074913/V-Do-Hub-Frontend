@@ -88,7 +88,7 @@ const CameraRef = ref({
         async takeScreenshot(): Promise<string>{
             return new Promise((resolve, reject) => {
                 const { picName, dir } = Global.methods.getCurrenDataInfo()
-                Messenger.methods.publish(VDoEvent.TAKE_SCREEN_SHOT, { filePath: picName }, () => {
+                Messenger.methods.publish(VDoEvent.TAKE_PHOTO, { filePath: picName }, () => {
                     resolve(dir)
                 })
             })
