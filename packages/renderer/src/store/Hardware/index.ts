@@ -58,7 +58,9 @@ const CameraRef = ref({
         saturation: 50,     // 饱和度
         contrast: 50,       // 对比度
         sharpness: 50,      // 锐度
-        hue: 50             // 色调
+        hue: 50,            // 色调
+        focus: 30,          // 焦距
+        af_mode: true       // 默认为AF
     },
     methods: {
         open(filePath?: string){
@@ -129,6 +131,15 @@ const CameraRef = ref({
         },
         setHue(value: number){
             Messenger.methods.publish(VDoEvent.SET_HUE, { hue: value } )
+        },
+        setFocus(value: number){
+            Messenger.methods.publish(VDoEvent.SET_FOCUS, { focus: value } )
+            // uncheck AutoFocus mode
+            Camera.data.af_mode = false;
+        },
+        switchAutoFocus(value: boolean){
+            // Camera.data.af_mode = value; // 已经通过v-model自动绑定
+            Messenger.methods.publish(VDoEvent.SET_AUTOFOCUS, { autofocus: Camera.data.af_mode} )
         }
     },
 })

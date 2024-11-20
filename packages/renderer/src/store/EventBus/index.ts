@@ -12,8 +12,10 @@ enum VDoEvent{
     SET_SATURAION  = 'SET_SATURATION',
     SET_CONTRAST   = 'SET_CONTRAST',
     SET_SHARPNESS  = 'SET_SHARPNESS',
-    SET_HUE        = 'SET_HUE'
+    SET_HUE        = 'SET_HUE',
 
+    SET_FOCUS      = 'SET_FOCUS',
+    SET_AUTOFOCUS  = 'SET_AUTOFOCUS'
 }
 
 export { VDoEvent }

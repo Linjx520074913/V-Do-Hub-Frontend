@@ -68,6 +68,19 @@
                 <el-slider v-model="Camera.data.brightness" @input="Camera.methods.setBrightness"></el-slider>
             </div>
             <div class="flex flex-col w-5/6">
+                <span>
+                  <table style="width:100%">
+                    <tr>
+                    <td style="text-align: left;">焦距  :   {{ Camera.data.focus }} </td>
+                    <td style="text-align: right;">
+                      <el-checkbox v-model="Camera.data.af_mode" @change="Camera.methods.switchAutoFocus"></el-checkbox>自动
+                    </td>
+                    </tr>
+                  </table>
+                </span>
+                <el-slider v-model="Camera.data.focus" @input="Camera.methods.setFocus"></el-slider>
+            </div>
+            <div class="flex flex-col w-5/6">
                 <span>色调  :   {{ Camera.data.hue }}</span>
                 <el-slider v-model="Camera.data.hue" @input="Camera.methods.setHue"></el-slider>
             </div>
@@ -157,7 +170,12 @@ export default {
       context.emit("ToggleExtract", value);
     }
 
-    return { Camera, close, enableExtract, ToggleExtract, AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle, ChangeSpeed };
+    function ToggleAutoFocus(value: any){
+      console.log("FFFFFFFFFF toggle Autofocus", value)
+      context.emit("ToggleAutoFocus", value);
+    }
+
+    return { Camera, close, enableExtract, ToggleExtract, ToggleAutoFocus, AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle, ChangeSpeed };
   },
 };
 </script>
