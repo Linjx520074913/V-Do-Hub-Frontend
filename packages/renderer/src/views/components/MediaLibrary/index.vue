@@ -159,9 +159,10 @@ export default {
 
         // 扫描图库信息
         function ScanGallery(){
-            // TODO : 替换位数据存放根路径
+            // TODO : 替换为数据存放根路径
             const root = "D://data";
-            images = FindFilesWithExtensions(root, ['.png', '.mp4']);
+            images = FindFilesWithExtensions(root, ['.png', '.mp4']).reverse(); // 按名称倒序排列
+            // TODO: 理论应该是按文件夹的创建时间倒序排列
         }
 
         ScanGallery();

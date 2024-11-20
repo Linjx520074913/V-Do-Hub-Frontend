@@ -78,14 +78,12 @@ const CameraRef = ref({
             }, (result: any) => {
                 console.log('[ Camera ] : connect = ', result.value)
                 Camera.data.isConnected = result.value;
-                // TODO
-                // Camera.data.isConnected = true
             })
         },
         close(){
             Messenger.methods.publish(VDoEvent.CLOSE_CAMERA, {}, () => {});
         },
-        async takeScreenshot(): Promise<string>{
+        async takePhoto(): Promise<string>{
             return new Promise((resolve, reject) => {
                 const { picName, dir } = Global.methods.getCurrenDataInfo()
                 Messenger.methods.publish(VDoEvent.TAKE_PHOTO, { filePath: picName }, () => {
@@ -96,7 +94,7 @@ const CameraRef = ref({
         async recordVideo(duration: number): Promise<string>{
             return new Promise((resolve, reject) => {
                 const { dir, rawVideoName, dstVideoName, screenShotName } = Global.methods.getCurrenDataInfo()
-                Messenger.methods.publish(VDoEvent.START_RECORD_VIDEO, { duration: duration, raw: rawVideoName, dst: dstVideoName, screenShot: screenShotName }, () => {
+                Messenger.methods.publish(VDoEvent.RECORD_VIDEO, { duration: duration, raw: rawVideoName, dst: dstVideoName, screenShot: screenShotName }, () => {
                     resolve(dir)
                 })
             })

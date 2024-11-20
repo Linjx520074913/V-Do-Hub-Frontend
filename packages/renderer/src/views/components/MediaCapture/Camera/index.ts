@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import { Messenger } from "@/components/index";
-
+import { VDoEvent } from '@/store/EventBus/index'
 import { Camera } from '@/store/index'
 
 const player = ref(null);
@@ -23,7 +23,7 @@ const source = ref('')
 
 async function TakePhoto(){
     if(!isVideo.value){
-        source.value = await Camera.methods.takeScreenshot()
+        source.value = await Camera.methods.takePhoto()
     }else{
         let id = setInterval(() => {
             duration.value = duration.value - 1;
@@ -39,7 +39,7 @@ async function TakePhoto(){
 function init(){
     onMounted(() => {
         Camera.methods.open();
-        Messenger.methods.subscribe("update-image", () => {
+        Messenger.methods.subscribe(VDoEvent.UPDATE_IMAGE, () => {
             Messenger.methods.getImage(0, 2, (info: any, data: Uint8Array) => {
                 if(player &&player.value){
                     (player.value as any).render(data, info.width, info.height, info.format);

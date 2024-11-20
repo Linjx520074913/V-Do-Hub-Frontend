@@ -65,7 +65,7 @@
         </div>
         <div class="tutorial">
             <p>如何设置 SwifCam?</p>
-            <img src="@/assets/images/swifcam.png" style="width:130px;height: 100px" @click="playTutorialVideo"/>
+            <img src="@/assets/images/swifcam.png" style="width:160px;height: 100px" @click="playTutorialVideo"/>
         </div>
         <el-dialog
             :model-value="showTutorial"

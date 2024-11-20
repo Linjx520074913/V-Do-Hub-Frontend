@@ -26,6 +26,7 @@ import {
     DSRequester,
     DSSudoer,
 } from "./datastore/index";
+import { VDoEvent } from "@/store/EventBus";
 
 
 let meta = ref({
@@ -137,7 +138,7 @@ function mountMessengerSubcription(): void {
     });
     
     onMounted(() => {
-        Messenger.methods.subscribe("backend--initialized", (obj: any) => {
+        Messenger.methods.subscribe(VDoEvent.BACKEND_INITED, (obj: any) => {
             console.log(obj);
         });
     });
