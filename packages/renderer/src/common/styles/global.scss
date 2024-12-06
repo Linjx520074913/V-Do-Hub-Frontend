@@ -496,3 +496,30 @@ $-navigation-button-height: 39px;
 .pointer-events--all {
       pointer-events: all;
 }
+
+$-main-theme-color: #E94902;
+// .el-checkbox__inner{
+//     background: #E94902 !important;
+//     border-color: #E94902 !important
+// }
+// .el-checkbox__input.is-disabled{
+//     // background-color: red !important
+// }
+.el-slider__button{
+    width: 10px !important;
+    height: 10px !important
+}
+.el-slider__button-wrapper{
+    top: -17px !important;
+}
+.el-slider__runway{
+    height: 1px !important
+}
+.el-slider__bar{
+    background: $-main-theme-color !important;
+    height: 1px !important
+}
+.el-slider__button{
+    border: $-main-theme-color !important;
+    background: $-main-theme-color !important
+}

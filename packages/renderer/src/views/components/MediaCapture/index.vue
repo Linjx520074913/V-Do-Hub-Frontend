@@ -10,10 +10,7 @@
 
         <div class="workspace dashed-border">
             <div class="media-entry">
-                <p>添加媒体</p>
-                <span style="margin-bottom: 30px">
-                    通过SwifCam添加媒体,或者将您的媒体拖放到此页面的任何地方
-                </span>
+                <p class="mb-4">添加媒体</p>
                 <ObButton
                     text="通过 SwifCam 添加媒体"
                     icon="icon-quit"
@@ -36,8 +33,13 @@
                 </el-badge>
                 <span class="icon-share1" />
                 </div>
-                <div>
-                <img src="@/assets/images/remove.jpg" />
+                <div class="flex-row space-x-2 mt-2">
+                    <div class="w-20 h-20 border-2 border-grey-400">
+
+                    </div>
+                    <div class="w-20 h-20 border-2 border-grey-400">
+
+                    </div>
                 </div>
             </div>
             <div class="flex-column" style="margin-right: 100px">
@@ -47,8 +49,13 @@
                 </el-badge>
                 <span class="icon-share1" />
                 </div>
-                <div>
-                <img src="@/assets/images/remove.jpg" />
+                <div class="flex-row space-x-2 mt-2">
+                    <div class="w-20 h-20 border-2 border-grey-400">
+
+                    </div>
+                    <div class="w-20 h-20 border-2 border-grey-400">
+
+                    </div>
                 </div>
             </div>
             <div class="flex-column">
@@ -58,27 +65,33 @@
                 </el-badge>
                 <span class="icon-share1" />
                 </div>
-                <div>
-                <img src="@/assets/images/ai.png" />
+                <div class="flex-row space-x-2 mt-2">
+                    <div class="w-20 h-20 border-2 border-grey-400">
+
+                    </div>
+                    <div class="w-20 h-20 border-2 border-grey-400">
+
+                    </div>
                 </div>
             </div>
         </div>
         <div class="tutorial">
             <p>如何设置 SwifCam?</p>
-            <img src="@/assets/images/swifcam.png" style="width:160px;height: 100px" @click="playTutorialVideo"/>
+            <img class="mt-2" src="@/assets/images/swifcam.png" style="width:160px;height: 100px" @click="playTutorialVideo"/>
         </div>
-        <el-dialog
+        <!-- <el-dialog
             :model-value="showTutorial"
             :visible.sync="showTutorial"
-            modal="true"
-            append-to-body="true"
+            :modal="modal"
+            title="aaaaaaaaaa"
+            :append-to-body="appendToBody"
             :before-close="() => { showTutorial = false }"
             class="w-1/2 h-1/2 flex">
-            <video-player ref="videoPlayerRef" :src="videoURL" :poster="poster" :options="playerOptions" :autoplay="false" />
-            <!-- <video v-if="showTutorial" controls autoplay name="media" class="image mt-4 w-full h-full">
-                <source :src="videoURL" type="video/mp4">
-            </video> -->
-        </el-dialog>
+            <video-player class="width: 200px;height: 200px" ref="videoPlayerRef" :src="videoURL" :poster="poster" :options="playerOptions" :autoplay="false" />
+        </el-dialog> -->
+        <el-dialog v-model="showTutorial" title="使用教程" width="800px" :before-close="() => { showTutorial = false }">
+			<video-player ref="videoPlayerRef" :src="videoURL"  :options="playerOptions" :autoplay="false" />
+		</el-dialog>
     </div>
 </template>
 
@@ -99,6 +112,8 @@ export default {
         const showCapture  = ref(false);
         const showTutorial = ref(false)
         const videoURL = ref(path.join(process.resourcesPath, 'extraResources', 'asset', 'tutorial.mp4'))
+        const modal = ref(true)
+        const appendToBody = ref(true)
 
         function StartCapture() {
             showCapture.value = true;
@@ -133,6 +148,8 @@ export default {
         });
 
         return {
+            appendToBody,
+            modal,
             poster,
             playerOptions,
             videoURL,

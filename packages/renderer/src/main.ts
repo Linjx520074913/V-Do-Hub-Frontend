@@ -18,17 +18,18 @@ import 'video.js/dist/video-js.css'
 const VueResizeObserver = require("vue-resize-observer");
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import { Setting, MediaLibrary, Mall, UserLogin, MediaCapture, AccountZone } from './views/components/index';
+import { Setting, MediaLibrary, Mall, UserLogin, UserRegister, MediaCapture, AccountZone } from './views/components/index';
 
 const app = createApp(App);
 
 const routes = [
-    { path: '/',             component: MediaCapture },
+    { path: '/',             component: UserLogin },
     { path: '/MediaCapture', component: MediaCapture },
     { path: '/MediaLibrary', component: MediaLibrary },
     { path: '/UserLogin',    component: UserLogin   },
     { path: '/Setting',      component: Setting },
     { path: '/Mall',         component: Mall    },
+    { path: '/UserRegister', component: UserRegister },
     { path: '/AccountZone',  component: AccountZone }
 ]
 

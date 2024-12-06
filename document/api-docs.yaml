@@ -1,0 +1,1549 @@
+swagger: "2.0"
+info:
+  description: "第一版本API文档"
+  version: "1.0.0"
+  title: "电商会员系统"
+host: "to-define.com"
+basePath: "/api/v1"
+schemes:
+  - "https"
+paths:
+  /login/wechat:
+    post:
+      tags:
+        - "用户管理"
+      summary: "微信登陆"
+      description: "用户可以通过微信扫码登陆系统"
+      parameters:
+        - name: "code"
+          in: "body"
+          description: "微信授权码"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "登录成功，返回用户token"
+          schema:
+            type: "object"
+            properties:
+              token:
+                type: "string"
+                description: "用户的JWT token"
+          examples:
+            application/json:
+              {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              }
+        401:
+          description: "授权失败"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Unauthorized",
+                "message": "Invalid WeChat authorization code"
+              }
+
+  /login/phone:
+    post:
+      tags:
+        - "用户管理"
+      summary: "手机号码登录"
+      description: "用户可以通过国内手机号码登陆系统"
+      parameters:
+        - name: "phone"
+          in: "body"
+          description: "手机号码"
+          required: true
+          schema:
+            type: "string"
+        - name: "code"
+          in: "body"
+          description: "手机验证码"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "登录成功，返回用户token"
+          schema:
+            type: "object"
+            properties:
+              token:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              }
+        401:
+          description: "验证码错误或登陆失败"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Unauthorized",
+                "message": "Invalid phone number or verification code"
+              }
+
+  /register:
+    post:
+      tags:
+        - "用户管理"
+      summary: "用户注册并更新个人信息"
+      description: "首次登陆时用户需注册并更新个人信息"
+      parameters:
+        - name: "email"
+          in: "body"
+          description: "用户邮箱，需通过验证码验证"
+          required: true
+          schema:
+            type: "string"
+        - name: "industry"
+          in: "body"
+          description: "用户所属行业，支持选择项：珠宝、眼镜、化妆品、3C电子、玩具、陶瓷、其他"
+          required: true
+          schema:
+            type: "string"
+        - name: "company"
+          in: "body"
+          description: "公司名称（可选）"
+          required: false
+          schema:
+            type: "string"
+        - name: "verification_code"
+          in: "body"
+          description: "邮箱验证码"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "注册成功"
+          schema:
+            type: "object"
+            properties:
+              userId:
+                type: "string"
+              email:
+                type: "string"
+              industry:
+                type: "string"
+              company:
+                type: "string"
+              createdAt:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "userId": "123456",
+                "email": "user@example.com",
+                "industry": "3C电子",
+                "company": "Tech Corp",
+                "createdAt": "2024-10-06T10:00:00Z"
+              }
+        400:
+          description: "注册失败，参数有误"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid registration data"
+              }
+
+  /user/{userId}/profile:
+    get:
+      tags:
+        - "用户管理"
+      summary: "获取个人主页信息"
+      description: "用户登陆后可以查看自己的个人主页信息"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "用户ID"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "返回个人主页信息"
+          schema:
+            type: "object"
+            properties:
+              userId:
+                type: "string"
+              email:
+                type: "string"
+              industry:
+                type: "string"
+              company:
+                type: "string"
+              createdAt:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "userId": "123456",
+                "email": "user@example.com",
+                "industry": "珠宝",
+                "company": "Luxury Jewels",
+                "createdAt": "2024-10-06T10:00:00Z"
+              }
+        404:
+          description: "用户不存在"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Not Found",
+                "message": "User with ID 123456 not found"
+              }
+
+    put:
+      tags:
+        - "用户管理"
+      summary: "修改个人主页信息"
+      description: "用户可以修改个人主页中的所有基本信息。邮箱修改需要验证码验证。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "用户ID"
+          required: true
+          type: "string"
+        - name: "profile"
+          in: "body"
+          description: "更新的个人信息"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                description: "用户邮箱，需通过验证码验证"
+              verification_code:
+                type: "string"
+                description: "邮箱验证码，如果修改邮箱时需要提供"
+              industry:
+                type: "string"
+                description: "用户所属行业，支持选择项：珠宝、眼镜、化妆品、3C电子、玩具、陶瓷、其他"
+              company:
+                type: "string"
+                description: "公司名称（可选）"
+      responses:
+        200:
+          description: "修改成功"
+          schema:
+            type: "object"
+            properties:
+              userId:
+                type: "string"
+              email:
+                type: "string"
+              industry:
+                type: "string"
+              company:
+                type: "string"
+              updatedAt:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "userId": "123456",
+                "email": "updated_user@example.com",
+                "industry": "化妆品",
+                "company": "Beauty Corp",
+                "updatedAt": "2024-10-06T10:30:00Z"
+              }
+        400:
+          description: "更新失败，参数错误或邮箱验证码不正确"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid data or verification code"
+              }
+
+  /validation/email/send-verification-code:
+    post:
+      tags:
+        - "用户管理"
+      summary: "发送邮箱验证码"
+      description: "用户在注册时，系统发送验证码到用户的邮箱以进行验证"
+      parameters:
+        - name: "email"
+          in: "body"
+          description: "用户的邮箱地址"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "验证码发送成功"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "message": "Verification code sent successfully"
+              }
+        400:
+          description: "发送失败，可能是无效的邮箱地址或请求格式错误"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid email address or request format"
+              }
+
+  /validation/phone/send-verification-code:
+    post:
+      tags:
+        - "用户管理"
+      summary: "发送手机验证码"
+      description: "用户在手机号码登录时，系统发送验证码到用户的手机号码，仅支持国内号码"
+      parameters:
+        - name: "phone"
+          in: "body"
+          description: "用户的手机号码"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "验证码发送成功"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "message": "Verification code sent successfully"
+              }
+        400:
+          description: "发送失败，可能是无效的手机号码或请求格式错误"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid phone number or request format"
+              }
+
+  /user/{userId}/orders:
+    get:
+      tags:
+        - "订单"
+      summary: "获取用户订单详情"
+      description: "用户可以查看自己订单的详情，包括是否为会员、会员购买时间、支付时间、到期时间等"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "用户ID"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "返回订单详情"
+          schema:
+            type: "object"
+            properties:
+              orderId:
+                type: "string"
+              subscriptionType:
+                type: "string"
+              paymentDate:
+                type: "string"
+              expirationDate:
+                type: "string"
+              isActive:
+                type: "boolean"
+          examples:
+            application/json:
+              {
+                "orderId": "ORD12345",
+                "subscriptionType": "yearly",
+                "paymentDate": "2024-01-01T10:00:00Z",
+                "expirationDate": "2025-01-01T10:00:00Z",
+                "isActive": true
+              }
+        404:
+          description: "用户或订单不存在"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Not Found",
+                "message": "Order not found for user with ID 123456"
+              }
+
+  /user/subscribe/payment:
+    post:
+      tags:
+        - "支付"
+      summary: "用户通过微信支付订阅会员"
+      description: "用户通过微信支付订阅会员，防止重复支付。如果用户未登录，则返回401。如果用户已经是会员，则返回409。"
+      parameters:
+        - name: "userId"
+          in: "body"
+          description: "用户ID"
+          required: true
+          schema:
+            type: "string"
+        - name: "subscriptionType"
+          in: "body"
+          description: "订阅类型（按月/按年）"
+          required: true
+          schema:
+            type: "string"
+        - name: "paymentMethod"
+          in: "body"
+          description: "支付方式，当前版本仅支持微信支付"
+          required: true
+          schema:
+            type: "string"
+            enum:
+              - "WeChatPay"
+      responses:
+        200:
+          description: "订阅成功"
+          schema:
+            type: "object"
+            properties:
+              subscriptionId:
+                type: "string"
+              status:
+                type: "string"
+              paymentDate:
+                type: "string"
+              expirationDate:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "subscriptionId": "SUB12345",
+                "status": "active",
+                "paymentDate": "2024-01-01T10:00:00Z",
+                "expirationDate": "2025-01-01T10:00:00Z"
+              }
+        400:
+          description: "订阅失败或重复支付"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Subscription failed or duplicate payment"
+              }
+        401:
+          description: "用户未登录，无法进行支付"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Unauthorized",
+                "message": "User not logged in"
+              }
+        409:
+          description: "用户已经是会员，无法重复订阅"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Conflict",
+                "message": "User is already a member"
+              }
+
+  /user/subscribe/experience-code:
+    post:
+      tags:
+        - "会员管理"
+      summary: "用户使用体验码获取会员资格"
+      description: "用户通过输入体验码可以激活会员资格，需确保用户已登录。如果用户未登录，则返回401。如果用户已经是会员，则返回409。"
+      parameters:
+        - name: "experienceCode"
+          in: "body"
+          description: "会员体验码"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "激活成功，返回会员到期时间"
+          schema:
+            type: "object"
+            properties:
+              activationDate:
+                type: "string"
+              expirationDate:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "activationDate": "2024-01-01T10:00:00Z",
+                "expirationDate": "2025-01-01T10:00:00Z"
+              }
+        400:
+          description: "激活失败或体验码无效"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid experience code"
+              }
+        401:
+          description: "用户未登录，无法使用体验码"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Unauthorized",
+                "message": "User not logged in"
+              }
+        409:
+          description: "用户已经是会员，无需使用体验码"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Conflict",
+                "message": "User is already a member"
+              }
+
+  /user/{userId}/ai-usage:
+    get:
+      tags:
+        - "AI功能"
+      summary: "检查用户是否超出AI功能调用次数限制"
+      description: "检查用户是否超出每月AI功能的调用次数限制，不返回具体的次数，只在超出时提醒用户。用户可以选择检查抠图或图片美化功能。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "用户ID"
+          required: true
+          type: "string"
+        - name: "type"
+          in: "body"
+          description: "AI功能类型（抠图或图片美化）"
+          required: true
+          schema:
+            type: "string"
+            enum:
+              - "cutout"
+              - "beautify"
+      responses:
+        200:
+          description: "未超出限制，可以继续使用AI功能"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "message": "AI feature usage within limits. Continue using."
+              }
+        403:
+          description: "超出限制，返回提醒信息"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "message": "AI feature usage limit exceeded. Please wait until next cycle."
+              }
+        400:
+          description: "请求失败，参数错误"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid parameters"
+              }
+        401:
+          description: "用户未登录或权限不足"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Unauthorized",
+                "message": "User not logged in or insufficient permissions"
+              }
+
+  /membership/validate:
+    post:
+      tags:
+        - "会员管理"
+      summary: "第三方应用验证用户会员权限"
+      description: "第三方应用可以通过调用此API，传送用户信息（微信ID或者手机号码）和api secret，验证用户是否为会员"
+      parameters:
+        - name: "userIdentifier"
+          in: "body"
+          description: "用户的微信ID或手机号码"
+          required: true
+          schema:
+            type: "string"
+        - name: "apiSecret"
+          in: "body"
+          description: "API密钥，用于验证第三方应用"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "验证成功，返回会员状态和到期时间"
+          schema:
+            type: "object"
+            properties:
+              isMember:
+                type: "boolean"
+              expirationDate:
+                type: "string"
+              isExpired:
+                type: "boolean"
+          examples:
+            application/json:
+              {
+                "isMember": true,
+                "expirationDate": "2025-01-01T10:00:00Z",
+                "isExpired": false
+              }
+        401:
+          description: "验证失败"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Unauthorized",
+                "message": "Invalid API secret or user identifier"
+              }
+        403:
+          description: "用户会员已过期"
+          schema:
+            type: "object"
+            properties:
+              expirationDate:
+                type: "string"
+                description: "会员过期时间"
+          examples:
+            application/json:
+              {
+                "expirationDate": "2023-12-31T10:00:00Z"
+              }
+
+  /admin/users:
+    get:
+      tags:
+        - "用户管理"
+      summary: "管理员查看用户列表"
+      description: "管理员可以查看所有用户的基本信息，包括登录类型。"
+      parameters: [ ]
+      responses:
+        200:
+          description: "返回用户列表"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                userId:
+                  type: "string"
+                email:
+                  type: "string"
+                industry:
+                  type: "string"
+                loginType:
+                  type: "string"
+                  description: "用户的登录类型，微信或手机"
+                phoneNumber:
+                  type: "string"
+                  description: "如果用户使用手机登录，显示手机号码"
+                wechatId:
+                  type: "string"
+                  description: "如果用户使用微信登录，显示微信ID"
+                createdAt:
+                  type: "string"
+          examples:
+            application/json:
+              [
+                {
+                  "userId": "123456",
+                  "email": "user1@example.com",
+                  "industry": "3C电子",
+                  "loginType": "phone",
+                  "phoneNumber": "13800138000",
+                  "createdAt": "2024-10-01T10:00:00Z"
+                },
+                {
+                  "userId": "123457",
+                  "email": "user2@example.com",
+                  "industry": "玩具",
+                  "loginType": "wechat",
+                  "wechatId": "wxid_123456",
+                  "createdAt": "2024-09-25T09:30:00Z"
+                }
+              ]
+        403:
+          description: "无权限访问"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Forbidden",
+                "message": "Access denied"
+              }
+
+  /admin/users/{userId}:
+    get:
+      tags:
+        - "用户管理"
+      summary: "管理员查看用户详情"
+      description: "管理员可以查看用户的详细信息，包括登录类型。"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "用户ID"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "返回用户详细信息"
+          schema:
+            type: "object"
+            properties:
+              userId:
+                type: "string"
+              email:
+                type: "string"
+              industry:
+                type: "string"
+              company:
+                type: "string"
+              loginType:
+                type: "string"
+                description: "用户的登录类型，微信或手机"
+              phoneNumber:
+                type: "string"
+                description: "如果用户使用手机登录，显示手机号码"
+              wechatId:
+                type: "string"
+                description: "如果用户使用微信登录，显示微信ID"
+              createdAt:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "userId": "123456",
+                "email": "user@example.com",
+                "industry": "化妆品",
+                "company": "Beauty Corp",
+                "loginType": "wechat",
+                "wechatId": "wxid_123456",
+                "createdAt": "2024-10-06T10:00:00Z"
+              }
+        404:
+          description: "用户不存在"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Not Found",
+                "message": "User with ID 123456 not found"
+              }
+
+  /admin/membership-code:
+    post:
+      tags:
+        - "订单"
+      summary: "管理员生成会员体验码"
+      description: "管理员可以生成会员体验码并设置有效期限，会员码一旦生成不可修改，可以选择生成多个会员体验码。"
+      parameters:
+        - name: "codeType"
+          in: "body"
+          description: "会员码类型（1年/3个月）"
+          required: true
+          schema:
+            type: "string"
+        - name: "expiration"
+          in: "body"
+          description: "有效期（最多一年）"
+          required: true
+          schema:
+            type: "string"
+        - name: "quantity"
+          in: "body"
+          description: "生成的会员体验码数量"
+          required: false
+          schema:
+            type: "integer"
+            default: 1
+      responses:
+        200:
+          description: "会员体验码生成成功"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                codeId:
+                  type: "string"
+                codeType:
+                  type: "string"
+                expiration:
+                  type: "string"
+                createdAt:
+                  type: "string"
+          examples:
+            application/json:
+              [
+                {
+                  "codeId": "CODE12345",
+                  "codeType": "1年",
+                  "expiration": "2025-01-01T10:00:00Z",
+                  "createdAt": "2024-10-06T10:00:00Z"
+                },
+                {
+                  "codeId": "CODE12346",
+                  "codeType": "3个月",
+                  "expiration": "2025-01-01T10:00:00Z",
+                  "createdAt": "2024-10-06T10:00:00Z"
+                }
+              ]
+        400:
+          description: "生成失败，参数有误"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid code type or expiration date"
+              }
+    get:
+      tags:
+        - "订单"
+      summary: "获取会员体验码列表"
+      description: "管理员可以获取会员体验码列表，并可根据会员码类型筛选（1年/3个月）"
+      parameters:
+        - name: "codeType"
+          in: "query"
+          description: "会员码类型（1年/3个月），如果为空则返回所有类型"
+          required: false
+          type: "string"
+      responses:
+        200:
+          description: "返回会员体验码列表"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                codeId:
+                  type: "string"
+                codeType:
+                  type: "string"
+                expiration:
+                  type: "string"
+                createdAt:
+                  type: "string"
+          examples:
+            application/json:
+              [
+                {
+                  "codeId": "CODE12345",
+                  "codeType": "1年",
+                  "expiration": "2025-01-01T10:00:00Z",
+                  "createdAt": "2024-10-06T10:00:00Z"
+                },
+                {
+                  "codeId": "CODE12346",
+                  "codeType": "3个月",
+                  "expiration": "2025-01-01T10:00:00Z",
+                  "createdAt": "2024-10-06T10:00:00Z"
+                }
+              ]
+        400:
+          description: "请求失败，参数错误"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid code type"
+              }
+
+  /admin/membership-code/{codeId}/history:
+    get:
+      tags:
+        - "订单"
+      summary: "查看会员体验码使用历史"
+      description: "管理员可以查看会员体验码的使用记录"
+      parameters:
+        - name: "codeId"
+          in: "path"
+          description: "会员体验码ID"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "返回使用历史"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                userId:
+                  type: "string"
+                usedAt:
+                  type: "string"
+                activationDate:
+                  type: "string"
+                expirationDate:
+                  type: "string"
+          examples:
+            application/json:
+              [
+                {
+                  "userId": "123456",
+                  "usedAt": "2024-10-01T12:00:00Z",
+                  "activationDate": "2024-10-01T12:00:00Z",
+                  "expirationDate": "2025-10-01T12:00:00Z"
+                }
+              ]
+        404:
+          description: "会员码不存在"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Not Found",
+                "message": "Code with ID CODE12345 not found"
+              }
+
+  /admin/orders:
+    get:
+      tags:
+        - "订单"
+      summary: "管理员查看所有订单列表"
+      description: "管理员可以查看所有用户的订阅订单，包括支付状态和到期时间"
+      parameters: [ ]
+      responses:
+        200:
+          description: "返回订单列表"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                orderId:
+                  type: "string"
+                userId:
+                  type: "string"
+                subscriptionType:
+                  type: "string"
+                paymentDate:
+                  type: "string"
+                expirationDate:
+                  type: "string"
+                status:
+                  type: "string"
+                  enum:
+                    - "paid"
+                    - "unpaid"
+          examples:
+            application/json:
+              [
+                {
+                  "orderId": "ORD12345",
+                  "userId": "123456",
+                  "subscriptionType": "yearly",
+                  "paymentDate": "2024-01-01T10:00:00Z",
+                  "expirationDate": "2025-01-01T10:00:00Z",
+                  "status": "paid"
+                },
+                {
+                  "orderId": "ORD12346",
+                  "userId": "123457",
+                  "subscriptionType": "monthly",
+                  "paymentDate": "2024-10-01T10:00:00Z",
+                  "expirationDate": "2024-11-01T10:00:00Z",
+                  "status": "paid"
+                }
+              ]
+        403:
+          description: "无权限访问"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Forbidden",
+                "message": "Access denied"
+              }
+
+  /admin/orders/{orderId}:
+    get:
+      tags:
+        - "订单"
+      summary: "管理员查看订单详情"
+      description: "管理员可以查看每个订单的详细信息，包括订阅用户、支付时间、到期时间等"
+      parameters:
+        - name: "orderId"
+          in: "path"
+          description: "订单ID"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "返回订单详情"
+          schema:
+            type: "object"
+            properties:
+              orderId:
+                type: "string"
+              userId:
+                type: "string"
+              subscriptionType:
+                type: "string"
+              paymentDate:
+                type: "string"
+              expirationDate:
+                type: "string"
+              status:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "orderId": "ORD12345",
+                "userId": "123456",
+                "subscriptionType": "yearly",
+                "paymentDate": "2024-01-01T10:00:00Z",
+                "expirationDate": "2025-01-01T10:00:00Z",
+                "status": "paid"
+              }
+        404:
+          description: "订单不存在"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Not Found",
+                "message": "Order with ID ORD12345 not found"
+              }
+
+  /admin/payment/history:
+    get:
+      tags:
+        - "支付"
+      summary: "管理员查看支付历史"
+      description: "管理员可以查看会员订阅的支付历史，包括支付用户、支付时间和支付状态"
+      parameters: [ ]
+      responses:
+        200:
+          description: "返回支付历史记录"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                paymentId:
+                  type: "string"
+                userId:
+                  type: "string"
+                paymentDate:
+                  type: "string"
+                amount:
+                  type: "number"
+                status:
+                  type: "string"
+                  enum:
+                    - "completed"
+                    - "pending"
+                    - "failed"
+          examples:
+            application/json:
+              [
+                {
+                  "paymentId": "PAY12345",
+                  "userId": "123456",
+                  "paymentDate": "2024-01-01T10:00:00Z",
+                  "amount": 99.99,
+                  "status": "completed"
+                },
+                {
+                  "paymentId": "PAY12346",
+                  "userId": "123457",
+                  "paymentDate": "2024-02-01T12:00:00Z",
+                  "amount": 9.99,
+                  "status": "completed"
+                }
+              ]
+        403:
+          description: "无权限访问"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Forbidden",
+                "message": "Access denied"
+              }
+
+  /admin/payment/config:
+    put:
+      tags:
+        - "支付"
+      summary: "管理员配置会员订阅费用"
+      description: "管理员可以配置会员订阅的月费或年费"
+      parameters:
+        - name: "monthlyFee"
+          in: "body"
+          description: "月费"
+          required: true
+          schema:
+            type: "number"
+        - name: "yearlyFee"
+          in: "body"
+          description: "年费"
+          required: true
+          schema:
+            type: "number"
+      responses:
+        200:
+          description: "费用配置成功"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "message": "Payment configuration updated successfully"
+              }
+        400:
+          description: "配置失败"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid fee values"
+              }
+
+  /admin/login:
+    post:
+      tags:
+        - "管理员"
+      summary: "管理员登录"
+      description: "管理员使用用户名和密码进行登录，成功后返回token以供后续操作验证"
+      parameters:
+        - name: "username"
+          in: "body"
+          description: "管理员的用户名"
+          required: true
+          schema:
+            type: "string"
+        - name: "password"
+          in: "body"
+          description: "管理员的密码"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "登录成功，返回token"
+          schema:
+            type: "object"
+            properties:
+              token:
+                type: "string"
+                description: "用于身份验证的JWT token"
+          examples:
+            application/json:
+              {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              }
+        400:
+          description: "登录失败，用户名或密码错误"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid username or password"
+              }
+        401:
+          description: "未授权，管理员账户被禁用或无效"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Unauthorized",
+                "message": "Account disabled or invalid"
+              }
+
+  /admin/create-admin:
+    post:
+      tags:
+        - "管理员"
+      summary: "超级管理员创建其他管理员"
+      description: "超级管理员可以创建其他管理员，其他管理员通过用户名和密码登录"
+      parameters:
+        - name: "username"
+          in: "body"
+          description: "管理员用户名"
+          required: true
+          schema:
+            type: "string"
+        - name: "password"
+          in: "body"
+          description: "管理员密码"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "管理员创建成功"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "message": "Admin created successfully"
+              }
+        400:
+          description: "创建失败"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Username or password invalid"
+              }
+
+  /admin/{adminId}/delete:
+    delete:
+      tags:
+        - "管理员"
+      summary: "超级管理员删除其他管理员"
+      description: "超级管理员可以删除其他管理员"
+      parameters:
+        - name: "adminId"
+          in: "path"
+          description: "管理员ID"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "管理员删除成功"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "message": "Admin deleted successfully"
+              }
+        404:
+          description: "管理员不存在"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Not Found",
+                "message": "Admin with ID ADMIN12345 not found"
+              }
+
+  /admin/experience-code-history:
+    get:
+      tags:
+        - "会员管理"
+      summary: "管理员查看会员体验码使用历史"
+      description: "管理员可以查看会员体验码的使用记录，包括使用用户、使用时间和有效期"
+      parameters: []
+      responses:
+        200:
+          description: "返回使用历史记录"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                codeId:
+                  type: "string"
+                userId:
+                  type: "string"
+                usedAt:
+                  type: "string"
+                expirationDate:
+                  type: "string"
+          examples:
+            application/json:
+              [
+                {
+                  "codeId": "CODE12345",
+                  "userId": "123456",
+                  "usedAt": "2024-10-01T12:00:00Z",
+                  "expirationDate": "2025-01-01T12:00:00Z"
+                },
+                {
+                  "codeId": "CODE12346",
+                  "userId": "123457",
+                  "usedAt": "2024-09-15T10:00:00Z",
+                  "expirationDate": "2025-01-01T10:00:00Z"
+                }
+              ]
+        404:
+          description: "无历史记录"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Not Found",
+                "message": "No usage history found"
+              }
+
+  /admin/platform-config:
+    put:
+      tags:
+        - "平台配置"
+      summary: "管理员配置平台基本信息"
+      description: "管理员可以配置平台名称等基本信息"
+      parameters:
+        - name: "platformName"
+          in: "body"
+          description: "平台名称"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "平台配置成功"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "message": "Platform configuration updated successfully"
+              }
+        400:
+          description: "配置失败"
+          schema:
+            type: "object"
+            properties:
+              error:
+                type: "string"
+              message:
+                type: "string"
+          examples:
+            application/json:
+              {
+                "error": "Bad Request",
+                "message": "Invalid platform name"
+              }
+

@@ -1,0 +1,82 @@
+$-corner-bg-color: #E94902;
+
+.qrcode {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.qrcode img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 角落线条样式 */
+.corner {
+    position: absolute;
+    background-color: $-corner-bg-color; /* 线条颜色 */
+}
+
+.corner::before {
+    content: '';
+    position: absolute;
+    background-color: $-corner-bg-color;
+}
+
+.left-top, .right-top, .left-bottom, .right-bottom {
+    width: 15px; /* 水平线条的长度，缩短一些 */
+    height: 2px;  /* 线条宽度，变细 */
+}
+
+/* 左上角 */
+.left-top {
+    top: 0;
+    left: 0;
+}
+
+.left-top::before {
+    top: 0;
+    left: 0;
+    width: 2px; /* 垂直线条的长度，缩短一些 */
+    height: 15px; /* 线条宽度，变细 */
+}
+
+/* 右上角 */
+.right-top {
+    top: 0;
+    right: 0;
+}
+
+.right-top::before {
+    top: 0;
+    right: 0;
+    width: 2px; /* 垂直线条的长度，缩短一些 */
+    height: 15px; /* 线条宽度，变细 */
+}
+
+/* 左下角 */
+.left-bottom {
+    bottom: 0;
+    left: 0;
+}
+
+.left-bottom::before {
+    bottom: 0;
+    left: 0;
+    width: 2px; /* 垂直线条的长度，缩短一些 */
+    height: 15px; /* 线条宽度，变细 */
+}
+
+/* 右下角 */
+.right-bottom {
+    bottom: 0;
+    right: 0;
+}
+
+.right-bottom::before {
+    bottom: 0;
+    right: 0;
+    width: 2px; /* 垂直线条的长度，缩短一些 */
+    height: 15px; /* 线条宽度，变细 */
+}

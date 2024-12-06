@@ -3,7 +3,7 @@
     <div id="footer__left"></div>
 
     <div id="footer__right">
-      <n-carousel
+      <!-- <n-carousel
         id="carousel-section"
         direction="vertical"
         dot-placement="right"
@@ -12,7 +12,7 @@
         <div class="carousel-card">
           <div><span class="icon-announcement" /></div>
         </div>
-      </n-carousel>
+      </n-carousel> -->
     </div>
   </div>
 </template>

@@ -89,10 +89,28 @@ export async function ExcuteSegmentTask(filePath: string){
         console.log("MainThread : ExcuteSegmentTask ", taskId)
         const result = await polling(() => getTaskResult(taskId));
             
-        let stream = fs.createWriteStream(filePath);
+        const dir = path.dirname(filePath);
+        const ext = path.extname(filePath);
+        const baseName = path.basename(filePath, ext);
+        const newFilePath = path.join(dir, baseName + '_seg.png')
+
+        let stream = fs.createWriteStream(newFilePath);
         request(result.data.image).pipe(stream).on("close", function (err: any) {
             console.log("文件下载完毕");
         });
+
+        if (fs.existsSync(filePath)) {
+            fs.unlink(filePath, (err: any) => {
+              if (err) {
+                console.error(`删除文件失败: ${err}`);
+              } else {
+                console.log(`文件已删除: ${filePath}`);
+              }
+            });
+        } else {
+            console.log('文件不存在');
+        }
+
         resolve(result.data.image);
     });
 }

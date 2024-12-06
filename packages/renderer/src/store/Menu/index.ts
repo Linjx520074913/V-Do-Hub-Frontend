@@ -4,6 +4,7 @@ import { router } from '@/main'
 interface MenuItem{
     title: string,
     icon: string,
+    visible: boolean,
     link: string
 }
 
@@ -12,9 +13,9 @@ const MenuRef = ref({
         slider: [
             { title: '创建',         icon: 'icon-splice',  visible: true,  link: '/MediaCapture' },
             { title: '图库',         icon: 'icon-texture', visible: true,  link: '/MediaLibrary' },
-            { title: '设备',         icon: 'icon-setting', visible: true,  link: '/Setting' },
-            { title: '商城',         icon: 'icon-mobile1', visible: true,  link: '/Mall' },
-            { title: '登录',         icon: 'icon-mobile1', visible: true,  link: '/UserLogin' },
+            { title: '设备',         icon: 'icon-setting', visible: false,  link: '/Setting' },
+            { title: '商城',         icon: 'icon-mobile1', visible: false,  link: '/Mall' },
+            { title: '登录',         icon: 'icon-mobile1', visible: false,  link: '/UserLogin' },
             { title: '我的个人资料', icon: 'icon-mobile1', visible: false, link: '/AccountZone' },
         ],
         activedItem: null as MenuItem | null

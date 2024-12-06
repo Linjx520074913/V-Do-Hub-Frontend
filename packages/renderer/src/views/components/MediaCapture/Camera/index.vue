@@ -2,8 +2,10 @@
     <div class="floating-window">
         <div v-if="Camera.data.isConnected" class="content">
             <div class="camera-container">
+                <button class="w-16 absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 icon-return" @click="close">
+                </button>
                 <div class="top">
-                <ObPlayer class="player" ref="player" />
+                    <ObPlayer class="player" ref="player" />
                 </div>
                 <div class="bottom">
                 <div class="green-circle-button" @click="TakePhoto">
@@ -16,21 +18,6 @@
                     inactive-color="#ff4949"
                     style="margin: 0px 30px 40px 0">
                 </el-switch>
-                <n-space style="width:100px;height:100px">
-                    <n-switch style="width:100px;height:100px" v-model:value="active" size="medium">
-                    <template #icon>
-                        🤔
-                    </template>
-                    </n-switch>
-                    <n-switch v-model:value="active" size="large">
-                    <template #checked-icon>
-                        <div class="icon-camera"></div>
-                    </template>
-                    <template #unchecked-icon>
-                        <div class="icon-camera"></div>
-                    </template>
-                    </n-switch>
-                </n-space>
                 </div>
             </div>
             <div class="right-panel">
@@ -56,8 +43,10 @@
         :model-value="source != ''"
         :before-close="() => { source = '' }">
         <MediaPreview
+            v-if="source != ''"
             :source="source"
             :setting="setting"
+            :showButton="true"
             @cancel="cancel"
             @confirm="confirm"
         />

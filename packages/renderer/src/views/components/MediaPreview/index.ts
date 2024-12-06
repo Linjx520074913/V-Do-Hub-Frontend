@@ -1,10 +1,12 @@
 import fs from 'fs'
 import path from 'path'
+import { ref } from 'vue'
 import { MediaType } from '@/store/index'
 interface MediaMeta {
     name: string,
     type: MediaType,
-    url: string
+    url: string,
+    key: number
 }
 
 function findFilesWithExtensions(filePath: string, extensions: string[]): { data: MediaMeta[]; hasVideo: boolean } {
@@ -30,7 +32,7 @@ function findFilesWithExtensions(filePath: string, extensions: string[]): { data
                 }
 
                 const type: MediaType = fileExt === '.png' ? MediaType.IMAGE : MediaType.VIDEO;
-                data.push({ name: fileName, type: type, url: fullPath });
+                data.push({ name: fileName, type: type, url: fullPath, key: Date.now()});
             }
         }
     }
@@ -43,7 +45,7 @@ function findFilesWithExtensions(filePath: string, extensions: string[]): { data
             const fileExt = path.extname(filePath)
             hasVideo = fileExt === '.mp4'
             const type = fileExt === '.mp4'? MediaType.VIDEO : MediaType.IMAGE
-            data.push({ name: path.basename(filePath), type: type, url: filePath })
+            data.push({ name: path.basename(filePath), type: type, url: filePath, key: Date.now()})
         }
     }
     

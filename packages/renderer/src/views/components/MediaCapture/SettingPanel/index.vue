@@ -125,11 +125,9 @@
         <div class="panel">
           <div class="item">
             <p>媒体保存到本地磁盘</p>
-
             <el-switch />
           </div>
         </div>
-        <button style="background-color: #FF6347;" @click="close">关闭</button>
       </div>
 </template>
 
@@ -150,7 +148,7 @@ export default {
     }
   },
 
-  emits: ["close", "ChangeSpeed"],
+  emits: ["close", "ChangeSpeed", "ToggleExtract"],
   components: { ObPlayer, ObButton },
 
   setup(props: any, context: SetupContext) {
@@ -184,9 +182,5 @@ export default {
 //     height: 10px !important;
 //     width: 10px !important;
 // }
-::v-deep .el-slider__button{
-    width: 10px !important;
-    height: 10px !important
-}
 @import "./local.scss";
 </style>

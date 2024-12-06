@@ -21,7 +21,7 @@
             >
             <template #default="{ item }">
                 <div class="item" @click="handleClick(item)">
-                <img :src="item.url" />
+                    <img :src="item.coverPath" />
                 <div class="divider" />
                 <div class="information">
                     <p>{{ item.name }}</p>
@@ -36,6 +36,7 @@
             :model-value="source != ''"
             :before-close="() => { source = '' }">
             <MediaPreview
+                :showButton="false"
                 :source="source"
                 @cancel="() => { source = '' }"
                 @confirm="() => { source = '' }"
@@ -141,10 +142,10 @@ export default {
                         if(fileName != 'screenShot.png'){
                             switch(fileExt){
                             case '.png':
-                                result.push({ name: fileName, type: MediaType.IMAGE , url: fullPath });
+                                result.push({ name: fileName, type: MediaType.IMAGE , url: fullPath, coverPath: fullPath });
                                 break;
                             case '.mp4':
-                                result.push({ name: fileName, type:  MediaType.VIDEO, url: fullPath });
+                                result.push({ name: fileName, type:  MediaType.VIDEO, url: fullPath, coverPath: path.join(dir, 'screenShot.png') });
                                 break;
                             }
                             

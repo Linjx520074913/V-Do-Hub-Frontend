@@ -3,6 +3,9 @@ module.exports = {
     theme: {
         extend: {
             // ...
+            colors:{
+                'login-pink': '#FDECE5'
+            }
         },
     },
     plugins: [

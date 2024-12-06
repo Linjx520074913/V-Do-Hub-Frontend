@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?3q1a29');
-  src:  url('fonts/icomoon.eot?3q1a29#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?3q1a29') format('truetype'),
-    url('fonts/icomoon.woff?3q1a29') format('woff'),
-    url('fonts/icomoon.svg?3q1a29#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?r6n5x2');
+  src:  url('fonts/icomoon.eot?r6n5x2#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?r6n5x2') format('truetype'),
+    url('fonts/icomoon.woff?r6n5x2') format('woff'),
+    url('fonts/icomoon.svg?r6n5x2#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,12 +25,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-video-camera:before {
-  content: "\e98f";
-}
-.icon-camera:before {
-  content: "\e990";
-}
 .icon-performance-test:before {
   content: "\e98e";
   color: #677181;
@@ -468,4 +462,13 @@
 }
 .icon-arrow-right:before {
   content: "\ea3c";
+}
+.icon-return:before {
+  content: "\e991";
+}
+.icon-video-camera:before {
+  content: "\e98f";
+}
+.icon-camera:before {
+  content: "\e990";
 }
