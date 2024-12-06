@@ -31,7 +31,7 @@
                             />
                             <el-button 
                                 type="primary" 
-                                @click="SendVerificationCode(phoneNum)"
+                                @click="sendPhoneVerificationCode(phoneNum)"
                                 class="w-32 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg shadow-md hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-out transform hover:scale-105 focus:ring-2 focus:ring-blue-500"
                             >
                                 获取验证码
@@ -127,11 +127,11 @@ export default {
         }
     })
 
-    async function SendVerificationCode(phone: string){
-        smsCode.value = await Account.methods.sendVerificationCode(phone)
+    async function sendPhoneVerificationCode(phone: string){
+        smsCode.value = await Account.methods.sendPhoneVerificationCode(phone)
     }
 
-    return { Account, LoginMethod, SendVerificationCode, url, curLoginMethod, phoneNum, smsCode }
+    return { Account, LoginMethod, sendPhoneVerificationCode, url, curLoginMethod, phoneNum, smsCode }
   },
 };
 </script>

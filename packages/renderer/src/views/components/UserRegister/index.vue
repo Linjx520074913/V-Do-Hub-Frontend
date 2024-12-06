@@ -14,7 +14,7 @@
   
         <!-- 公司名称 -->
         <div class="form-group">
-          <label for="company">公司名称（选填）</label>
+          <label for="company">公名称（选填）</label>
           <input 
             type="text" 
             id="company" 
@@ -69,37 +69,37 @@ import { SetupContext, ref, computed } from "vue"
 import { Account, LoginMethod } from '@/store/index'
 
 export default {
-  name: "UserRegister",
-  props: {},
+    name: "UserRegister",
+    props: {},
 
-  emits: [],
-  components: {},
+    emits: [],
+    components: {},
 
-  setup(props: any, context: SetupContext) {
-    const form = ref({
-        company: '',
-        email: '',
-        selectedCategories: [],  // 用于存储勾选的商品品类
-        otherCategory: ''        // 备注说明
-    })
-    const categories = ref(['珠宝', '美妆', '饰品', '陶瓷', '电子产品', '其他'])
-    function submitForm() {
-        if (form.value.selectedCategories.length == 0) {
-            alert('珠宝是必选项，请选择珠宝！');
-            return;  // 阻止表单提交
+    setup(props: any, context: SetupContext) {
+        const form = ref({
+            company: '',
+            email: '',
+            selectedCategories: [],  // 用于存储勾选的商品品类
+            otherCategory: ''        // 备注说明
+        })
+        const categories = ref(['珠宝', '美妆', '饰品', '陶瓷', '电子产品', '其他'])
+        function submitForm() {
+            if (form.value.selectedCategories.length == 0) {
+                alert('珠宝是必选项，请选择珠宝！');
+                return;  // 阻止表单提交
+            }
+
+            // 进行提交操作
+            console.log('提交的表单数据:', form.value);
+            // 这里可以调用API提交表单...
         }
 
-        // 进行提交操作
-        console.log('提交的表单数据:', form.value);
-        // 这里可以调用API提交表单...
-    }
+        const loginMethodTitle = computed(() => {
+            return Account.data.loginMethod == LoginMethod.WECHAT ? '微信号' : '手机号'
+        })
 
-    const loginMethodTitle = computed(() => {
-        return Account.data.loginMethod == LoginMethod.WECHAT ? '微信号' : '手机号'
-    })
-
-    return { form, categories, submitForm, Account, LoginMethod, loginMethodTitle }
-  },
+        return { form, categories, submitForm, Account, LoginMethod, loginMethodTitle }
+    },
 };
 </script>
 <style lang="scss" scoped>

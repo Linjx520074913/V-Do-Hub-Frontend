@@ -69,7 +69,7 @@ const AccountRef = ref({
          * @param phoneNum 手机号码
          * @returns 
          */
-        async sendVerificationCode(phoneNum: string): Promise<string>{
+        async sendPhoneVerificationCode(phoneNum: string): Promise<string>{
             const formData = new URLSearchParams();
             formData.append('phone', phoneNum);
             const res = await AXIOS.request({
@@ -88,8 +88,16 @@ const AccountRef = ref({
                 statusText
             }
             // TODO: 处理失败的情况
-            console.log("[ Account ] sendVerificationCode : ", response)
+            console.log("[ Account ] sendPhoneVerificationCode : ", response)
             return response.data.code
+        },
+
+        /**
+         * 发送邮件验证码
+         * @param email 邮件地址
+         */
+        async sendEmailVerificationCode(email: string){
+
         },
 
         /**
@@ -187,7 +195,7 @@ const AccountRef = ref({
             console.log('[ Account ] loginWithWechat : ', code)
             return user_profile
         },
-        
+
         async register(email: string, industry: string, others: string){
             const data = new URLSearchParams();
             data.append('email',    email);
