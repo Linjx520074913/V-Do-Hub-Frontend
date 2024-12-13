@@ -1,6 +1,5 @@
 <template>
     <div id="client">
-        <Header class="header header-bg dragable" />
         <div id="app-main">
             <HomePage />
         </div>

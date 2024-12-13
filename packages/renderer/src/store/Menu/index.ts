@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { router } from '@/main'
+import { RouterPath } from '../TypeDefine'
 
 interface MenuItem{
     title: string,
@@ -11,12 +12,12 @@ interface MenuItem{
 const MenuRef = ref({
     data:{
         slider: [
-            { title: '创建',         icon: 'icon-splice',  visible: true,  link: '/MediaCapture' },
-            { title: '图库',         icon: 'icon-texture', visible: true,  link: '/MediaLibrary' },
-            { title: '设备',         icon: 'icon-setting', visible: false,  link: '/Setting' },
-            { title: '商城',         icon: 'icon-mobile1', visible: false,  link: '/Mall' },
-            { title: '登录',         icon: 'icon-mobile1', visible: false,  link: '/UserLogin' },
-            { title: '我的个人资料', icon: 'icon-mobile1', visible: false, link: '/AccountZone' },
+            { title: '创建',         icon: 'icon-splice',  visible: true,   link: `${RouterPath.MAIN}/${RouterPath.MEDIA_CAPTURE}` },
+            { title: '图库',         icon: 'icon-texture', visible: true,   link: `${RouterPath.MEDIA_LIBRARY}` },
+            { title: '设备',         icon: 'icon-setting', visible: false,  link: `${RouterPath.MAIN}/${RouterPath.SETTING}` },
+            { title: '商城',         icon: 'icon-mobile1', visible: false,  link: `${RouterPath.MAIN}/${RouterPath.MALL}` },
+            { title: '登录',         icon: 'icon-mobile1', visible: true,   link: `${RouterPath.MAIN}/${RouterPath.USER_LOGIN}` },
+            { title: '我的个人资料', icon: 'icon-mobile1', visible: false,  link: `${RouterPath.MAIN}/${RouterPath.USER_ZONE}` },
         ],
         activedItem: null as MenuItem | null
     },
@@ -26,6 +27,7 @@ const MenuRef = ref({
         },
         active(item: MenuItem){
             Menu.data.activedItem = item
+            console.log('@@@@@@@@@@@@', item.link)
             router.push(item.link)
         },
         activeAccountZone(){

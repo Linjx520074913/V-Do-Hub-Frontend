@@ -9,7 +9,7 @@ import { SetupContext } from "vue"
 import MemberShip from './MemberShip/index.vue'
 
 export default {
-  name: "AccountZone",
+  name: "UserZone",
   props: {},
 
   emits: [],

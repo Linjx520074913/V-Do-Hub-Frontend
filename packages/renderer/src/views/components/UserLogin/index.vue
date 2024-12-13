@@ -1,7 +1,9 @@
 <template>
-    <div class="flex flex-row bg-black w-full h-full justify-center items-center">
-        <div class="login-bg"/>
-        <div class="relative">
+    <div class="flex flex-row bg-black w-full h-full justify-center items-center"
+        v-loading="loading"
+        element-loading-text="登录中...">
+        <div v-show="!loading" class="login-bg"/>
+        <div v-show="!loading" class="relative">
             <div v-show="Account.data.loginMethod === LoginMethod.WECHAT" class="login-content flex flex-col justify-center items-center relative">
                 <p>微信登录</p>
                 <p>请扫描微信二维码登录</p>
@@ -25,7 +27,7 @@
                             <input 
                             type="text" 
                             id="phone"
-                            v-model="phoneNum" 
+                            v-model="phoneNum"
                             placeholder="请输入手机号码"
                             class="mt-3 p-1 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out hover:border-blue-400"
                             />
@@ -69,6 +71,7 @@
 import { SetupContext, ref, onMounted, onUnmounted } from "vue"
 import QRCode from 'qrcode'
 import { Account, LoginMethod } from '@/store/index'
+import { router, RouterPath } from '@/main'
 
 export default {
   name: "UserLogin",
@@ -85,6 +88,8 @@ export default {
     const smsCode = ref('')
 
     let qrcodeTimer: any = null
+
+    const loading = ref(true)
     
     const updateQRCode = async () => {
         const webview = document.querySelector("webview") as any;
@@ -101,24 +106,36 @@ export default {
             })
     }
 
-    onMounted(() => {
-        
-        const webview = document.querySelector("webview") as any;
-        qrcodeTimer = setInterval(() => {
-            if(webview && curLoginMethod.value === LoginMethod.WECHAT){
-                webview.reload()
+    onMounted(async () => {
+
+        Account.methods.loginWithToken().then((isSuccess: boolean) => {
+            if(!isSuccess){
+                // 登录过期
+                loading.value = false
+
+                const webview = document.querySelector("webview") as any;
+                qrcodeTimer = setInterval(() => {
+                    if(webview && curLoginMethod.value === LoginMethod.WECHAT){
+                        webview.reload()
+                    }
+                }, 20000)
+                // webview.addEventListener('dom-ready', async () => {
+                    updateQRCode()
+                // })
+                // 微信扫码后的webView跳转监听
+                webview.addEventListener("will-navigate", async (e: any) => {
+                    // 匹配找到 code 字段数据
+                    const match = e.url.match(/[?&]code=([^&]+)/)
+                    const code = match ? match[1] : null
+                    console.log("#### will-navigate get wechat code : ", code)
+                    await Account.methods.loginWithWechat(code)
+                })
+            }else{
+                router.push(`${RouterPath.MAIN}/${RouterPath.MEDIA_CAPTURE}`)
             }
-        }, 10000)
-        webview.addEventListener('dom-ready', async () => {
-            updateQRCode()
         })
-        // 微信扫码后的webView跳转监听
-        webview.addEventListener("will-navigate", async (e: any) => {
-            // 匹配找到 code 字段数据
-            const match = e.url.match(/[?&]code=([^&]+)/)
-            const code = match ? match[1] : null
-            await Account.methods.loginWithWechat(code)
-        })
+
+        
     })
 
     onUnmounted(() => {
@@ -131,7 +148,7 @@ export default {
         smsCode.value = await Account.methods.sendPhoneVerificationCode(phone)
     }
 
-    return { Account, LoginMethod, sendPhoneVerificationCode, url, curLoginMethod, phoneNum, smsCode }
+    return { loading, Account, LoginMethod, sendPhoneVerificationCode, url, curLoginMethod, phoneNum, smsCode }
   },
 };
 </script>

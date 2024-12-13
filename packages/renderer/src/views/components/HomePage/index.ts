@@ -1,8 +1,8 @@
-import { router } from "@/main"
+import { router, RouterPath } from "@/main"
 
 function showAccountZone()
 {
-    router.push('/AccountZone')
+    router.push(`${RouterPath.MAIN}/${RouterPath.USER_ZONE}`)
 }
 
 export { showAccountZone }

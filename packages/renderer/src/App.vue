@@ -1,12 +1,19 @@
 <template>
-    <Main />
+    <div class="w-full h-full flex flex-col">
+        <Header class="dragable"/>
+        <div class="w-full h-full flex flex-col justify-center">
+            <router-view/>
+        </div>
+        <!-- <Main /> -->
+    </div>
 </template>
 
 <script>
 import Main from "@/components/main/index.vue"
+import Header from "@components/header/index.vue";
 
 export default {
-    components: { Main },
+    components: { Main, Header },
 
     setup() {
     },
@@ -19,7 +26,8 @@ export default {
 
 <style lang="scss">
 @import "@/common/styles/global.scss";
-
+$header-height: 35px;
+$footer-height: 30px;
 html {
   font-family: "HarmonyOS Sans SC" !important;
   // font-family: 'PingFang SC-Regular', 'PingFang SC'!important;
@@ -45,5 +53,9 @@ html * {
 #app * {
   // border: 1px dashed black;
   // transform: scale(1);
+}
+
+.dragable {
+    -webkit-app-region: drag;
 }
 </style>

@@ -13,14 +13,12 @@
             </div>
         </div>
         <div class="middle">
-            <div class="infomation-bar">
+            <div class="infomation-bar flex flex-row items-center">
                 <div class="navi">
                     <div class="name">{{ Menu.data.activedItem.title }}</div>
-                    <div class="free" v-if='Menu.data.activedItem.visible' @click="Menu.methods.activeAccountZone"
-                    
-                    > Free </div>
+                    <div class="free" v-if='Menu.data.activedItem.visible' @click="Menu.methods.activeAccountZone"> Free </div>
                 </div>
-                <div class="account"></div>
+                <ObDropdownMenu/>
             </div>
             <RouterView />
         </div>
@@ -30,16 +28,30 @@
 <script lang="ts">
 import { Menu } from "@/store/index"
 import { showAccountZone } from './index'
+import { ObDropdownMenu } from '@/common/templates/index'
 
 export default {
     name: "HomePage",
     props: {},
 
     emits: [],
-    components: {
-    },
+    components: { ObDropdownMenu },
 
     setup(props: any, context: any) {
+        document.addEventListener("DOMContentLoaded", function () {
+            const trigger = document.getElementById("dropdown-trigger") as any;
+            const menu = document.getElementById("dropdown-menu") as any;
+
+            trigger.addEventListener("click", function (event: any) {
+                event.stopPropagation(); // 阻止事件冒泡
+                menu.classList.toggle("hidden");
+            });
+
+            // 点击其他地方关闭菜单
+            document.addEventListener("click", function () {
+                menu.classList.add("hidden");
+            });
+        });
         return {
             Menu,
             showAccountZone
@@ -49,4 +61,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "./local.scss";
+
 </style>

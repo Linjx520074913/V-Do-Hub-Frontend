@@ -2,10 +2,17 @@ export enum MediaType{
     IMAGE,
     VIDEO
 }
-// export interface MediaMeta {
-//     name: string,
-//     type: MediaType,
-//     url: string
-// }
 
-// export { MediaMeta, MediaType }
+enum RouterPath {
+    BASE          = '/',
+    MAIN          = '/Main',
+    MEDIA_CAPTURE = 'MediaCapture',
+    MEDIA_LIBRARY = 'MediaLibrary',
+    USER_LOGIN    = '/UserLogin',
+    USER_REGISTER = '/UserRegister',
+    USER_ZONE     = 'UserZone',
+    SETTING       = 'Setting',
+    MALL          = 'MALL',
+}
+
+export { RouterPath }
