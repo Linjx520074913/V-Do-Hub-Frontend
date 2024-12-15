@@ -51,6 +51,8 @@ const AccountRef = ref({
         curUser: {},
         curToken: '',
         curSmsCode: '',
+        isLogin: false,
+        needRegister: false,
         loginMethod: LoginMethod.WECHAT,
         wechatURL: 'https://open.weixin.qq.com/connect/qrconnect?appid=wxa0d29e126c88138a&redirect_uri=http%3A%2F%2Fwww.swifaigo.cn&response_type=code&scope=snsapi_login&state=123456789#wechat_redirect'
     },
@@ -194,7 +196,14 @@ const AccountRef = ref({
                 return undefined
             }
         },
-
+        logout(){
+            LocalStorage.methods.set('token', '')
+            Account.data.isLogin = false
+            Account.data.needRegister = false
+            Account.data.curSmsCode = ''
+            // TODO：这个地方跳转有问题
+            // router.push(`${RouterPath.MEDIA_LIBRARY}`)
+        },
         /**
          * 用缓存的 token 进行登录
          * @returns 登录成功返回 true, 否则返回 false
@@ -202,7 +211,7 @@ const AccountRef = ref({
         async loginWithToken(): Promise<boolean>{
             const token = LocalStorage.methods.get('token') as string
             const user_profile = await Account.methods.getUserProfileByToken(token)
-            console.log('@@@@@@@@FFFFFFFFFFFFFFFFFFFFF loginWithToken', user_profile)
+            Account.data.isLogin = user_profile != undefined
             return user_profile != undefined
         },
         
@@ -211,16 +220,11 @@ const AccountRef = ref({
          * @param user_profile 
          */
         isRegistered(user_profile: UserProfile | undefined){
+            Account.data.isLogin = user_profile != undefined && user_profile.isRegistered
+            Account.data.needRegister = !(user_profile as any).isRegistered
+            console.log('$$$$$$$$$$$$$$$$$$$$$$$', Account.data.isLogin, user_profile)
             if(!user_profile){
                 return
-            }
-
-            if(user_profile.isRegistered){
-                // 用户已注册，跳转到首页
-                router.push(`${RouterPath.MAIN}/${RouterPath.MEDIA_CAPTURE}`)
-            }else{
-                // 用户未注册，跳转到用户信息页
-                router.push(RouterPath.USER_REGISTER)
             }
         },
 
@@ -259,8 +263,9 @@ const AccountRef = ref({
          * @returns 成功返回 true，失败返回 false 
          */
         async register(email: string, company: string, productCategory: string[], phoneNum?: string, smsCode?: string): Promise<boolean>{
+            console.log('##########register', email, company, productCategory)
             const data = new URLSearchParams();
-            productCategory.forEach(category => data.append('productCategory', category));
+            productCategory.forEach((category) => { console.log('afsafa', category); data.append('productCategory', category)} );
             data.append('email',           email);
             data.append('company',         company)
             if(Account.data.loginMethod == LoginMethod.WECHAT){
@@ -283,6 +288,8 @@ const AccountRef = ref({
             })
             console.log("[ Account ] loginWithPhoneNum ", res)
             
+            Account.data.isLogin = res.status == 200
+
             return res.status == 200
         }
     }

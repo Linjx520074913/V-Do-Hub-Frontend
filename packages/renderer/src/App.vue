@@ -2,20 +2,27 @@
     <div class="w-full h-full flex flex-col">
         <Header class="dragable"/>
         <div class="w-full h-full flex flex-col justify-center">
-            <router-view/>
+            <UserLogin v-if="!Account.data.isLogin"/>
+            <Main v-show="Account.data.isLogin"/>
         </div>
-        <!-- <Main /> -->
     </div>
 </template>
 
 <script>
 import Main from "@/components/main/index.vue"
 import Header from "@components/header/index.vue";
+import { onMounted, ref } from 'vue'
+import { Account, LoginMethod } from '@/store/index'
+import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone } from './views/components/index'
 
 export default {
-    components: { Main, Header },
+    components: { Main, Header, UserLogin },
 
     setup() {
+        onMounted(() => {
+            Account.methods.loginWithToken()
+        })
+        return { Account }
     },
 };
 </script>

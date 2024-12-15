@@ -1,7 +1,6 @@
 <template>
-    <div class="flex flex-row bg-black w-full h-full justify-center items-center"
-        v-loading="loading"
-        element-loading-text="登录中...">
+    <div v-if="!Account.data.needRegister" class="flex flex-row bg-black w-full h-full justify-center items-center"
+           element-loading-text="登录中...">
         <div v-show="!loading" class="login-bg"/>
         <div v-show="!loading" class="relative">
             <div v-show="Account.data.loginMethod === LoginMethod.WECHAT" class="login-content flex flex-col justify-center items-center relative">
@@ -65,6 +64,7 @@
             <button  class="switch-btn absolute top-2 right-2 text-white p-2 text-sm" @click="Account.methods.toggleLoginMethod"/>
         </div>
     </div>
+    <UserRegister v-else/>
 </template>
 
 <script lang="ts">
@@ -72,13 +72,14 @@ import { SetupContext, ref, onMounted, onUnmounted } from "vue"
 import QRCode from 'qrcode'
 import { Account, LoginMethod } from '@/store/index'
 import { router, RouterPath } from '@/main'
+import UserRegister  from '../UserRegister/index.vue'
 
 export default {
   name: "UserLogin",
   props: {},
 
   emits: [],
-  components: {},
+  components: { UserRegister },
 
   setup(props: any, context: SetupContext) {
 
@@ -109,6 +110,7 @@ export default {
     onMounted(async () => {
 
         Account.methods.loginWithToken().then((isSuccess: boolean) => {
+            console.log('aaaaaaaaaaaa')
             if(!isSuccess){
                 // 登录过期
                 loading.value = false
@@ -119,9 +121,9 @@ export default {
                         webview.reload()
                     }
                 }, 20000)
-                // webview.addEventListener('dom-ready', async () => {
+                webview.addEventListener('dom-ready', async () => {
                     updateQRCode()
-                // })
+                })
                 // 微信扫码后的webView跳转监听
                 webview.addEventListener("will-navigate", async (e: any) => {
                     // 匹配找到 code 字段数据
@@ -131,7 +133,7 @@ export default {
                     await Account.methods.loginWithWechat(code)
                 })
             }else{
-                router.push(`${RouterPath.MAIN}/${RouterPath.MEDIA_CAPTURE}`)
+                // router.push(`${RouterPath.MEDIA_CAPTURE}`)
             }
         })
 

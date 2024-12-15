@@ -132,13 +132,13 @@ export default {
             
             const isSuccess = await Account.methods.register(form.value.email, form.value.company, form.value.selectedCategories, phoneNum.value, smsCode.value)
             
-            if(isSuccess){
-                // 成功跳转到首页
-                router.push(`${RouterPath.MAIN}/${RouterPath.MEDIA_CAPTURE}`)    
-            }else{
-                // TODO：失败
+            // if(isSuccess){
+            //     // 成功跳转到首页
+            //     router.push(`${RouterPath.MAIN}/${RouterPath.MEDIA_CAPTURE}`)    
+            // }else{
+            //     // TODO：失败
                 
-            }
+            // }
             ElMessage({
                 message: isSuccess? '注册成功!' : '注册失败',
                 type: isSuccess? 'success' : 'error',

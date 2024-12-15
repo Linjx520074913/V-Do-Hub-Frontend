@@ -13,12 +13,12 @@
             </div>
         </div>
         <div class="middle">
-            <div class="infomation-bar flex flex-row items-center">
+            <div class="infomation-bar flex flex-row items-center justify-between">
                 <div class="navi">
-                    <div class="name">{{ Menu.data.activedItem.title }}</div>
-                    <div class="free" v-if='Menu.data.activedItem.visible' @click="Menu.methods.activeAccountZone"> Free </div>
+                    <div class="name w-10">{{ Menu.data.activedItem.title }}</div>
+                    <div class="free" v-show='Menu.data.activedItem.visible' @click="Menu.methods.activeAccountZone"> Free </div>
                 </div>
-                <ObDropdownMenu/>
+                <ObDropdownMenu class="flex flex-col justify-center mr-8" :items="dropdownItems"/>
             </div>
             <RouterView />
         </div>
@@ -29,6 +29,9 @@
 import { Menu } from "@/store/index"
 import { showAccountZone } from './index'
 import { ObDropdownMenu } from '@/common/templates/index'
+import { ref } from 'vue'
+import { Account, LoginMethod } from '@/store/index'
+import { router, RouterPath } from '@/main'
 
 export default {
     name: "HomePage",
@@ -38,23 +41,25 @@ export default {
     components: { ObDropdownMenu },
 
     setup(props: any, context: any) {
-        document.addEventListener("DOMContentLoaded", function () {
-            const trigger = document.getElementById("dropdown-trigger") as any;
-            const menu = document.getElementById("dropdown-menu") as any;
-
-            trigger.addEventListener("click", function (event: any) {
-                event.stopPropagation(); // 阻止事件冒泡
-                menu.classList.toggle("hidden");
-            });
-
-            // 点击其他地方关闭菜单
-            document.addEventListener("click", function () {
-                menu.classList.add("hidden");
-            });
-        });
+        const dropdownItems = ref([
+            { 
+                text: '设置', 
+                click: () => { 
+                    console.log('设置1')
+                    router.push(`${RouterPath.MAIN}/${RouterPath.USER_ZONE}`)
+                } 
+            },
+            { 
+                text: '登出', 
+                click: () => { 
+                    Account.methods.logout()
+                } 
+            }
+        ])
         return {
             Menu,
-            showAccountZone
+            showAccountZone,
+            dropdownItems
         };
     },
 };

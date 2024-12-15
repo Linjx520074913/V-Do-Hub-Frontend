@@ -99,7 +99,8 @@
 import { SetupContext, ref } from "vue"
 import { ObButton } from "@/common/templates/index"
 import Camera from "./Camera/index.vue"
-import path from 'path';
+import path from 'path'
+import { router, RouterPath } from '@/main'
 
 export default {
     name: "CameraCapture",
@@ -119,6 +120,7 @@ export default {
             showCapture.value = true;
         }
         function UploadMedia() {
+            router.push(`${RouterPath.MAIN}/${RouterPath.MEDIA_LIBRARY}`)
             console.log("UploadMedia")
         }
         function playTutorialVideo(){
