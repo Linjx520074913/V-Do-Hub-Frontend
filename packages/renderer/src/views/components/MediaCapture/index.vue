@@ -120,7 +120,7 @@ export default {
             showCapture.value = true;
         }
         function UploadMedia() {
-            router.push(`${RouterPath.MAIN}/${RouterPath.MEDIA_LIBRARY}`)
+            router.push(RouterPath.MEDIA_LIBRARY)
             console.log("UploadMedia")
         }
         function playTutorialVideo(){

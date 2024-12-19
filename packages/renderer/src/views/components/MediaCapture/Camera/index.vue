@@ -5,7 +5,8 @@
                 <button class="w-16 absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 icon-return" @click="close">
                 </button>
                 <div class="top">
-                    <ObPlayer class="player" ref="player" />
+                    <RJMediaPlayer ref="rjPlayer" @load="filterLoad"/>
+                    <!-- <ObPlayer class="player" ref="player" /> -->
                 </div>
                 <div class="bottom">
                 <div class="green-circle-button" @click="TakePhoto">
@@ -57,50 +58,56 @@
 import { SetupContext, ref } from "vue"
 
 import { ObPlayer } from "ob-xw-common"
-import { source, Camera, duration, time, change, isVideo, player, init, TakePhoto, autoExtract, enableBeautify } from "./index"
+import { rjPlayer, source, Camera, duration, time, change, isVideo, player, init, TakePhoto, autoExtract, enableBeautify } from "./index"
 
 import SettingPanel from "../SettingPanel/index.vue"
 
 import MediaPreview from '../../MediaPreview/index.vue' 
 
+import RJMediaPlayer from '../../RJMediaPlayer/index.vue'
+
 export default {
-  name: "Camera",
-  props: {},
+    name: "Camera",
+    props: {},
 
-  emits: ["close"],
-  components: { ObPlayer, SettingPanel, MediaPreview },
+    emits: ["close"],
+    components: { ObPlayer, SettingPanel, MediaPreview, RJMediaPlayer },
 
-  setup(props: any, context: SetupContext) {
-    const setting = ref({ bgRemoval: false, beauty: true })
-    const active = ref(false)
-    function close() {
-      context.emit("close");
-    }
+    setup(props: any, context: SetupContext) {
+        const setting = ref({ bgRemoval: false, beauty: true })
+        const active = ref(false)
+        function close() {
+        context.emit("close");
+        }
 
-    function ToggleExtract(value: any){
-      autoExtract.value = value;
-      setting.value.bgRemoval = value;
-    }
+        function ToggleExtract(value: any){
+        autoExtract.value = value;
+        setting.value.bgRemoval = value;
+        }
 
-    function ChangeSpeed(value: any){
-      duration.value = value.duration;
-    }
+        function ChangeSpeed(value: any){
+        duration.value = value.duration;
+        }
 
-    function cancel(){
-        Camera.methods.delete()
-        source.value = ''
-    }
+        function cancel(){
+            Camera.methods.delete()
+            source.value = ''
+        }
 
-    function confirm(){
-        source.value = ''
-    }
+        function confirm(){
+            source.value = ''
+        }
 
-    init();
+        init();
 
-    const isCameraMode = ref(true)
+        const isCameraMode = ref(true)
 
-    return { active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
-  },
+        function filterLoad(list: any){
+            console.log("WWWWWWWWWWWWWWWWWW FilterLoad WWWWWWWWWWWWWWWWWWWWW", list)
+        }
+
+        return { rjPlayer, filterLoad, active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
+    },
 };
 </script>
 <style lang="scss">

@@ -435,7 +435,7 @@ export default class MainWindow{
 			(this.win as BrowserWindow).webContents.send(ObEvent.LOG_BUFFER_CHANGED, this.parseLog(msg));
 		}else{
 			// 启动后端应用
-			// this.launchBackend(config.backendPath);
+			this.launchBackend(config.backendPath);
 		}
 	}
 

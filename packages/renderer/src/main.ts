@@ -26,20 +26,12 @@ import Main from "@/components/main/index.vue"
 const app = createApp(App)
 
 const routes = [
-    { path: RouterPath.BASE,             component: MediaCapture },
-    // { path: RouterPath.USER_LOGIN,       component: UserLogin },
-    // { path: RouterPath.USER_REGISTER,    component: UserRegister },
-    // { 
-    //     path: RouterPath.MAIN,
-    //     component: Main,
-    //     children: [
-            { path: '/MediaCapture',      component: MediaCapture }, // 子路由无需全路径
-            { path: '/MediaLibrary',      component: MediaLibrary },
-            { path: '/UserZone',          component: UserZone },
-            { path: '/Setting',           component: Setting },
-            { path: '/Mall',              component: Mall }
-    //     ]
-    // }
+    { path: RouterPath.BASE,      component: MediaCapture },
+    { path: '/MediaCapture',      component: MediaCapture },
+    { path: '/MediaLibrary',      component: MediaLibrary },
+    { path: '/UserZone',          component: UserZone },
+    { path: '/Setting',           component: Setting },
+    { path: '/Mall',              component: Mall }
 ];
 
 const router = createRouter({

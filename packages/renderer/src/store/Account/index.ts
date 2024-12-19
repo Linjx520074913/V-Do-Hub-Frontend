@@ -29,7 +29,10 @@ interface Response{
 
 // 订阅
 interface Subscription{
-    feature: Object
+    planId: string,
+    name: string,
+    description: string,
+    price: number
 }
 
 enum URL{
@@ -38,7 +41,9 @@ enum URL{
     PHONE_VERIFICATION_CODE = '/api/auth/validation/phone/send-verification-code',
     EMAIL_VERIFICATION_CODE = '/api/auth/validation/email/send-verification-code',
     LOGIN_PHONE             = '/api/auth/login/phone',
-    USER_REGISTER           = '/api/user/register'
+    USER_REGISTER           = '/api/user/register',
+    USER_SUBSCRIPTIONS      = '/api/user/subscriptions',
+    PAYMENT                 = '/api/user/subscribe/payment'
 }
 
 enum LoginMethod{
@@ -46,9 +51,26 @@ enum LoginMethod{
     PHONE
 }
 
+enum PaymentMethod{
+    WECHAT = 'wechat', // 微信
+    ALIPAY = 'alipay'  // 支付宝
+}
+
 const AccountRef = ref({
     data:{
-        curUser: {},
+        curUser: {
+            userId: '',
+            name: '',
+            phone: '',
+            email: '',
+            productCategory: [],
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            isRegistered: false,
+            isMember: false,
+            membershipStartDate: new Date(),
+            membershipEndDate: new Date()
+        } as UserProfile,
         curToken: '',
         curSmsCode: '',
         isLogin: false,
@@ -175,6 +197,10 @@ const AccountRef = ref({
          * @returns 
          */
         async getUserProfileByToken(token: string): Promise<UserProfile | undefined>{
+            if(!token){
+                token = Account.data.curToken
+            }
+
             try{
                 const res = await AXIOS.request({
                     method: 'GET',
@@ -201,6 +227,7 @@ const AccountRef = ref({
             Account.data.isLogin = false
             Account.data.needRegister = false
             Account.data.curSmsCode = ''
+            console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQQ', Account.data.isLogin)
             // TODO：这个地方跳转有问题
             // router.push(`${RouterPath.MEDIA_LIBRARY}`)
         },
@@ -222,7 +249,6 @@ const AccountRef = ref({
         isRegistered(user_profile: UserProfile | undefined){
             Account.data.isLogin = user_profile != undefined && user_profile.isRegistered
             Account.data.needRegister = !(user_profile as any).isRegistered
-            console.log('$$$$$$$$$$$$$$$$$$$$$$$', Account.data.isLogin, user_profile)
             if(!user_profile){
                 return
             }
@@ -291,10 +317,48 @@ const AccountRef = ref({
             Account.data.isLogin = res.status == 200
 
             return res.status == 200
+        },
+        /**
+         * 获取订阅
+         * @returns 
+         */
+        async getSubscriptions(): Promise<[]>{
+            const res = await AXIOS.request({
+                method: 'GET',
+                url: URL.USER_SUBSCRIPTIONS,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${Account.data.curToken}`
+                }
+            })
+
+
+            console.log('@@@@@@@@@@@@@@@ getSubscriptions @@@@@@@@@@@@@@', res)
+            // TODO: 处理异常
+            return res.data
+        },
+        async createPaymentOrder(planId: string, paymentMethod: PaymentMethod){
+           console.log('@@@@@@@@@@@@@', planId, paymentMethod)
+            const data = new URLSearchParams();
+            data.append('subscriptionPlan', planId);
+            data.append('paymentMethod',    paymentMethod)
+            
+            const res = await AXIOS.request({
+                method: 'POST',
+                url: URL.PAYMENT,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${Account.data.curToken}`
+                },
+                data: data
+            })
+            // TODO: 处理异常
+            console.log("[ Account ] createPaymentOrder ", res)
+            return res.data
         }
     }
 })
 
 const Account = AccountRef.value
 
-export { Account, LoginMethod }
+export { Account, LoginMethod, PaymentMethod }

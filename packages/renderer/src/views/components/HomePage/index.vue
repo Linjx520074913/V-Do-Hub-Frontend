@@ -46,7 +46,7 @@ export default {
                 text: '设置', 
                 click: () => { 
                     console.log('设置1')
-                    router.push(`${RouterPath.MAIN}/${RouterPath.USER_ZONE}`)
+                    router.push(RouterPath.USER_ZONE)
                 } 
             },
             { 
@@ -60,8 +60,8 @@ export default {
             Menu,
             showAccountZone,
             dropdownItems
-        };
-    },
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>

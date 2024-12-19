@@ -3,6 +3,8 @@ import { Messenger } from "@/components/index";
 import { VDoEvent } from '@/store/EventBus/index'
 import { Camera } from '@/store/index'
 
+const rjPlayer = ref();
+
 const player = ref(null);
 
 const isVideo = ref(false);
@@ -41,10 +43,12 @@ function init(){
         Camera.methods.open();
         Messenger.methods.subscribe(VDoEvent.UPDATE_IMAGE, () => {
             Messenger.methods.getImage(0, 2, (info: any, data: Uint8Array) => {
-                if(player &&player.value){
-                    (player.value as any).render(data, info.width, info.height, info.format);
+                // if(player &&player.value){
+                //     (player.value as any).render(data, info.width, info.height, info.format);
+                // }
+                if(rjPlayer && rjPlayer.value){
+                    rjPlayer.value.updateImg(data, info.width, info.height)
                 }
-                
             })
         });
     });
@@ -52,4 +56,4 @@ function init(){
         Camera.methods.close()
     });
 }
-export { source, Camera, duration, time, change, isVideo, init, player, TakePhoto, autoExtract, enableBeautify }
+export { rjPlayer, source, Camera, duration, time, change, isVideo, init, player, TakePhoto, autoExtract, enableBeautify }

@@ -110,7 +110,6 @@ export default {
     onMounted(async () => {
 
         Account.methods.loginWithToken().then((isSuccess: boolean) => {
-            console.log('aaaaaaaaaaaa')
             if(!isSuccess){
                 // 登录过期
                 loading.value = false

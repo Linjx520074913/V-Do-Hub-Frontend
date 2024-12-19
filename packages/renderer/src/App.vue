@@ -2,7 +2,7 @@
     <div class="w-full h-full flex flex-col">
         <Header class="dragable"/>
         <div class="w-full h-full flex flex-col justify-center">
-            <UserLogin v-if="!Account.data.isLogin"/>
+            <UserLogin v-show="!Account.data.isLogin"/>
             <Main v-show="Account.data.isLogin"/>
         </div>
     </div>
@@ -36,25 +36,26 @@ export default {
 $header-height: 35px;
 $footer-height: 30px;
 html {
-  font-family: "HarmonyOS Sans SC" !important;
-  // font-family: 'PingFang SC-Regular', 'PingFang SC'!important;
-  overflow: hidden;
+//   font-family: "Microsoft YaHei" !important;
+    font-family: 'PingFang SC-Regular', 'PingFang SC'!important;
+    overflow: hidden;
 }
 
 body {
-  font-family: "HarmonyOS Sans SC" !important;
-  // font-family: 'PingFang SC-Regular', 'PingFang SC'!important;
+//   font-family: "Microsoft YaHei" !important;
+    font-family: 'PingFang SC-Regular', 'PingFang SC'!important;
 }
 
 #app {
-  font-family: "HarmonyOS Sans SC";
-  // font-family: 'PingFang SC-Regular', 'PingFang SC';
-  overflow: hidden;
+//   font-family: "Microsoft YaHei";
+    font-family: 'PingFang SC-Regular', 'PingFang SC';
+    overflow: hidden;
+    color: #363E5C
 }
 
 html * {
-  // box-sizing: border-box;
-  user-select: none;
+    // box-sizing: border-box;
+    user-select: none;
 }
 
 #app * {

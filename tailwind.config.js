@@ -4,7 +4,9 @@ module.exports = {
         extend: {
             // ...
             colors:{
-                'login-pink': '#FDECE5'
+                'login-pink': '#FDECE5',
+                'beige': '#FFF8EB',
+                'oragne': '#E94902'
             }
         },
     },

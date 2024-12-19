@@ -5,7 +5,6 @@ export enum MediaType{
 
 enum RouterPath {
     BASE          = '/',
-    MAIN          = '/Main',
     MEDIA_CAPTURE = '/MediaCapture',
     MEDIA_LIBRARY = '/MediaLibrary',
     USER_LOGIN    = '/UserLogin',

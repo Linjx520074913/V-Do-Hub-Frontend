@@ -117,8 +117,8 @@ export default {
         const form = ref({
             company: '',
             email: '',
-            selectedCategories: [],  // 用于存储勾选的商品品类
-            otherCategory: ''        // 备注说明
+            selectedCategories: [] as string[],  // 用于存储勾选的商品品类
+            otherCategory: '' as string      // 备注说明
         })
         const categories = ref(['珠宝', '美妆', '饰品', '陶瓷', '电子产品', '其他'])
         async function submitForm() {
