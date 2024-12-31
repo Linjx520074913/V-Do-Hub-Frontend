@@ -1,22 +1,19 @@
 <template>
-    <div v-if="!Account.data.needRegister" class="flex flex-row bg-black w-full h-full justify-center items-center"
-           element-loading-text="登录中...">
-        <div v-show="!loading" class="login-bg"/>
-        <div v-show="!loading" class="relative">
-            <div v-show="Account.data.loginMethod === LoginMethod.WECHAT" class="login-content flex flex-col justify-center items-center relative">
+    <div v-if="!Account.data.needRegister" class="flex flex-row bg-transparent w-full h-full justify-center items-center"
+        v-loading='!Account.data.needLogin'
+        element-loading-text="登录中...">
+        <div class="w-1/2 h-full login-bg"/>
+        <div class="w-1/2 h-full relative bg-white">
+            <div v-show="Account.data.loginMethod === LoginMethod.WECHAT" class="w-full h-full flex flex-col justify-center items-center">
                 <p>微信登录</p>
                 <p>请扫描微信二维码登录</p>
                 <webview ref="webview" id="webview" :src="Account.data.wechatURL" style="width:0px;height:0px"/>
-                <div class="qrcode border-2 flex relative" style="width:200px;height:200px">
+                <div class="qrcode p-2" style="width:300px;height:300px">
                     <img v-if="url != ''" :src="url" alt=""/>
-                    <div class="corner left-top"></div>
-                    <div class="corner right-top"></div>
-                    <div class="corner left-bottom"></div>
-                    <div class="corner right-bottom"></div>
                 </div>
                 <p class="text-xs">登录即表示同意《服务条款》和《个人信息保护政策》</p>
             </div>
-            <div v-if="Account.data.loginMethod === LoginMethod.PHONE" class="login-content login-form p-10 bg-white max-w-sm mx-auto">
+            <div v-if="Account.data.loginMethod === LoginMethod.PHONE" class="w-full h-full p-20 login-form  max-w-sm mx-auto">
                 <!-- 手机号码和获取验证码按钮 -->
                 <div class="mb-6 flex items-center space-x-4">
                     <!-- 手机号码输入框 -->
@@ -61,7 +58,7 @@
                     登录
                 </button>
             </div>
-            <button  class="switch-btn absolute top-2 right-2 text-white p-2 text-sm" @click="Account.methods.toggleLoginMethod"/>
+            <button :class="['absolute top-2 left-2 text-white p-2 text-sm', Account.data.loginMethod === LoginMethod.PHONE? 'login-with-qrcode' : 'login-with-phone']" @click="Account.methods.toggleLoginMethod"/>
         </div>
     </div>
     <UserRegister v-else/>
@@ -100,7 +97,7 @@ export default {
                 const uuid = res?.match(/src="\/connect\/qrcode\/(\S*)">/)[1];
                 const qrCodeUrl = `https://open.weixin.qq.com/connect/confirm?uuid=${uuid}&chInfo=ch_share__chsub_CopyLink`;
                 console.log("qrcodeUrl", qrCodeUrl)
-                QRCode.toDataURL(qrCodeUrl, { margin: 2 }, (err: any, u: string) => {
+                QRCode.toDataURL(qrCodeUrl, { margin: 0 }, (err: any, u: string) => {
                     if (err) return
                     url.value = u  // 更新二维码 URL
                 })
@@ -113,14 +110,19 @@ export default {
             if(!isSuccess){
                 // 登录过期
                 loading.value = false
-
+                
                 const webview = document.querySelector("webview") as any;
+                if(webview && curLoginMethod.value === LoginMethod.WECHAT){
+                    webview.reload()
+                }
+                
                 qrcodeTimer = setInterval(() => {
                     if(webview && curLoginMethod.value === LoginMethod.WECHAT){
                         webview.reload()
                     }
                 }, 20000)
                 webview.addEventListener('dom-ready', async () => {
+                    
                     updateQRCode()
                 })
                 // 微信扫码后的webView跳转监听
@@ -155,14 +157,19 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "./local.scss";
-.switch-btn{
-    background-image: url('@/assets/images/switch-bg.png');
+
+.login-with-qrcode{
     width: 70px;
-    height: 61px
+    height: 61px;
+    background-image: url('@/assets/images/login-with-qrcode.png');
 }
+.login-with-phone{
+    width: 70px;
+    height: 61px;
+    background-image: url('@/assets/images/login-with-phone.png');
+}
+
 .login-bg{
-    width: 350px;
-    height: 350px;
     background-image: url('@/assets/images/login-bg.png');
     background-size: cover;
     background-position: center;    

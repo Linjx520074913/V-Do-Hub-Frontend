@@ -61,18 +61,18 @@ export default class MainWindow{
 
 
 		this.win = new BrowserWindow({
-			width: 1200,
-			height: 800,
-			minWidth: 1200,
-			minHeight: 800,
-            // resizable: false,
+			width: 1069,
+			height: 602,
+			minWidth: 1069,
+			minHeight: 602,
+            resizable: false,
+            transparent: true,
 			title: this.windowConfig.title,
 			frame: browserWindowConfig.frame,
 			titleBarStyle: browserWindowConfig.titleBarStyle,
 			trafficLightPosition: browserWindowConfig.trafficLightPosition,
 			icon: this.windowConfig.icon,
 			show: false,
-			// resizable: false,
 			webPreferences: {
 				preload: path.join(__dirname, '../preload/index.cjs'),
 				devTools: true,
@@ -112,7 +112,8 @@ export default class MainWindow{
 		this.initMenu(platform);
  
 		/** 启动默认全屏 */
-		(this.win as BrowserWindow).maximize();
+        // TODO: 优化 可记录软件关闭时的状态，下次启动时恢复
+		// (this.win as BrowserWindow).maximize();
 
 		this.win.show();
 
@@ -362,6 +363,23 @@ export default class MainWindow{
 			return result;
 		});
 
+        ipcMain.on(ObEvent.WINDOW_RESIZE, (event: any, args: any) => {
+            const w: number = args.width as number
+            const h: number = args.height as number
+            const center: boolean = args.center as boolean
+            
+            (this.win as BrowserWindow).hide();
+            if(center){
+                const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
+                const x = Math.round((screenWidth - w) / 2);
+                const y = Math.round((screenHeight - h) / 2);
+                (this.win as BrowserWindow).setBounds({ x, y, width: w, height: h });
+                setTimeout(() => {
+                    (this.win as BrowserWindow).show();
+                }, 1500);
+            }
+        });
+
 		/** browser window event */
 		(this.win as BrowserWindow).on("enter-full-screen", () => {
 			(this.win as BrowserWindow).webContents.send(ObEvent.WINDOW_FULLSCREEN, true);
@@ -372,6 +390,7 @@ export default class MainWindow{
 		});
 
 		(this.win as BrowserWindow).on("maximize", () => {
+            console.log("FASDFASDF");
 			(this.win as BrowserWindow).webContents.send(ObEvent.WINDOW_MAXIMIZE_UNMAXIMIZE, true);
 		});
 

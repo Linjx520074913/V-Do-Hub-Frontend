@@ -20,8 +20,7 @@ import { RouterPath } from '@/store/index'
 const VueResizeObserver = require("vue-resize-observer");
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone } from './views/components/index';
-import Main from "@/components/main/index.vue"
+import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone, AIScene } from './views/components/index';
 
 const app = createApp(App)
 
@@ -31,7 +30,8 @@ const routes = [
     { path: '/MediaLibrary',      component: MediaLibrary },
     { path: '/UserZone',          component: UserZone },
     { path: '/Setting',           component: Setting },
-    { path: '/Mall',              component: Mall }
+    { path: '/Mall',              component: Mall },
+    { path: '/AIScene',           component: AIScene },
 ];
 
 const router = createRouter({

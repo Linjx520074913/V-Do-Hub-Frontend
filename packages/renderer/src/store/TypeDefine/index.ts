@@ -12,6 +12,7 @@ enum RouterPath {
     USER_ZONE     = '/UserZone',
     SETTING       = '/Setting',
     MALL          = '/Mall',
+    AISCENE       = '/AIScene'
 }
 
 export { RouterPath }

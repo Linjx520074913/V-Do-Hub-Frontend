@@ -45,8 +45,10 @@ export default class Editor{
 		})
 
 		app.on('ready', async () => {
+            app.commandLine.appendSwitch('force-device-scale-factor', '1');
+            app.commandLine.appendSwitch('high-dpi-support', '1');
 			(app as any).allowRendererProcessReuse=false;
-			await (this.mainWindow as MainWindow).createWindow(process.platform);
+			await (this.mainWindow as MainWindow).createWindow(process.platform)  
 		})
 
 		app.on("window-all-closed", () => {
@@ -54,6 +56,7 @@ export default class Editor{
 				app.quit()
 			}
 		})
+
 	
 		ipcMain.on(ObEvent.APP_RELAUNCH, (event: any, args: any) => {
 	

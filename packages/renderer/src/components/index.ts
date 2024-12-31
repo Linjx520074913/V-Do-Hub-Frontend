@@ -129,6 +129,7 @@ function mountMessengerSubcription(): void {
         });
 
         ipcRenderer.on(ObEvent.WINDOW_FULLSCREEN, (event: any, data: boolean) => {
+            console.log('FFFFFFFFFF')
             MainWindow.methods.toggleFullScreen(data);
         });
 

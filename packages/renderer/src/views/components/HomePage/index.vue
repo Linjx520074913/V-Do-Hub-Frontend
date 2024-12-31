@@ -29,9 +29,11 @@
 import { Menu } from "@/store/index"
 import { showAccountZone } from './index'
 import { ObDropdownMenu } from '@/common/templates/index'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { Account, LoginMethod } from '@/store/index'
 import { router, RouterPath } from '@/main'
+import { ipcRenderer } from 'electron'
+import { ObEvent } from "@common/";
 
 export default {
     name: "HomePage",
@@ -56,6 +58,12 @@ export default {
                 } 
             }
         ])
+
+        onMounted(() => {
+            // TODO: 登录成功之后，修改窗口大小及位置
+            ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
+        })
+
         return {
             Menu,
             showAccountZone,

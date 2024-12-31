@@ -8,6 +8,8 @@ import UserLogin     from './UserLogin/index.vue'
 import UserRegister  from './UserRegister/index.vue'
 import UserZone      from './UserZone/index.vue'
 
+import AIScene   from './AIScene/index.vue'
+
 export {
     HomePage,
     Setting,
@@ -16,5 +18,6 @@ export {
     Mall,
     UserLogin,
     UserRegister,
-    UserZone
+    UserZone,
+    AIScene
 }

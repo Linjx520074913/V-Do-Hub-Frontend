@@ -75,6 +75,7 @@ const AccountRef = ref({
         curSmsCode: '',
         isLogin: false,
         needRegister: false,
+        needLogin: false,
         loginMethod: LoginMethod.WECHAT,
         wechatURL: 'https://open.weixin.qq.com/connect/qrconnect?appid=wxa0d29e126c88138a&redirect_uri=http%3A%2F%2Fwww.swifaigo.cn&response_type=code&scope=snsapi_login&state=123456789#wechat_redirect'
     },
@@ -227,7 +228,6 @@ const AccountRef = ref({
             Account.data.isLogin = false
             Account.data.needRegister = false
             Account.data.curSmsCode = ''
-            console.log('QQQQQQQQQQQQQQQQQQQQQQQQQQQ', Account.data.isLogin)
             // TODO：这个地方跳转有问题
             // router.push(`${RouterPath.MEDIA_LIBRARY}`)
         },
@@ -239,6 +239,8 @@ const AccountRef = ref({
             const token = LocalStorage.methods.get('token') as string
             const user_profile = await Account.methods.getUserProfileByToken(token)
             Account.data.isLogin = user_profile != undefined
+            Account.data.needLogin = user_profile == undefined
+            console.log('AAAAAAAAAAAAAAAAAAAAAA', Account.data.needLogin, user_profile)
             return user_profile != undefined
         },
         

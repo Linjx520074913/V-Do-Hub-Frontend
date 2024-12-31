@@ -1,9 +1,15 @@
 <template>
+    <!-- <div class="w-full h-full flex flex-col" v-if="Account.data.isLogin">
+        <Header class="dragable"/>
+        <div class="w-full h-full flex flex-col justify-center">
+            <Main/>
+        </div>
+    </div>
+    <UserLogin v-else class="w-full h-full"/> -->
     <div class="w-full h-full flex flex-col">
         <Header class="dragable"/>
         <div class="w-full h-full flex flex-col justify-center">
-            <UserLogin v-show="!Account.data.isLogin"/>
-            <Main v-show="Account.data.isLogin"/>
+            <Main/>
         </div>
     </div>
 </template>
@@ -13,10 +19,10 @@ import Main from "@/components/main/index.vue"
 import Header from "@components/header/index.vue";
 import { onMounted, ref } from 'vue'
 import { Account, LoginMethod } from '@/store/index'
-import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone } from './views/components/index'
+import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone, AIScene } from './views/components/index'
 
 export default {
-    components: { Main, Header, UserLogin },
+    components: { Main, Header, UserLogin, AIScene, UserZone },
 
     setup() {
         onMounted(() => {
@@ -39,11 +45,13 @@ html {
 //   font-family: "Microsoft YaHei" !important;
     font-family: 'PingFang SC-Regular', 'PingFang SC'!important;
     overflow: hidden;
+    background: transparent; 
 }
 
 body {
 //   font-family: "Microsoft YaHei" !important;
     font-family: 'PingFang SC-Regular', 'PingFang SC'!important;
+    background: transparent; 
 }
 
 #app {
@@ -56,11 +64,13 @@ body {
 html * {
     // box-sizing: border-box;
     user-select: none;
+    
 }
 
 #app * {
   // border: 1px dashed black;
   // transform: scale(1);
+//   background: transparent; 
 }
 
 .dragable {
