@@ -53,14 +53,14 @@ export default {
   components: {},
 
   setup(props: any, context: SetupContext) {
-    let timer, aiType = 'Cutout' // Cutout: 抠图、Fusion: 合成
+    let timer: NodeJS.Timer, aiType = 'Cutout' // Cutout: 抠图、Fusion: 合成
     const dataList = ref([])
     const activeCode = ref('')
 
     const originUrl = ref('')
     const originUrl2 = ref('')
     const resultUrlR = ref('')
-    const fileRef = ref(null)
+    const fileRef = ref('')
     const gidRef = ref('')
     const taskIdRef = ref('')
     const uploadLoading = ref(false)
@@ -69,18 +69,18 @@ export default {
 
     const getList = async () => {
         const res = await getResourceFusion()
-        dataList.value = res.subjects
+        dataList.value = (res as any).subjects
     }
 
-    const onClick = (code) => {
+    const onClick = (code: any) => {
         activeCode.value = code
     }
 
     const onChooseImg = () => {
-        fileRef.value.click()
+        (fileRef.value as any).click()
     }
 
-    const onFileChange = async (e) => {
+    const onFileChange = async (e: any) => {
         if (e.target.files.length) {
             uploadLoading.value = true
             const fileData = e.target.files[0]
@@ -88,42 +88,64 @@ export default {
             form.append('file', fileData)
             // 本地文件上传，如果是网络图片则无须上传
             const res = await uploadImg(form)
-            fileRef.value.value = ''
+            fileRef.value  = ' '
             // 抠图
             aiType = 'Cutout'
             createTask({
-            origUrl: res.resultUrl
+                origUrl: (res as any).resultUrl
             })
         }
     }
 
     const createTask = async (params = {}) => {
-        let taskFun = null
+        let taskFun;
+
+        // 确保 aiType 定义正确的任务函数
         switch (aiType) {
             case 'Cutout':
-            taskFun = submitCutout
-            break;
+                taskFun = submitCutout;
+                break;
             case 'Fusion':
-            taskFun = submitFusionBg
-            break;
+                taskFun = submitFusionBg;
+                break;
+            default:
+                throw new Error(`Unsupported aiType: ${aiType}`);
         }
-        const res = await taskFun(params)
-        const { gid, taskId } = res
-        gidRef.value = gid
-        taskIdRef.value = taskId
-        queryTask()
-    }
+
+        try {
+            // 调用任务函数并处理返回值
+            const res = await taskFun(params);
+            const { gid, taskId } = res as any;
+
+            gidRef.value = gid;
+            taskIdRef.value = taskId;
+
+            queryTask();
+        } catch (error) {
+            console.error('Failed to create task:', error);
+            // 根据需要添加错误处理逻辑
+        }
+    };
 
     const queryTask = () => {
-        let taskFun = null
+        let taskFun: ((params: { gid: string; taskId: string }) => Promise<any>) = queryFusionBg;
         switch (aiType) {
             case 'Cutout':
-            taskFun = queryCutout
+                taskFun = queryCutout
             break;
             case 'Fusion':
-            taskFun = queryFusionBg
+                taskFun = queryFusionBg
             break;
+            default:
+                taskFun = queryFusionBg
+                break;
         }
+
+        if (!taskFun) {
+            console.error('No task function found for the specified aiType.');
+            return;
+        }
+
         timer = setInterval(async () => {
             try {
             const res = await taskFun({
@@ -173,7 +195,7 @@ export default {
     onMounted(() => {
         getList()
     })
-    return { onCreate, onFileChange, onChooseImg, onClick, btnLoading, btnDisabled, uploadLoading, taskIdRef, gidRef, fileRef, resultUrlR, originUrl2, originUrl, activeCode, dataList, timer, aiType };
+    return { activeCode, dataList, onCreate, onFileChange, onChooseImg, onClick, originUrl, originUrl2, resultUrlR, fileRef, gidRef, taskIdRef, uploadLoading, btnDisabled, btnLoading };
   },
 };
 </script>

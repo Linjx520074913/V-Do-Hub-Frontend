@@ -148,14 +148,14 @@ export default {
                 const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
                 ? 'video/webm;codecs=vp9'
                 : 'video/webm'
-                let chunks = []
-                let audio = await getDisplayMediaSource()
+                let chunks = [] as any
+                let audio = await getDisplayMediaSource() as any
                 if (audio) {
                 // 将获取的音频流数据添加到视频流
                 stream.addTrack(audio.getAudioTracks()[0])
                 }
                 mediaRecorder = new MediaRecorder(stream, { mimeType })
-                mediaRecorder.ondataavailable = (e) => {
+                mediaRecorder.ondataavailable = (e: any) => {
                 if (e.data && e.data.size > 0) {
                     chunks.push(e.data)
                 }
@@ -164,7 +164,7 @@ export default {
                 if (!chunks.length) return
                 const blob = new Blob(chunks)
                 const buffer = Buffer.from(await blob.arrayBuffer())
-                fs.writeFile(videoName, buffer, (err) => {
+                fs.writeFile(videoName, buffer, (err: any) => {
                     console.log(err)
                     if (err) {
                     reject(err)
@@ -202,7 +202,7 @@ export default {
                 }
             }
             await navigator.mediaDevices
-                .getUserMedia(constraints)
+                .getUserMedia(constraints as any)
                 .then(function (audio) {
                 /* 使用这个stream */
                 audioStream = audio

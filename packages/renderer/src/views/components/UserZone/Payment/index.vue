@@ -31,7 +31,7 @@ export default {
         const paylink = ref('')
 
         async function checkPaymentStatus() {
-            const user_profile = await Account.methods.getUserProfileByToken()
+            const user_profile = await Account.methods.getUserProfileByToken('')
             if(user_profile && user_profile.isMember){
                 // 支付成功
                 ElMessage({

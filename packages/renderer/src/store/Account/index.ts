@@ -198,7 +198,7 @@ const AccountRef = ref({
          * @returns 
          */
         async getUserProfileByToken(token: string): Promise<UserProfile | undefined>{
-            if(!token){
+            if(token == ''){
                 token = Account.data.curToken
             }
 
