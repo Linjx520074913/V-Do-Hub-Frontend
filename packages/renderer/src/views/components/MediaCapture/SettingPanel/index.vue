@@ -11,8 +11,8 @@
               <p>转盘角度设置</p>
             </div>
             <div class="menu">
-                <div :class="['menu-item', angle == cur_angle? 'menu-item-highlight': '']" v-for="angle in AngleOptions" @click="ChangeAngle(angle)">
-                {{ angle }}
+                <div :class="['menu-item', angle.text == cur_angle.text? 'menu-item-highlight': '']" v-for="angle in AngleOptions" @click="ChangeAngle(angle, cur_speed)">
+                {{ angle.text }}
               </div>
             </div>
             <div class="panel">
@@ -20,7 +20,7 @@
                 <p>转盘速度设置</p>
               </div>
               <div class="menu">
-                <div :class="['menu-item', speed.text == cur_speed.text? 'menu-item-highlight': '']" v-for="speed in SpeedOptions" @click="ChangeSpeed(speed)">
+                <div :class="['menu-item', speed.text == cur_speed.text? 'menu-item-highlight': '']" v-for="speed in SpeedOptions" @click="ChangeSpeed(speed, cur_angle)">
                 {{ speed.text }}
               </div>
             </div>
@@ -135,7 +135,7 @@
 import { SetupContext, ref } from "vue"
 
 import { ObPlayer } from "ob-xw-common"
-import { AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle } from "./index"
+import { AngleOptions, SpeedOptions, cur_angle, cur_speed} from "./index"
 
 import { ObButton } from "@/common/templates/index"
 import { Camera } from '@/store/index'
@@ -148,7 +148,7 @@ export default {
     }
   },
 
-  emits: ["close", "ChangeSpeed", "ToggleExtract"],
+  emits: ["close", "ChangeAngle", "ChangeSpeed", "ToggleExtract"],
   components: { ObPlayer, ObButton },
 
   setup(props: any, context: SetupContext) {
@@ -158,10 +158,17 @@ export default {
 
     const enableExtract = ref(false);
 
-    function ChangeSpeed(value: any){
-        cur_speed.value = value;
-        context.emit("ChangeSpeed", cur_speed.value);
+    function ChangeAngle(value: any, speed: any){
+        cur_angle.value = value;
+        cur_speed.value = speed;
+        context.emit("ChangeAngle", cur_angle.value, cur_speed.value);
     }
+    
+    function ChangeSpeed(value: any, angle: any){
+        cur_speed.value = value;
+        cur_angle.value = angle;
+        context.emit("ChangeSpeed", cur_speed.value, cur_angle.value);
+    }    
 
     function ToggleExtract(value: any){
       console.log("FFFFFFFFFF toggleExtract", value)
