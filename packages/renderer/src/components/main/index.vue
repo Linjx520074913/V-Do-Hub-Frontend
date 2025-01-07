@@ -1,9 +1,11 @@
 <template>
     <div id="client">
-        <div id="app-main">
-            <HomePage />
+        <div id="app-main" class="flex flex-col">
+            <Header class="dragable"/>
+            <div class="flex-1 flex justify-center items-center">
+                <HomePage class="flex flex-row justify-center items-center"/>
+            </div>
         </div>
-        <Footer class="footer" />
     </div>
 </template>
 

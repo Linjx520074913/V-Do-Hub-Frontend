@@ -25,59 +25,36 @@
                 />
             </div>
         </div>
-        <div class="tool flex-row">
-            <div class="flex-column" style="margin-right: 50px">
-                <div class="flex-row center">
-                <el-badge :value="12" class="badge">
-                    <p>移除背景</p>
-                </el-badge>
-                <span class="icon-share1" />
+        <div class="tool flex flex-col justify-center items-center  mt-4">
+            <p class="text-[25px] mt-4 mb-4">工具箱</p>
+            <div class="flex flex-row w-full h-[305px] space-x-2">
+                <div class="flex flex-col justify-end items-center tool-0 p-4 cursor-pointer">
+                    <p class="mb-2 text-[20px]">AI智能抠图</p>
+                    <p class="mb-2">智能AI精准识别需要保留的主体并移除多余背景，高效完成在线抠图任务</p>
                 </div>
-                <div class="flex-row space-x-2 mt-2">
-                    <div class="w-20 h-20 border-2 border-grey-400">
-
-                    </div>
-                    <div class="w-20 h-20 border-2 border-grey-400">
-
-                    </div>
+                <div class="flex flex-col justify-end items-center tool-1 p-4 cursor-pointer" @click="activeAIScene">
+                    <p class="mb-2 text-[20px]">AI场景生成</p>
+                    <p class="mb-2">智能识别图片主体，并根据风格模板或场景提示词自动生成背景，打造精美产品图</p>
                 </div>
-            </div>
-            <div class="flex-column" style="margin-right: 100px">
-                <div class="flex-row center">
-                <el-badge :value="12" class="badge">
-                    <p>创建模特照</p>
-                </el-badge>
-                <span class="icon-share1" />
-                </div>
-                <div class="flex-row space-x-2 mt-2">
-                    <div class="w-20 h-20 border-2 border-grey-400">
-
-                    </div>
-                    <div class="w-20 h-20 border-2 border-grey-400">
-
-                    </div>
-                </div>
-            </div>
-            <div class="flex-column">
-                <div class="flex-row center">
-                <el-badge :value="12" class="badge">
-                    <p>AI产品描述</p>
-                </el-badge>
-                <span class="icon-share1" />
-                </div>
-                <div class="flex-row space-x-2 mt-2">
-                    <div class="w-20 h-20 border-2 border-grey-400">
-
-                    </div>
-                    <div class="w-20 h-20 border-2 border-grey-400">
-
-                    </div>
+                <div class="flex flex-col justify-end items-center tool-2 p-4 cursor-pointer">
+                    <p class="mb-2 text-[20px]">AI图片美化</p>
+                    <p class="mb-2">意见上传图片，AI照片修复技术能够巧妙重塑图像细节，轻松让图片变精美</p>
                 </div>
             </div>
         </div>
-        <div class="tutorial">
-            <p>如何设置 SwifCam?</p>
-            <img class="mt-2" src="@/assets/images/swifcam.png" style="width:160px;height: 100px" @click="playTutorialVideo"/>
+        <div class="flex flex-col justify-center items-center  mt-4">
+            <p class="text-[25px] mt-4 mb-4">教程</p>
+            <div class="flex flex-row space-x-4 w-full h-[60px]">
+                <div class="bg-white rounded-md flex-1 h-full flex flex-row items-center p-2 cursor-pointer" @click="playTutorialVideo">
+                    <img src="@/assets/images/Swifaigo/play.png">
+                    <p class="text-[20px] ml-4">如何连接整套系统?</p>
+                </div>
+                <div class="bg-white rounded-md flex-1 h-full flex flex-row items-center p-2 cursor-pointer" @click="playTutorialVideo">
+                    <img src="@/assets/images/Swifaigo/play.png">
+                    <p class="text-[20px] ml-4">Hub 内软件如何使用?</p>
+                </div>
+            </div>
+            <!-- <img class="mt-2" src="@/assets/images/swifcam.png" style="width:160px;height: 100px" @click="playTutorialVideo"/> -->
         </div>
         <!-- <el-dialog
             :model-value="showTutorial"
@@ -100,7 +77,8 @@ import { SetupContext, ref } from "vue"
 import { ObButton } from "@/common/templates/index"
 import Camera from "./Camera/index.vue"
 import path from 'path'
-import { router, RouterPath } from '@/main'
+import { Menu, Account } from '@/store/index'
+import { ElMessage } from 'element-plus'
 
 export default {
     name: "CameraCapture",
@@ -116,11 +94,24 @@ export default {
         const modal = ref(true)
         const appendToBody = ref(true)
 
+        function activeAIScene(){
+            // 检查是否有会员
+            if(!Account.data.curUser.membership.isMember){
+                ElMessage({
+                    message: '请开通会员',
+                    type: 'error'
+                })
+            }else{
+                Menu.methods.activeIndex(5)
+            }
+        }
+
         function StartCapture() {
+            console.log('StartCapture')
             showCapture.value = true;
         }
         function UploadMedia() {
-            router.push(RouterPath.MEDIA_LIBRARY)
+            // router.push(RouterPath.MEDIA_LIBRARY)
             console.log("UploadMedia")
         }
         function playTutorialVideo(){
@@ -160,6 +151,8 @@ export default {
             StartCapture,
             UploadMedia,
             showCapture,
+            Menu,
+            activeAIScene
         };
     },
 };
@@ -167,4 +160,21 @@ export default {
 <style lang="scss" scoped>
 @import "./local.scss";
 @import "../../local.scss";
+
+.tool-0{
+    width: 450px;
+    background: url('@/assets/images/Swifaigo/tool_0.png');
+    object-fit: cover;
+}
+
+.tool-1{
+    width: 450px;
+    background: url('@/assets/images/Swifaigo/tool_1.png');
+    object-fit: cover;
+}
+
+.tool-2{
+    width: 450px;
+    background: url('@/assets/images/Swifaigo/tool_2.png');
+}
 </style>

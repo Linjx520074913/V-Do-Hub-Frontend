@@ -7,6 +7,7 @@ import MediaLibrary  from './MediaLibrary/index.vue'
 import UserLogin     from './UserLogin/index.vue'
 import UserRegister  from './UserRegister/index.vue'
 import UserZone      from './UserZone/index.vue'
+import MemberShip    from './MemberShip/index.vue'
 
 import AIScene   from './AIScene/index.vue'
 
@@ -19,5 +20,6 @@ export {
     UserLogin,
     UserRegister,
     UserZone,
-    AIScene
+    AIScene,
+    MemberShip
 }

@@ -3,8 +3,8 @@ $footer-height: 30px;
 
 #app{
     height: 100vh;
-    background:#ecf0f7;
     user-select: none;
+    background-color: rgba(100, 100, 100, 1); 
 }
 
 .dragable {

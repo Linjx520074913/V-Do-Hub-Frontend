@@ -5,7 +5,9 @@ import path from 'path'
 import { LocalStorage } from '@/components'
 
 interface UserProfile{
+    avatar: string,
     userId: string,
+    wechatId: string,
     name: string,
     phone: string,
     email: string
@@ -13,9 +15,11 @@ interface UserProfile{
     createdAt: Date,
     updatedAt: Date,
     isRegistered: boolean,
-    isMember: boolean,
-    membershipStartDate: Date,
-    membershipEndDate: Date,
+    membership: {
+        isMember: boolean,
+        startDate: Date,
+        endDate: Date
+    }
 }
 
 interface Response{
@@ -48,7 +52,7 @@ enum URL{
 
 enum LoginMethod{
     WECHAT = 0,
-    PHONE
+    PHONE = 1
 }
 
 enum PaymentMethod{
@@ -63,13 +67,17 @@ const AccountRef = ref({
             name: '',
             phone: '',
             email: '',
+            avatar: '',
+            wechatId: '',
             productCategory: [],
             createdAt: new Date(),
             updatedAt: new Date(),
             isRegistered: false,
-            isMember: false,
-            membershipStartDate: new Date(),
-            membershipEndDate: new Date()
+            membership: {
+                isMember: false,
+                startDate: new Date(),
+                endDate: new Date()
+            }
         } as UserProfile,
         curToken: '',
         curSmsCode: '',
@@ -94,6 +102,7 @@ const AccountRef = ref({
                 default:
                     break
             }
+            console.log('############## toggleLoginMethod', Account.data.loginMethod)
         },
 
         /**
@@ -236,11 +245,10 @@ const AccountRef = ref({
          * @returns 登录成功返回 true, 否则返回 false
          */
         async loginWithToken(): Promise<boolean>{
+            console.log('[ Account ] : loginWithToken')
             const token = LocalStorage.methods.get('token') as string
             const user_profile = await Account.methods.getUserProfileByToken(token)
-            Account.data.isLogin = user_profile != undefined
-            Account.data.needLogin = user_profile == undefined
-            console.log('AAAAAAAAAAAAAAAAAAAAAA', Account.data.needLogin, user_profile)
+            Account.methods.isRegistered(user_profile)
             return user_profile != undefined
         },
         
@@ -249,8 +257,10 @@ const AccountRef = ref({
          * @param user_profile 
          */
         isRegistered(user_profile: UserProfile | undefined){
-            Account.data.isLogin = user_profile != undefined && user_profile.isRegistered
-            Account.data.needRegister = !(user_profile as any).isRegistered
+            console.log('[ Account ] isRegistered : ', user_profile)
+            Account.data.isLogin = user_profile != undefined
+            Account.data.needRegister = user_profile == undefined || !(user_profile as any).isRegistered
+            console.log(`[ Account ] : isLogin = ${Account.data.isLogin}, needRegister = ${Account.data.needRegister}`)
             if(!user_profile){
                 return
             }
@@ -279,7 +289,7 @@ const AccountRef = ref({
             const token        = await Account.methods.getTokenWithCode(code)
             const user_profile = await Account.methods.getUserProfileByToken(token)
             Account.methods.isRegistered(user_profile)
-            console.log('[ Account ] loginWithWechat : ', code)
+            console.log(`[ Account ] loginWithWechat : isLogin = ${Account.data.isLogin} needRegister = ${Account.data.needRegister}`)
             return user_profile
         },
 
@@ -318,6 +328,10 @@ const AccountRef = ref({
             
             Account.data.isLogin = res.status == 200
 
+            if(res.status == 200){
+                Account.data.needRegister = false
+            }
+
             return res.status == 200
         },
         /**
@@ -340,22 +354,29 @@ const AccountRef = ref({
             return res.data
         },
         async createPaymentOrder(planId: string, paymentMethod: PaymentMethod){
-           console.log('@@@@@@@@@@@@@', planId, paymentMethod)
+           console.log(`[ Account ] createPaymentOrder  ##### ${planId} ${paymentMethod}`)
             const data = new URLSearchParams();
             data.append('subscriptionPlan', planId);
             data.append('paymentMethod',    paymentMethod)
             
-            const res = await AXIOS.request({
-                method: 'POST',
-                url: URL.PAYMENT,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': `Bearer ${Account.data.curToken}`
-                },
-                data: data
-            })
+            let res
+            try{
+                res = await AXIOS.request({
+                    method: 'POST',
+                    url: URL.PAYMENT,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Bearer ${Account.data.curToken}`
+                    },
+                    data: data
+                })
+                console.log(`[ Account ] createPaymentOrder  ${planId} ${paymentMethod} ${res}`)
+            }catch(error){
+                console.log('[ Account ] createPaymentOrder ', error)
+            }
+            
             // TODO: 处理异常
-            console.log("[ Account ] createPaymentOrder ", res)
+            
             return res.data
         }
     }

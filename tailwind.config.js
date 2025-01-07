@@ -1,4 +1,5 @@
 module.exports = {
+    important: true,
     content: ['./packages/renderer/index.html', './packages/renderer/**/*.{vue,js,ts,jsx,tsx}', './node_modules/tw-elements/dist/js/**/*.js'],
     theme: {
         extend: {
@@ -6,7 +7,7 @@ module.exports = {
             colors:{
                 'login-pink': '#FDECE5',
                 'beige': '#FFF8EB',
-                'oragne': '#E94902'
+                'main-color': '#E94902'
             }
         },
     },

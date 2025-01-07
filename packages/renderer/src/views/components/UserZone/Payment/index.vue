@@ -1,7 +1,7 @@
 <template>
   <div>
-    Payment
-    planId: {{ value }}
+    <!-- Payment
+    planId: {{ value }} -->
     <div class="flex flex-row">
         <img v-if="paylink != ''" :src="paylink" alt=""/>
     </div>
@@ -27,12 +27,16 @@ export default {
     components: {},
 
     setup(props: any, context: SetupContext) {
-        const { value } = toRefs(props)
         const paylink = ref('')
+
+        // TODO: 这个地方的planId要从外部传入
+        const planId = ref('670c2f21bfa34b09719a1af3')
 
         async function checkPaymentStatus() {
             const user_profile = await Account.methods.getUserProfileByToken('')
-            if(user_profile && user_profile.isMember){
+            console.log('[ CheckPaymentStatus ]', user_profile?.membership.isMember)
+            if(user_profile && user_profile?.membership.isMember){
+                // console.log('')
                 // 支付成功
                 ElMessage({
                     message: '支付成功!',
@@ -45,7 +49,7 @@ export default {
         }
 
         onMounted(async () => {
-            const data = await Account.methods.createPaymentOrder((value.value as any).planId, PaymentMethod.WECHAT)
+            const data = await Account.methods.createPaymentOrder(planId.value, PaymentMethod.WECHAT)
             // 使用 planId 生成支付订单
             QRCode.toDataURL(data.paymentLink, { margin: 2 }, (err: any, url: string) => {
                 paylink.value = url

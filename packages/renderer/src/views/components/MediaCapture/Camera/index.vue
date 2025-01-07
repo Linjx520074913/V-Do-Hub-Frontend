@@ -81,8 +81,8 @@ export default {
         }
 
         function ToggleExtract(value: any){
-        autoExtract.value = value;
-        setting.value.bgRemoval = value;
+            autoExtract.value = value;
+            setting.value.bgRemoval = value;
         }
 
         function ChangeSpeed(value: any){

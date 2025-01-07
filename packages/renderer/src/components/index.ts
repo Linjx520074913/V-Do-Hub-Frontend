@@ -120,7 +120,7 @@ function mountMessengerSubcription(): void {
 
         ipcRenderer.on(ObEvent.SEND_ZOOM_FACTOR, (event: any, factor: number) => {
             if (factor < 1.25) {
-                UI.methods.setZoomFactor(1.25);
+                UI.methods.setZoomFactor(1);
                 // UI.methods.setZoomFactor(1.148);
             } else {
                 // UI.methods.setZoomFactor(1.148);
@@ -129,7 +129,6 @@ function mountMessengerSubcription(): void {
         });
 
         ipcRenderer.on(ObEvent.WINDOW_FULLSCREEN, (event: any, data: boolean) => {
-            console.log('FFFFFFFFFF')
             MainWindow.methods.toggleFullScreen(data);
         });
 

@@ -21,7 +21,7 @@
 
     <Teleport v-if="!Platform.computed.isDarwin" to="body">
       <div id="unblockable-window-control">
-        <div id="header__reserved" class="no-dragable">
+        <div id="header__reserved" class="no-dragable flex flex-row justify-center items-center">
           <button
             v-for="(item, index) in UI.header.right"
             :key="index"

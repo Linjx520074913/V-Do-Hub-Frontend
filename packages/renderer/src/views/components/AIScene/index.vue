@@ -211,14 +211,16 @@ export default {
     width: 290px;
     background: #FFF;
     border: 1px solid #e5e7eb;
+    height: 90vh;
     .block-title {
       font-size: 16px;
       color: #2D2D2D;
     }
     .main-box {
-      padding: 15px 20px;
-      flex: 1;
-      overflow-y: auto;
+        height: 100%;
+        padding: 15px 20px;
+        flex: 1;
+        overflow-y: auto;
     }
     .block-list {
       .child-list {

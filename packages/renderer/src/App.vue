@@ -1,34 +1,36 @@
 <template>
-    <!-- <div class="w-full h-full flex flex-col" v-if="Account.data.isLogin">
-        <Header class="dragable"/>
-        <div class="w-full h-full flex flex-col justify-center">
-            <Main/>
-        </div>
-    </div>
-    <UserLogin v-else class="w-full h-full"/> -->
-    <div class="w-full h-full flex flex-col">
-        <Header class="dragable"/>
-        <div class="w-full h-full flex flex-col justify-center">
-            <Main/>
-        </div>
+    <div class="flex flex-row w-full h-full justify-center items-center">
+        <keep-alive>
+            <component :is="currentComponent.value" class="w-full h-full" />
+        </keep-alive>
     </div>
 </template>
 
 <script>
 import Main from "@/components/main/index.vue"
 import Header from "@components/header/index.vue";
-import { onMounted, ref } from 'vue'
+import Footer from "@components/footer/index.vue"
+import { onMounted, ref, watch, computed } from 'vue'
 import { Account, LoginMethod } from '@/store/index'
 import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone, AIScene } from './views/components/index'
 
 export default {
-    components: { Main, Header, UserLogin, AIScene, UserZone },
+    components: { Main, Header, Footer, UserLogin, AIScene, UserZone, UserRegister },
 
     setup() {
         onMounted(() => {
+            console.log('=== login with default token ===')
             Account.methods.loginWithToken()
         })
-        return { Account }
+        
+        const currentComponent = computed(() => { 
+            return ref(!Account.data.isLogin ? 'UserLogin' : 'Main') }
+        );
+
+        // TODO: 这里要改
+        // const currentComponent = computed(() => Account.data.isLogin ? 'Main' : 'Main');
+
+        return { Account, currentComponent }
     },
 };
 </script>

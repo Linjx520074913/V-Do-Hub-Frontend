@@ -61,11 +61,11 @@ export default class MainWindow{
 
 
 		this.win = new BrowserWindow({
-			width: 1069,
-			height: 602,
-			minWidth: 1069,
-			minHeight: 602,
-            resizable: false,
+			width: 1280,
+			height: 720,
+			minWidth: 1280,
+			minHeight: 720,
+            resizable: true,
             transparent: true,
 			title: this.windowConfig.title,
 			frame: browserWindowConfig.frame,
@@ -121,6 +121,10 @@ export default class MainWindow{
 
 		const id = powerSaveBlocker.start('prevent-display-sleep');
 		powerSaveBlocker.stop(id);
+
+
+        // (this.win as BrowserWindow).maximize()
+        // (this.win as BrowserWindow).setBounds({ x: 0, y: 200, width: 1920, height: 1080 });
 	};
 
 	initMenu(platform?: string) {
@@ -189,12 +193,12 @@ export default class MainWindow{
 		 */
 		ipcMain.on('WINDOW_MAXIMIZE', (event: any, args: any) => {
 
-			const w = this.win as BrowserWindow
-			if(w.isMaximized()){
-				w.restore()
-			}else{
-				w.maximize()
-			}
+			// const w = this.win as BrowserWindow
+			// if(w.isMaximized()){
+			// 	w.restore()
+			// }else{
+			// 	w.maximize()
+			// }
 
 		})
 
@@ -251,7 +255,7 @@ export default class MainWindow{
 
 			var scaleFactor = screen.getPrimaryDisplay().scaleFactor;
 			(this.win as BrowserWindow).webContents.send(ObEvent.SEND_ZOOM_FACTOR, scaleFactor);
-
+            console.log('==============', scaleFactor)
 			const allPaths = {
 				userData: app.getPath("userData"),
 				appData: app.getPath("appData"),
@@ -373,6 +377,7 @@ export default class MainWindow{
                 const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
                 const x = Math.round((screenWidth - w) / 2);
                 const y = Math.round((screenHeight - h) / 2);
+                console.log('@@@@@@@@@@@', w, h);
                 (this.win as BrowserWindow).setBounds({ x, y, width: w, height: h });
                 setTimeout(() => {
                     (this.win as BrowserWindow).show();
@@ -390,7 +395,6 @@ export default class MainWindow{
 		});
 
 		(this.win as BrowserWindow).on("maximize", () => {
-            console.log("FASDFASDF");
 			(this.win as BrowserWindow).webContents.send(ObEvent.WINDOW_MAXIMIZE_UNMAXIMIZE, true);
 		});
 

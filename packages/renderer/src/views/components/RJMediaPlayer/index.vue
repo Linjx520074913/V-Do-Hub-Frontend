@@ -1,11 +1,9 @@
 <template>
     <div class="root flex flex-col max-w-screen-sm h-full" ref="root">
         <div
-            class="player"
+            class="player w-[840px] h-[700px]"
             ref="player"
         ></div>
-            
-        
 
         <div :class="['slide-block', { 'z-vis': currentFilterName }]">
             <span class="demonstration">程度</span>
