@@ -53,7 +53,8 @@
             </div>
             <div class="bg-[#F5F5F5] mt-4 flex-1 rounded-xl flex flex-row items-center p-4">
                 <Payment
-                :value="selectedScription"/>
+                :value="selectedScription"
+                @success="dismiss"/>
                 <div class="flex-1 h-full bg-blue-200 ml-2 flex flex-col p-2">
                     <p class="text-[25px]">支付金额 ¥0.01 </p>
                     <div class="flex flex-row items-center">
@@ -85,18 +86,24 @@ export default {
   name: "MemberShip",
   props: {},
 
-  emits: [],
+  emits: [ 'success' ],
   components: { Payment },
 
   setup(props: any, context: SetupContext) {
     const subscriptions = ref([] as Subscription[])
     const selectedScription = ref( {} as Subscription)
+
+    function dismiss(){
+        console.log('ffffffffffffffffffffffffdiss')
+        context.emit('success')
+    }
+    
     onMounted(async () => {
         subscriptions.value = await Account.methods.getSubscriptions()
         selectedScription.value = subscriptions.value[0]
         console.log('@@@@@@@@@@@@@', selectedScription.value)
     })
-    return { selectedScription }
+    return { selectedScription, dismiss }
   },
 };
 </script>

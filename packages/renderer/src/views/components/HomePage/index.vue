@@ -61,7 +61,8 @@
                     width="1270"
                     :show-close="false"
                     :before-close="() => { dialogVisible = false }">
-                    <MemberShip/>
+                    <MemberShip
+                    @success="() => { dialogVisible = false }"/>
                 </el-dialog>
                 <!-- <ObDropdownMenu class="flex flex-col justify-center mr-8" :items="dropdownItems"/> -->
             </div>

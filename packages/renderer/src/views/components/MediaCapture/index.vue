@@ -28,7 +28,7 @@
         <div class="tool flex flex-col justify-center items-center  mt-4">
             <p class="text-[25px] mt-4 mb-4">工具箱</p>
             <div class="flex flex-row w-full h-[305px] space-x-2">
-                <div class="flex flex-col justify-end items-center tool-0 p-4 cursor-pointer">
+                <div class="flex flex-col justify-end items-center tool-0 p-4 cursor-pointer" @click="activeAIRemove">
                     <p class="mb-2 text-[20px]">AI智能抠图</p>
                     <p class="mb-2">智能AI精准识别需要保留的主体并移除多余背景，高效完成在线抠图任务</p>
                 </div>
@@ -36,7 +36,7 @@
                     <p class="mb-2 text-[20px]">AI场景生成</p>
                     <p class="mb-2">智能识别图片主体，并根据风格模板或场景提示词自动生成背景，打造精美产品图</p>
                 </div>
-                <div class="flex flex-col justify-end items-center tool-2 p-4 cursor-pointer">
+                <div class="flex flex-col justify-end items-center tool-2 p-4 cursor-pointer" @click="activeAIBeauty">
                     <p class="mb-2 text-[20px]">AI图片美化</p>
                     <p class="mb-2">意见上传图片，AI照片修复技术能够巧妙重塑图像细节，轻松让图片变精美</p>
                 </div>
@@ -93,6 +93,20 @@ export default {
         const videoURL = ref(path.join(process.resourcesPath, 'extraResources', 'asset', 'tutorial.mp4'))
         const modal = ref(true)
         const appendToBody = ref(true)
+
+        function activeAIRemove(){
+            ElMessage({
+                message: '暂未开放',
+                type: 'error'
+            })
+        }
+
+        function activeAIBeauty(){
+            ElMessage({
+                message: '暂未开放',
+                type: 'error'
+            })
+        }
 
         function activeAIScene(){
             // 检查是否有会员
@@ -152,7 +166,9 @@ export default {
             UploadMedia,
             showCapture,
             Menu,
-            activeAIScene
+            activeAIScene,
+            activeAIRemove,
+            activeAIBeauty
         };
     },
 };

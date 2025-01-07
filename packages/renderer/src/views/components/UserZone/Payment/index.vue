@@ -2,7 +2,7 @@
   <div>
     <!-- Payment
     planId: {{ value }} -->
-    <div class="flex flex-row">
+    <div class="flex flex-row" @click="test">
         <img v-if="paylink != ''" :src="paylink" alt=""/>
     </div>
   </div>
@@ -23,7 +23,7 @@ export default {
         }
     },
 
-    emits: [],
+    emits: [ 'success' ],
     components: {},
 
     setup(props: any, context: SetupContext) {
@@ -31,6 +31,11 @@ export default {
 
         // TODO: 这个地方的planId要从外部传入
         const planId = ref('670c2f21bfa34b09719a1af3')
+
+        function test(){
+            console.log('FFFFFFFFtest')
+            context.emit('success')
+        }
 
         async function checkPaymentStatus() {
             const user_profile = await Account.methods.getUserProfileByToken('')
@@ -42,6 +47,7 @@ export default {
                     message: '支付成功!',
                     type: 'success'
                 });
+                context.emit('success')
             }else{
                 // 轮询支付状态
                 setTimeout(checkPaymentStatus, 1000); 
@@ -58,7 +64,7 @@ export default {
             checkPaymentStatus()
         })
         
-        return { paylink, checkPaymentStatus }
+        return { paylink, checkPaymentStatus, test }
     },
 };
 </script>

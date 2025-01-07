@@ -12,7 +12,6 @@
                 <p class="text-xs">登录即表示同意《服务条款》和《个人信息保护政策》</p>
             </div>
             <div v-else class="w-full h-full p-20 login-form  max-w-sm mx-auto">
-                手机号码和获取验证码按钮
                 <div class="mb-6 flex items-center space-x-4">
                     <!-- 手机号码输入框 -->
                     <div class="flex-1">

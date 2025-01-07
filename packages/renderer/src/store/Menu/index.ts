@@ -6,7 +6,8 @@ interface MenuItem{
     title: string,
     icon: string,
     visible: boolean,
-    link: string
+    link: string,
+    component: string
 }
 
 const MenuRef = ref({
