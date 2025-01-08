@@ -2,30 +2,43 @@
     <div class="floating-window">
         <div v-if="Camera.data.isConnected" class="content">
             <div class="camera-container">
-                <button class="w-16 absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 icon-return" @click="close">
-                </button>
+                <div class="absolute top-4 left-10 px-4 py-2 rounded cursor-pointer back" @click="close">
+                </div>
                 <div class="top">
-                    <RJMediaPlayer ref="rjPlayer" @load="filterLoad"/>
+                    <RJMediaPlayer ref="rjPlayer" 
+                    @load="filterLoad"/>
                     <!-- <ObPlayer class="player" ref="player" /> -->
                 </div>
-                <div class="bottom">
-                <div class="green-circle-button" @click="TakePhoto">
-                    <p v-if="isVideo">{{ duration }}</p>
-                </div>
-                <el-switch
-                    v-model="isVideo"
-                    @change="change"
-                    active-color="#13ce66"
-                    inactive-color="#ff4949"
-                    style="margin: 0px 30px 40px 0">
-                </el-switch>
+                <div class="bottom flex items-center relative">
+                    <!-- 居中按钮 -->
+                    <div class="green-circle-button absolute left-1/2 -translate-x-1/2" @click="TakePhoto">
+                        <p v-if="isVideo">{{ duration }}</p>
+                    </div>
+
+                    <!-- 靠右开关 -->
+                    <el-switch
+                        class="ml-auto self-center custom-switch"
+                        v-model="isVideo"
+                        @change="change"
+                        >
+                        <template #active-icon>
+                            <img src="@/assets/images/Swifaigo/VIP_0.png" alt="Camera Icon" />
+                        </template>
+                        <template #inactive-icon>
+                            <img src="@/assets/video-icon.png" alt="Video Icon" class="icon-img" />
+                        </template>
+                        </el-switch>
                 </div>
             </div>
             <div class="right-panel">
-                <SettingPanel :isVideoMode="isVideo" 
+                <SettingPanel 
+                :filters="filters"
+                :isVideoMode="isVideo"
                 @ToggleExtract="ToggleExtract" 
                 @close="close"
-                @ChangeSpeed="ChangeSpeed"/>
+                @ChangeSpeed="ChangeSpeed"
+                @changeFilterValue="changeFilterValue"
+                @changeFilter="changeFilter"/>
             </div>
         </div>
         <div v-else class="no-camera-prompt">
@@ -86,7 +99,15 @@ export default {
         }
 
         function ChangeSpeed(value: any){
-        duration.value = value.duration;
+            duration.value = value.duration;
+        }
+
+        function changeFilter(value: any){
+            (rjPlayer.value as any).activeFilter(value)
+        }
+
+        function changeFilterValue(value: number){
+            (rjPlayer.value as any).changeFilterValue(value)
         }
 
         function cancel(){
@@ -101,15 +122,34 @@ export default {
         init();
 
         const isCameraMode = ref(true)
+        const filters = ref([] as any)
 
-        function filterLoad(list: any){
-            console.log("WWWWWWWWWWWWWWWWWW FilterLoad WWWWWWWWWWWWWWWWWWWWW", list)
+        function filterLoad(result: any){
+            filters.value = result
+            console.log('FFAAAAAAAAA', filters)
         }
 
-        return { rjPlayer, filterLoad, active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
+        return { changeFilter, changeFilterValue, filters, rjPlayer, filterLoad, active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
     },
 };
 </script>
 <style lang="scss">
 @import "./local.scss";
+.back{
+    background: url("@/assets/images/Swifaigo/back.png");
+    width:104px;
+    height: 66px;
+}
+
+// .custom-switch {
+//   --el-switch-height: 40px !important;
+//   --el-switch-width: 80px  !important;
+//   --el-switch-border-radius: 20px;
+// }
+
+// /* 图片大小自适应 */
+// .icon-img {
+//   width: 20px;
+//   height: 20px;
+// }
 </style>

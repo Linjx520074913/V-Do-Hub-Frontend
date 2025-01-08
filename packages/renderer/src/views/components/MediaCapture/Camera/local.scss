@@ -31,14 +31,18 @@
     flex-direction: column;
     flex: 1;
     align-items: center;
-    background-color: #FAFAFB;
+    background-color: #FFFFFF;
 
     .top {
-        flex: 1;
+        margin-top: 20px;
+        width: 1200px;
+        aspect-ratio: 4 / 3;
+        background: #EEF0F4;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px 0 10px 0;
+        border-radius: 5px;
     }
 
     .bottom {
@@ -46,12 +50,7 @@
         width: 100%;
         background-color: #FFFFFF;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
         .green-circle-button {
-            margin: auto auto 44px auto;
             background-color: #E94902;
             /* 默认背景色 */
             border: none;
@@ -64,11 +63,11 @@
             /* 鼠标悬停时显示指针样式 */
             font-size: 16px;
             /* 文字大小 */
-            height: 50px;
+            height: 70px;
             /* 按钮高度 */
-            width: 50px;
+            width: 70px;
             /* 按钮宽度 */
-            line-height: 50px;
+            line-height: 70px;
             /* 文字垂直居中 */
             text-align: center;
             /* 文字水平居中 */
@@ -103,17 +102,18 @@
     }
 }
 
-.player {
-    max-width: 95%;
-    max-height: 95%;
-    aspect-ratio: 4 / 3; 
-    border-radius: 5px;
-    border: 1px solid rgba(200, 200, 200, 0.5)
-}
+// .player {
+//     max-width: 95%;
+//     max-height: 95%;
+//     aspect-ratio: 4 / 3; 
+//     border-radius: 5px;
+//     border: 1px solid rgba(200, 200, 200, 0.5)
+// }
 
 .right-panel{
-    width: 270px;
+    width: 381px;
     height: 100%;
+    margin-right: 10px;
 }
 
 .camera-setting {

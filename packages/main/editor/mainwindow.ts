@@ -59,13 +59,14 @@ export default class MainWindow{
 				break;
 		}
 
+        const { workArea } = screen.getPrimaryDisplay();
 
 		this.win = new BrowserWindow({
 			width: 1280,
 			height: 720,
 			minWidth: 1280,
 			minHeight: 720,
-            resizable: true,
+            resizable: false,
             transparent: true,
 			title: this.windowConfig.title,
 			frame: browserWindowConfig.frame,
@@ -90,7 +91,7 @@ export default class MainWindow{
 			// 🚧 Use ['ENV_NAME'] avoid vite:define plugin
 			const url = `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}`
 			this.win.loadURL(url);
-			this.win.webContents.openDevTools()
+			// this.win.webContents.openDevTools()
 		}
 
 		// 快捷键打开开发者
@@ -114,6 +115,8 @@ export default class MainWindow{
 		/** 启动默认全屏 */
         // TODO: 优化 可记录软件关闭时的状态，下次启动时恢复
 		// (this.win as BrowserWindow).maximize();
+        // const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
+        // (this.win as BrowserWindow).setBounds({ x: 0, y: 0, width: screenWidth, height: screenHeight });
 
 		this.win.show();
 
@@ -377,8 +380,8 @@ export default class MainWindow{
                 const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
                 const x = Math.round((screenWidth - w) / 2);
                 const y = Math.round((screenHeight - h) / 2);
-                console.log('@@@@@@@@@@@', w, h);
-                (this.win as BrowserWindow).setBounds({ x, y, width: w, height: h });
+                console.log('@@@@@@@@@@@', w, h, screenWidth, screenHeight);
+                (this.win as BrowserWindow).setBounds({ x: 0, y: 0, width: screenWidth, height: screenHeight });
                 setTimeout(() => {
                     (this.win as BrowserWindow).show();
                 }, 1500);

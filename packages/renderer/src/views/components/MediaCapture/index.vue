@@ -10,35 +10,35 @@
 
         <div class="workspace dashed-border">
             <div class="media-entry">
-                <p class="mb-4">添加媒体</p>
-                <ObButton
-                    text="通过 SwifCam 添加媒体"
-                    icon="icon-quit"
-                    class="media-btn"
+                <p class="mb-8 text-[30px]">添加产品</p>
+                <div
+                    class="mb-5 w-[282px] h-[56px] rounded-full bg-main-color flex justify-center items-center text-white cursor-pointer"
                     @click="StartCapture"
-                />
-                <ObButton
-                    text="上传"
-                    icon="icon-help"
-                    class="media-btn"
+                >
+                    通过 SwifCam 添加产品
+                </div>
+                <div
+                    class="w-[282px] h-[56px] rounded-full bg-main-color flex justify-center items-center text-white cursor-pointer"
                     @click="UploadMedia"
-                />
+                >
+                本地上传产品图片或视频
+                </div>
             </div>
         </div>
         <div class="tool flex flex-col justify-center items-center  mt-4">
             <p class="text-[25px] mt-4 mb-4">工具箱</p>
             <div class="flex flex-row w-full h-[305px] space-x-2">
-                <div class="flex flex-col justify-end items-center tool-0 p-4 cursor-pointer" @click="activeAIRemove">
+                <div class="flex flex-col justify-end items-center tool-0 p-4 cursor-pointer text-center" @click="activeAIRemove">
                     <p class="mb-2 text-[20px]">AI智能抠图</p>
                     <p class="mb-2">智能AI精准识别需要保留的主体并移除多余背景，高效完成在线抠图任务</p>
                 </div>
-                <div class="flex flex-col justify-end items-center tool-1 p-4 cursor-pointer" @click="activeAIScene">
+                <div class="flex flex-col justify-end items-center tool-1 p-4 cursor-pointer text-center" @click="activeAIScene">
                     <p class="mb-2 text-[20px]">AI场景生成</p>
                     <p class="mb-2">智能识别图片主体，并根据风格模板或场景提示词自动生成背景，打造精美产品图</p>
                 </div>
-                <div class="flex flex-col justify-end items-center tool-2 p-4 cursor-pointer" @click="activeAIBeauty">
+                <div class="flex flex-col justify-end items-center tool-2 p-4 cursor-pointer text-center" @click="activeAIBeauty">
                     <p class="mb-2 text-[20px]">AI图片美化</p>
-                    <p class="mb-2">意见上传图片，AI照片修复技术能够巧妙重塑图像细节，轻松让图片变精美</p>
+                    <p class="mb-2">一键上传图片，AI照片修复技术能够巧妙重塑图像细节，轻松让图片变精美</p>
                 </div>
             </div>
         </div>

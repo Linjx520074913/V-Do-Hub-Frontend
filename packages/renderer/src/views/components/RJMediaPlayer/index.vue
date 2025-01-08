@@ -1,26 +1,27 @@
 <template>
-    <div class="root flex flex-col max-w-screen-sm h-full" ref="root">
+    <div ref="root">
         <div
-            class="player w-[840px] h-[700px]"
+            class="player"
             ref="player"
         ></div>
 
-        <div :class="['slide-block', { 'z-vis': currentFilterName }]">
+        <!-- <div :class="['slide-block', { 'z-vis': currentFilterName }]">
             <span class="demonstration">程度</span>
             <el-slider @input="slide" v-model="currentFilterValue" />
         </div>
         <div class="flex flex-row w-full h-22 border border-red-400 p-x-4 space-x-2 overflow-x-auto">
             <div v-for="(item, index) in filters" :key="index" class='w-20 h-20 border border-grey-500 flex flex-row justify-center hover:border-blue-500' @click="activeFilter(item)">
                 <img :src="item.coverUrl" class="object-fill"/>
-                <!-- <p>{{  item.name  }}</p> -->
+                <p>{{  item.name  }}</p>
             </div>
         </div>
-        <p>{{ actived.name }}</p>
+        <p>{{ actived.name }}</p> -->
     </div>
 </template>
 
 <script lang="ts">
 import { SetupContext, onMounted, onUnmounted, ref } from "vue"
+import { contextIsolated } from 'process'
 
 const fs = require('fs')
 const useMediaFilter = require('rj-media-filter')
@@ -32,6 +33,7 @@ export interface Filter{
     hotFlag: number,
     id: string,
     name: string,
+    shortName: string,
     resUrl: string,
     resourceId: string,
     seq: number,
@@ -54,14 +56,41 @@ export default {
     setup(props: any, context: SetupContext) {
         const filters = ref([] as Filter[])
         const actived = ref({} as Filter)
+
         function activeFilter(item: Filter){
+            console.log('FAFAFDfA', item)
             actived.value = item
             currentFilterName.value = item.code
             setFilter(item.code, currentFilterValue.value)
         }
+
+        const slide = (v: any) => {
+            currentFilterValue.value = v
+            setFilter(currentFilterName.value, v)
+        }
+
+        function changeFilterValue(value: number){
+            currentFilterValue.value = value
+            setFilter(currentFilterName.value, currentFilterValue.value)
+        }
+
         const onFilterLoad = (list: Filter[]) => {
             filters.value = list
-            context.emit('load', list)
+            const target = []
+            const shortNameMap = new Map<string, string>()
+            shortNameMap.set('整体提亮', '加亮')
+            shortNameMap.set('金光提亮', '金光')
+            shortNameMap.set('鲜红提亮', '鲜红')
+            shortNameMap.set('银白经典', '银白')
+            shortNameMap.set('湛蓝加深', '湛蓝')
+            shortNameMap.set('草绿饱满', '草绿')
+            for(let i = 0; i < list.length; i++){
+                if(shortNameMap.get(list[i].name)){
+                    list[i].shortName = shortNameMap.get(list[i].name)!
+                    target.push(list[i])
+                }
+            }
+            context.emit('load', target)
         }
         const onFilterError = (ex: any) => {
             console.error(ex)
@@ -80,15 +109,10 @@ export default {
         const player = ref()
         const frameWidth = ref(0)
         const frameHeight = ref(0)
-        const playerWidth = ref(0)
-        const playerHeight = ref(0)
+        const playerWidth = ref(400)
+        const playerHeight = ref(500)
         const currentFilterName = ref('')
         const currentFilterValue = ref(0)
-
-        const slide = (v: any) => {
-            currentFilterValue.value = v
-            setFilter(currentFilterName.value, v)
-        }
 
         const changeFilter = async (v: any) => {
             currentFilterName.value = v
@@ -214,31 +238,50 @@ export default {
         }
 
         const fixPlayerSize = () => {
-            const bcr = player.value.getBoundingClientRect()
-            let w = frameWidth.value
-            let h = frameHeight.value
-            let u = w / h
-            if (bcr.width / bcr.height > u) {
-                h = bcr.height
-                w = h * u
-            } else {
-                w = bcr.width
-                h = w / u
-            }
-            // if (w > frameWidth.value || h > frameHeight.value) {
-            //   w = frameWidth.value
-            //   h = frameHeight.value
+            // const bcr = player.value.getBoundingClientRect()
+            // let w = frameWidth.value
+            // let h = frameHeight.value
+            // let u = w / h
+            // if (bcr.width / bcr.height > u) {
+            //     h = bcr.height
+            //     w = h * u
+            // } else {
+            //     w = bcr.width
+            //     h = w / u
             // }
-            playerWidth.value = w
-            playerHeight.value = h
-            console.log('#######################', w, h)
-            // player.value.querySelector()
+            // // if (w > frameWidth.value || h > frameHeight.value) {
+            // //   w = frameWidth.value
+            // //   h = frameHeight.value
+            // // }
+            // playerWidth.value = 600
+            // playerHeight.value = 800
+            // console.log('########### fixPlayerSize ############', playerWidth.value, playerHeight)
+            // console.log('############## afafaf !!!!!!', player.value.firstElementChild)
+            // player.value.firstElementChild.style.width = '1280px'
+            // player.value.firstElementChild.style.height = '960px'
+
+            const container = document.getElementById('player')
+            const containerWidth = player.value.offsetWidth;
+            const containerHeight = player.value.offsetHeight;
+            console.log('=FFFF!!', containerWidth, containerHeight)
+
+            // 根据容器大小和视频比例调整
+            if (containerWidth / containerHeight > 4 / 3) {
+                player.value.firstElementChild.style.width = `${(containerHeight * 4) / 3}px`;
+                player.value.firstElementChild.style.height = `${containerHeight}px`;
+            } else {
+                player.value.firstElementChild.style.width = `${containerWidth}px`;
+                player.value.firstElementChild.style.height = `${(containerWidth * 3) / 4}px`;
+            }
+
+            player.value.firstElementChild.style.borderRadius = '5px'
         }
 
         const initObserver = () => {
             frameWidth.value = app.value.width
             frameHeight.value = app.value.height
             observer = new ResizeObserver(fixPlayerSize)
+            console.log('######### initObServer', frameWidth.value, frameHeight.value)
             observer.observe(root.value)
         }
 
@@ -264,7 +307,7 @@ export default {
         }
         })
 
-        return { filters, actived, activeFilter, app, root, player, frameWidth, frameHeight, playerWidth, playerHeight, currentFilterName, currentFilterValue, slide, changeFilter, setFrameSize, appcreated, updateImg, saveScreenshot, mediaRecorder, recordVideo, recordVideoStop, getDisplayMediaSource, fixPlayerSize, initObserver, observer }
+        return { changeFilterValue, filters, actived, activeFilter, app, root, player, frameWidth, frameHeight, playerWidth, playerHeight, currentFilterName, currentFilterValue, slide, changeFilter, setFrameSize, appcreated, updateImg, saveScreenshot, mediaRecorder, recordVideo, recordVideoStop, getDisplayMediaSource, fixPlayerSize, initObserver, observer }
     }
 };
 </script>
@@ -275,8 +318,8 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 400px;
-  height: 400px;
+  width: 1024px;
+  height: 768px;
   margin-left: auto;
   margin-right: auto;
 }

@@ -1,8 +1,8 @@
 <template>
-  <div class="camera-setting overflow-y-scroll">
+  <div class="camera-setting">
         <div class="panel">
           <div class="item">
-            <p>设备</p>
+            <p class="text-[18px]">设备</p>
             <p>SwifAI Camera</p>
           </div>
           <div class="divider" />
@@ -30,7 +30,7 @@
         </div>
         <div class="panel">
           <div class="item">
-            <p>SwifAI</p>
+            <p class="text-[18px]">SwifAI</p>
           </div>
           <table style="width:100%">
             <tr>
@@ -42,26 +42,29 @@
         </div>
         <div class="panel">
             <div class="item">
-                <p>滤镜</p>
+                <p class="text-[18px]">滤镜</p>
             </div>
-            <table style="width:100%">
-              <tr>
-                <td><el-checkbox class="extractor" disabled>黄金</el-checkbox></td>
-                <td><el-checkbox class="extractor" disabled>K金</el-checkbox></td>
-              </tr>
-              <tr>
-                <td><el-checkbox class="extractor" disabled>银饰</el-checkbox></td>
-                <td><el-checkbox class="extractor" disabled>翡翠</el-checkbox></td>
-              </tr>
-            </table>
-            <div class="flex flex-col w-5/6">
-                <span>磨皮  :   {{ Camera.data.smoothness }}</span>
-                <el-slider v-model="Camera.data.smoothness" @input="Camera.methods.setSmoothness"></el-slider>
+            <div class="filter-container px-3">
+                <div 
+                    :class="['filter-item flex flex-col justify-center items-center cursor-pointer', currentFilter.shortName == content.shortName ? 'border-orange-600' : '']"
+                    v-for="(content, index) in filters" 
+                    :key="index"
+                    @click="activeFilter(content)"
+                >
+                <img :src="content.coverUrl"/>
+                <p class="text-[15px] m-auto">{{ content.shortName }}</p>
+                </div>
+            </div>
+            <div class="flex flex-col w-5/6 px-3 mt-2">
+                <!-- <span class="text-[15px]">程度  :   {{ Camera.data.smoothness }}</span>
+                <el-slider v-model="Camera.data.smoothness" @input="Camera.methods.setSmoothness"></el-slider> -->
+                <span class="text-[15px]">程度  :   {{ currentFilterValue }}</span>
+                <el-slider @input="slide" v-model="currentFilterValue" />
             </div>
         </div>
         <div class="panel">
             <div class="item">
-                <p>调整</p>
+                <p class="text-[18px]">调整</p>
             </div>
             <div class="flex flex-col w-5/6">
                 <span>亮度  :   {{ Camera.data.brightness }}</span>
@@ -99,7 +102,7 @@
         </div>
         <div class="panel">
           <div class="item">
-            <p>分辨率</p>
+            <p class="text-[18px]">分辨率</p>
           </div>
           <select name="resolution" id="resolution">
             <option value="43_1920">4:3 1920x1440</option>
@@ -118,13 +121,13 @@
         </div>
         <div class="panel">
           <div class="item">
-            <p>启用LOGO水印</p>
+            <p class="text-[18px]">启用LOGO水印</p>
             <el-switch/>
           </div>
         </div>
         <div class="panel">
           <div class="item">
-            <p>媒体保存到本地磁盘</p>
+            <p class="text-[18px]">媒体保存到本地磁盘</p>
             <el-switch />
           </div>
         </div>
@@ -145,10 +148,13 @@ export default {
   props: {
     isVideoMode: {
       type: Boolean
+    },
+    filters: {
+        type: Array
     }
   },
 
-  emits: ["close", "ChangeSpeed", "ToggleExtract"],
+  emits: ["close", "ChangeSpeed", "ToggleExtract", 'changeFilterValue', 'changeFilter'],
   components: { ObPlayer, ObButton },
 
   setup(props: any, context: SetupContext) {
@@ -157,6 +163,21 @@ export default {
     }
 
     const enableExtract = ref(false);
+
+    const currentFilter = ref({ shortName: '' })
+
+    const currentFilterValue = ref(0)
+
+    const slide = (v: any) => {
+        currentFilterValue.value = v
+        context.emit('changeFilterValue', v)
+        // setFilter(currentFilterName.value, v)
+    }
+
+    function activeFilter(content: any){
+        currentFilter.value = content;
+        context.emit('changeFilter', content)
+    }
 
     function ChangeSpeed(value: any){
         cur_speed.value = value;
@@ -173,7 +194,7 @@ export default {
       context.emit("ToggleAutoFocus", value);
     }
 
-    return { Camera, close, enableExtract, ToggleExtract, ToggleAutoFocus, AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle, ChangeSpeed };
+    return { slide, currentFilterValue, currentFilter, activeFilter, Camera, close, enableExtract, ToggleExtract, ToggleAutoFocus, AngleOptions, SpeedOptions, cur_angle, cur_speed, ChangeAngle, ChangeSpeed };
   },
 };
 </script>
@@ -183,4 +204,26 @@ export default {
 //     width: 10px !important;
 // }
 @import "./local.scss";
+.filter-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 每行 2 列 */
+  gap: 10px; /* 元素之间的间距 */
+}
+
+.filter-item {
+  height: 140px; /* 父容器固定高度 */
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  display: flex; /* 使用 flex 居中内容 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  overflow: hidden; /* 隐藏溢出的部分 */
+
+  img {
+    max-width: 100%; /* 图片最大宽度为父容器宽度 */
+    max-height: 120px; /* 图片最大高度为父容器高度 */
+    object-fit: contain; /* 保持比例，完整显示图片 */
+  }
+}
 </style>
