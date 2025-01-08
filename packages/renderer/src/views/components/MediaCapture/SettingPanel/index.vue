@@ -157,7 +157,7 @@ export default {
     }
   },
 
-  emits: ["close", "ChangeSpeed", "ToggleExtract", 'ChangeAngle', 'changeFilterValue', 'changeFilter'],
+  emits: ["close", "ChangeSpeed", "ToggleExtract"],
   components: { ObPlayer, ObButton },
 
   setup(props: any, context: SetupContext) {

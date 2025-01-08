@@ -15,9 +15,8 @@ const SpeedOptions = [
 const cur_angle = ref(AngleOptions[0]);
 const cur_speed = ref(SpeedOptions[0]);
 
-// function ChangeAngle(value: any){
-//     cur_angle.value = value;
-//     // TODO：调整转盘角度
-// }
-
+function ChangeAngle(value: any){
+    cur_angle.value = value;
+    // TODO：调整转盘角度
+}
 export { AngleOptions, SpeedOptions, cur_angle, cur_speed }
