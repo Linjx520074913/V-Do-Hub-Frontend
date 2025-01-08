@@ -83,14 +83,27 @@
                     <span>
                     <table style="width:100%">
                         <tr>
-                        <td class="text-[15px]" style="text-align: left;">焦距  :   {{ Camera.data.focus }} </td>
-                        <td style="text-align: right;">
-                        <el-checkbox v-model="Camera.data.af_mode" @change="Camera.methods.switchAutoFocus"></el-checkbox>自动
-                        </td>
+                          <td class="text-[15px]" style="text-align: left;">焦距  :   {{ Camera.data.focus }} </td>
+                          <td style="text-align: right;">
+                            <el-checkbox v-model="Camera.data.af_mode" @change="Camera.methods.switchAutoFocus"></el-checkbox>自动
+                          </td>
                         </tr>
                     </table>
                     </span>
-                    <el-slider v-model="Camera.data.focus" @input="Camera.methods.setFocus"></el-slider>
+                    <el-slider v-model="Camera.data.focus" @input="Camera.methods.setFocus" :min="1" :max="64" :step="1"></el-slider>
+                </div>
+                <div class="flex flex-col w-5/6">
+                    <span>
+                    <table style="width:100%">
+                        <tr>
+                          <td class="text-[15px]" style="text-align: left;">白平衡  :   {{ Camera.data.wb_temp }} </td>
+                          <td style="text-align: right;">
+                            <el-checkbox v-model="Camera.data.awb_mode" @change="Camera.methods.switchAWB"></el-checkbox>自动
+                          </td>
+                        </tr>
+                    </table>
+                    </span>
+                    <el-slider v-model="Camera.data.wb_temp" @input="Camera.methods.setWBTemp" :min="3500" :max="9000" :step="10"></el-slider>
                 </div>
                 <div class="flex flex-col w-5/6">
                     <span class="text-[15px]">色调  :   {{ Camera.data.hue }}</span>
@@ -115,11 +128,11 @@
             <p class="text-[18px]">分辨率</p>
           </div>
           <select name="resolution" id="resolution">
+            <option value="s_2160">1:1 2160x2160</option>
+            <option value="s_3000">1:1 3008x3008</option>
             <option value="43_1920">4:3 1920x1440</option>
             <option value="43_4K">4:3 4000x3000</option>
-            <option value="43_1600">4:3 1600x1200</option>
-            <option value="s_3000">1:1 3008x3008</option>
-            <option value="s_2160">1:1 2160x2160</option>            
+            <option value="43_1600">4:3 1600x1200</option>                      
             <option value="169_1920">16:9 1920x1080</option>
             <option value="169_3840">16:9 3840x2160</option>
           </select>

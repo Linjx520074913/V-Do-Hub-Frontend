@@ -70,7 +70,9 @@ const CameraRef = ref({
         sharpness: 50,      // 锐度
         hue: 50,            // 色调
         focus: 30,          // 焦距
-        af_mode: true       // 默认为AF
+        af_mode: true,      // 默认为AF
+        awb_mode: true,     // 默认为AWB
+        wb_temp: 5500,      // 白平衡温度
     },
     methods: {
         open(filePath?: string){
@@ -151,6 +153,13 @@ const CameraRef = ref({
         switchAutoFocus(value: boolean){
             // Camera.data.af_mode = value; // 已经通过v-model自动绑定
             Messenger.methods.publish(VDoEvent.SET_AUTOFOCUS, { autofocus: Camera.data.af_mode} )
+        },
+        setWBTemp(value: number){
+            Messenger.methods.publish(VDoEvent.SET_WB_TEMP, { wb_temp: value } )
+            Camera.data.awb_mode = false;
+        },
+        switchAWB(value: boolean){
+            Messenger.methods.publish(VDoEvent.SET_AWB, { awb: Camera.data.awb_mode} )
         }
     },
 })
