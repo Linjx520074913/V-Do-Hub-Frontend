@@ -37,7 +37,6 @@ const GlobalRef = ref({
             Global.currentDstVideoName = path.join(dir, formattedDateTime + '.mp4')
             Global.currentScreenShotName = path.join(dir, 'screenShot.png')
 
-            return { dir: dir, picName: Global.currentPicName, rawVideoName: Global.currentRawVideoName, dstVideoName: Global.currentDstVideoName, screenShotName: Global.currentScreenShotName }
             return {
                 speed: cur_speed.value.tstr,
                 angle: cur_angle.value.angle,

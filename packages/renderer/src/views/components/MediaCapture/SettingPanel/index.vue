@@ -105,10 +105,9 @@
                     <el-slider v-model="Camera.data.sharpness" @input="Camera.methods.setSharpness"></el-slider>
                 </div>
                 <div class="flex flex-col w-5/6">
-            </div>
-            
-                <span class="text-[15px]">对比度  :   {{ Camera.data.contrast }}</span>
-                <el-slider v-model="Camera.data.contrast" @input="Camera.methods.setContrast"></el-slider>
+                    <span class="text-[15px]">对比度  :   {{ Camera.data.contrast }}</span>
+                    <el-slider v-model="Camera.data.contrast" @input="Camera.methods.setContrast"></el-slider>
+                </div>
             </div>
         </div>
         <div class="panel">
@@ -165,7 +164,7 @@ export default {
     }
   },
 
-  emits: ["close", "ChangeSpeed", "ToggleExtract"],
+  emits: ["close", "ChangeAngle", "ChangeSpeed", "ToggleExtract"],
   components: { ObPlayer, ObButton },
 
   setup(props: any, context: SetupContext) {
