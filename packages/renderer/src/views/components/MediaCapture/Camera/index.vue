@@ -96,27 +96,27 @@ export default {
         function ChangeAngle(value: any, speed: any){
             if ("slow" == speed.tstr){
                 if (360 == value.angle){
-                    duration.value = 30;
+                    duration.value = 31;
                 } else if (90 == value.angle){
-                    duration.value = 30;
+                    duration.value = 32;
                 } else if (45 == value.angle){
-                    duration.value = 15;
+                    duration.value = 17;
                 } else if (30 == value.angle){
-                    duration.value = 10;
+                    duration.value = 12;
                 } else if (15 == value.angle){
-                    duration.value = 5;
+                    duration.value = 7;
                 }
             } else if ("fast" == speed.tstr){
                 if (360 == value.angle){
                     duration.value = 15;
                 } else if (90 == value.angle){
-                    duration.value = 15;
+                    duration.value = 17;
                 } else if (45 == value.angle){
-                    duration.value = 8;
+                    duration.value = 10;
                 } else if (30 == value.angle){
-                    duration.value = 5;
+                    duration.value = 7;
                 } else if (15 == value.angle){
-                    duration.value = 3;
+                    duration.value = 5;
                 }
             }
         }
