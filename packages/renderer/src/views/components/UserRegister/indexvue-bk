@@ -143,6 +143,7 @@ export default {
                 message: isSuccess? '注册成功!' : '注册失败',
                 type: isSuccess? 'success' : 'error',
             });
+)
         }
 
         async function sendPhoneVerificationCode(phone: string){

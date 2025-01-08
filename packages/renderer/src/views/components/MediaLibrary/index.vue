@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-full">
         <ObTab :options="Options"/>
-        <div class="overflow-y-scroll">
+        <div class="overflow-y-scroll pt-4">
             <Waterfall
             :list="images"
             :row-key="options.rowKey"
@@ -22,10 +22,10 @@
             <template #default="{ item }">
                 <div class="item" @click="handleClick(item)">
                     <img :src="item.coverPath" />
-                <div class="divider" />
-                <div class="information">
-                    <p>{{ item.name }}</p>
-                </div>
+                    <div class="divider" />
+                    <div class="information">
+                        <p>{{ item.name }}</p>
+                    </div>
                 </div>
             </template>
             </Waterfall>
@@ -99,7 +99,7 @@ export default {
             animationDelay: 300,
             animationCancel: false,
             // 背景色
-            backgroundColor: '#FAFAFB',
+            backgroundColor: '#F1F1F1',
             // imgSelector
             imgSelector: 'src.original',
             // 加载配置

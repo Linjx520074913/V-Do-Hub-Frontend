@@ -328,10 +328,6 @@ const AccountRef = ref({
             
             Account.data.isLogin = res.status == 200
 
-            if(res.status == 200){
-                Account.data.needRegister = false
-            }
-
             return res.status == 200
         },
         /**

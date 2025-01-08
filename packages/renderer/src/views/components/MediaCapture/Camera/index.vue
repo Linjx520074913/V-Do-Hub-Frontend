@@ -21,13 +21,7 @@
                         v-model="isVideo"
                         @change="change"
                         >
-                        <template #active-icon>
-                            <img src="@/assets/images/Swifaigo/VIP_0.png" alt="Camera Icon" />
-                        </template>
-                        <template #inactive-icon>
-                            <img src="@/assets/video-icon.png" alt="Video Icon" class="icon-img" />
-                        </template>
-                        </el-switch>
+                    </el-switch>
                 </div>
             </div>
             <div class="right-panel">
@@ -37,6 +31,7 @@
                 @ToggleExtract="ToggleExtract" 
                 @close="close"
                 @ChangeSpeed="ChangeSpeed"
+                @ChangeAngle="ChangeAngle"
                 @changeFilterValue="changeFilterValue"
                 @changeFilter="changeFilter"/>
             </div>
@@ -98,8 +93,61 @@ export default {
             setting.value.bgRemoval = value;
         }
 
-        function ChangeSpeed(value: any){
-            duration.value = value.duration;
+        function ChangeAngle(value: any, speed: any){
+            if ("slow" == speed.tstr){
+                if (360 == value.angle){
+                    duration.value = 30;
+                } else if (90 == value.angle){
+                    duration.value = 30;
+                } else if (45 == value.angle){
+                    duration.value = 15;
+                } else if (30 == value.angle){
+                    duration.value = 10;
+                } else if (15 == value.angle){
+                    duration.value = 5;
+                }
+            } else if ("fast" == speed.tstr){
+                if (360 == value.angle){
+                    duration.value = 15;
+                } else if (90 == value.angle){
+                    duration.value = 15;
+                } else if (45 == value.angle){
+                    duration.value = 8;
+                } else if (30 == value.angle){
+                    duration.value = 5;
+                } else if (15 == value.angle){
+                    duration.value = 3;
+                }
+            }
+        }
+
+        function ChangeSpeed(value: any, angle: any){
+            // TODO：这里的duration还需要根据angle和speed一起来计算
+            if ("slow" == value.tstr){
+                if (360 == angle.angle){
+                    duration.value = 30;
+                } else if (90 == angle.angle){
+                    duration.value = 30;
+                } else if (45 == angle.angle){
+                    duration.value = 15;
+                } else if (30 == angle.angle){
+                    duration.value = 10;
+                } else if (15 == angle.angle){
+                    duration.value = 5;
+                }
+            } else if ("fast" == value.tstr){
+                if (360 == angle.angle){
+                    duration.value = 15;
+                } else if (90 == angle.angle){
+                    duration.value = 15;
+                } else if (45 == angle.angle){
+                    duration.value = 8;
+                } else if (30 == angle.angle){
+                    duration.value = 5;
+                } else if (15 == angle.angle){
+                    duration.value = 3;
+                }
+            }
         }
 
         function changeFilter(value: any){
@@ -129,7 +177,7 @@ export default {
             console.log('FFAAAAAAAAA', filters)
         }
 
-        return { changeFilter, changeFilterValue, filters, rjPlayer, filterLoad, active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
+        return { ChangeAngle, changeFilter, changeFilterValue, filters, rjPlayer, filterLoad, active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
     },
 };
 </script>

@@ -1,32 +1,16 @@
 <template>
     <UserRegister v-if="Account.data.needRegister"/>
-    <div v-else class="w-full h-full flex flex-row home-page-root">
-        <div class="left h-full">
-            <div class="logo"/>
-            <div class="menu">
-                <div v-for="item in Menu.data.slider" :class="[ item.visible? 'item': 'hidden' ]" >
-                    <div :class="['content h-[47px]', Menu.methods.isActived(item) ? 'highlight': '']" @click="Menu.methods.active(item)">
-                        <span :class="['icon', item.icon, 'text-[30px]']" />
-                        <span class="title text-[26px]">{{ item.title }}</span>
-                    </div>
-                    <span :class="[ Menu.methods.isActived(item) ? 'right-border': '']" />
-                </div>
-            </div>
-        </div>
-        <div class="middle h-full">
-            <div class="infomation-bar flex flex-row items-center justify-between">
-                <div class="navi">
-                    <div class="name w-10">{{ Menu.data.activedItem.title }}</div>
-                    <div class="free" v-show='Menu.data.activedItem.visible' @click="Menu.methods.activeAccountZone"> Free </div>
-                </div>
-                <!-- VIP 信息提示框 -->
-                <el-popover
-                    placement="bottom"
-                    width="540"
-                    trigger="manual"
-                    v-model:visible="isPopoverVisible"
-                    :teleported="false"
-                >
+    <div v-else class="w-full h-full flex flex-col home-page-root">
+        <div class="w-full h-[89px] bg-white flex flex-row items-center justify-between">
+            <div class="logo ml-[20px]"/>
+            <!-- VIP 信息提示框 -->
+            <el-popover
+                placement="bottom"
+                width="540"
+                trigger="manual"
+                v-model:visible="isPopoverVisible"
+                :teleported="false"
+            >
                 <div class="w-full h-[600px] flex flex-col p-5">
                     <div class="flex flex-row justify-center items-center mt-5 ">
                         <span class="vip-0"/>
@@ -49,24 +33,48 @@
                     </div>
                 </div>
                 <template #reference>
-                    <div class="flex flex-row">
+                    <div class="flex flex-row mr-4">
                         <div class="vip-0"/>
                         <div class="vip-1 cursor-pointer" @click="showVIPPrompt"/>
                     </div>
                 </template>
-                </el-popover>
-                <!-- 会员支付页 -->
-                <el-dialog
-                    :model-value="dialogVisible"
-                    width="1270"
-                    :show-close="false"
-                    :before-close="() => { dialogVisible = false }">
-                    <MemberShip
-                    @success="() => { dialogVisible = false }"/>
-                </el-dialog>
-                <!-- <ObDropdownMenu class="flex flex-col justify-center mr-8" :items="dropdownItems"/> -->
+            </el-popover>
+            <!-- 会员支付页 -->
+            <el-dialog
+                :model-value="dialogVisible"
+                width="1270"
+                :show-close="false"
+                :before-close="() => { dialogVisible = false }">
+                <MemberShip
+                @success="() => { dialogVisible = false }"/>
+            </el-dialog>
+        </div>
+        <div class="flex flex-row w-full h-full">
+            <div class="left h-full">
+                <div class="w-[386px] h-[73px] bg-[#F3F3F3] flex flex-row items-center rounded-lg">
+                    <span class="w-[29px] h-[31px] avatar"/>
+                    <p class="text-[20px]">账户信息</p>
+                </div>
+                <div class="menu">
+                    <div v-for="item in Menu.data.slider" :class="[ item.visible? 'item': 'hidden' ]" >
+                        <div :class="['content h-[47px]', Menu.methods.isActived(item) ? 'highlight text-[#E94504]': '']" @click="Menu.methods.active(item)">
+                            <span :class="['icon', item.icon, 'text-[28px]']" />
+                            <span class="title text-[26px]">{{ item.title }}</span>
+                        </div>
+                        <span :class="[ Menu.methods.isActived(item) ? 'right-border': '']" />
+                    </div>
+                </div>
             </div>
-            <component :is="Menu.data.activedItem.component" class="w-full h-full" v-if="isReady"/>
+            <div class="middle h-full">
+                <div class="infomation-bar flex flex-row items-center justify-between">
+                    <div class="navi">
+                        <div class="name w-10">{{ Menu.data.activedItem.title }}</div>
+                        <div class="free" v-show='Menu.data.activedItem.visible' @click="Menu.methods.activeAccountZone"> Free </div>
+                    </div>
+                    <!-- <ObDropdownMenu class="flex flex-col justify-center mr-8" :items="dropdownItems"/> -->
+                </div>
+                <component :is="Menu.data.activedItem.component" class="w-full h-full" v-if="isReady"/>
+            </div>
         </div>
     </div>
 </template>
@@ -155,5 +163,11 @@ export default {
     background: url('@/assets/images/Swifaigo/main-logo.png');
     width: 232px;
     height: 53px;
+}
+.avatar{
+    background: url('@/assets/images/Swifaigo/avatar.png');
+    width: 29px;
+    height: 31px;
+    margin-left: 20px;
 }
 </style>

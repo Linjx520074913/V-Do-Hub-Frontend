@@ -2,7 +2,7 @@
   <div class="obtab-root">
     <div class="obtab-menu">
       <div v-for="item in options"
-        :class="['obtab-menu-item', selected.id == item.id? 'obtab-menu-item-selected': '']"
+        :class="['obtab-menu-item text-[20px]', selected.id == item.id? 'obtab-menu-item-selected': '']"
         @click="AcitveItem(item)">
         {{  item.title }}
       </div>

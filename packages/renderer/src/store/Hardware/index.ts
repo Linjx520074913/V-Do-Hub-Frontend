@@ -6,6 +6,9 @@ import { Messenger } from "@/components/index"
 import { VDoEvent } from '../EventBus/index'
 import CameraDefaultConfig from "./camera_config.json"
 
+import { cur_angle } from '@/views/components/MediaCapture/SettingPanel'
+import { cur_speed } from '@/views/components/MediaCapture/SettingPanel'
+
 // TODO: 这里的 dataRootDir 要换成程序安装目录
 const GlobalRef = ref({
     dataRootDir: 'D://data//',
@@ -35,7 +38,16 @@ const GlobalRef = ref({
             Global.currentDstVideoName = path.join(dir, formattedDateTime + '.mp4')
             Global.currentScreenShotName = path.join(dir, 'screenShot.png')
 
-            return { dir: dir, picName: Global.currentPicName, rawVideoName: Global.currentRawVideoName, dstVideoName: Global.currentDstVideoName, screenShotName: Global.currentScreenShotName }
+            // return { dir: dir, picName: Global.currentPicName, rawVideoName: Global.currentRawVideoName, dstVideoName: Global.currentDstVideoName, screenShotName: Global.currentScreenShotName }
+            return {
+                speed: cur_speed.value.tstr,
+                angle: cur_angle.value.angle,
+                dir: dir,
+                picName: Global.currentPicName,
+                rawVideoName: Global.currentRawVideoName,
+                dstVideoName: Global.currentDstVideoName,
+                screenShotName: Global.currentScreenShotName
+            }
         }
     },
 })
@@ -95,8 +107,9 @@ const CameraRef = ref({
         },
         async recordVideo(duration: number): Promise<string>{
             return new Promise((resolve, reject) => {
-                const { dir, rawVideoName, dstVideoName, screenShotName } = Global.methods.getCurrenDataInfo()
-                Messenger.methods.publish(VDoEvent.RECORD_VIDEO, { duration: duration, raw: rawVideoName, dst: dstVideoName, screenShot: screenShotName }, () => {
+                const {speed, angle, dir, rawVideoName, dstVideoName, screenShotName } = Global.methods.getCurrenDataInfo()
+                // 其实duration参数可以不用传，由后端程序决定
+                Messenger.methods.publish(VDoEvent.RECORD_VIDEO, { duration: duration, speed: speed, angle: angle, raw: rawVideoName, dst: dstVideoName, screenShot: screenShotName }, () => {
                     resolve(dir)
                 })
             })

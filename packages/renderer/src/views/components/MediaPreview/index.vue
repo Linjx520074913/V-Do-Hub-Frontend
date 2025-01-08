@@ -4,22 +4,29 @@
         :element-loading-text="loadingText"
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0.8, 0.8, 0.8, 0.8)">
-        <p class="font-bold">预览</p>
-        <div class="media-container flex flex-col">
-            <img v-if='!hasVideo' class="image" alt="Image" :src="data[0].url">
+        <p class="font-bold text-[30px]">预览</p>
+        <div class="media-container flex flex-col border border-gray-300 rounded-md">
+            <img v-if='!hasVideo' class="image rounded-md"  alt="Image" :src="data[0].url">
             <video v-else controls autoplay name="media" class="image">
                 <source :src="data[0].url" type="video/mp4">
             </video>
         </div>
         <div class="screen-shot flex flex-row gap-x-1">
             <div v-for="(item, index) in data" :class="['w-1/5', 'p-1', item.type == MediaType.IMAGE? '': 'hidden']" @click="enlarge(item)">
-                <img :src="item.url" class="w-full h-full border border-black rounded-md object-cover"/>
+                <img :src="item.url" class="w-full h-full border border-gray-300 rounded-md object-cover"/>
             </div>
         </div>
 
-        <div class="flex flex-row h-10 px-10 mt-20" v-if="showButton">
-            <el-button class="button flex-1" type="primary" @click="cancel">取消</el-button>
-            <el-button class="button flex-1" type="primary" @click="confirm">保存到图库</el-button>
+        <div class="flex flex-row h-[50px] px-5 mt-20 space-x-3" v-if="showButton">
+            <!-- <el-button class="button flex-1 bg-main-color" type="primary" @click="cancel">取消</el-button>
+            <el-button class="button flex-1 bg-main-color" type="primary" @click="confirm">保存到图库</el-button> -->
+
+            <div class="flex-1 flex bg-main-color rounded-xl text-white justify-center items-center cursor-pointer"  @click="cancel">
+                取消
+            </div>
+            <div class="flex-1 flex bg-main-color rounded-xl text-white justify-center items-center cursor-pointer"  @click="confirm">
+                保存到图库
+            </div>
         </div>
 
         <el-dialog
@@ -29,8 +36,8 @@
             :modal="option.modal"
             :append-to-body="option.appendToBody"
             :before-close="() => { fullscreen = false }"
-            class="w-full h-full flex">
-            <img class="image w-full h-full" :src="(selectedItem as any).url">
+            class="w-full h-full flex justify-center items-center">
+            <img class="image w-[800px] h-[800px]" :src="(selectedItem as any).url">
         </el-dialog>
     </div>
 </template>

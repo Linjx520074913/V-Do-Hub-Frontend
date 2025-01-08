@@ -6,18 +6,18 @@
 
 .media-container{
     width: 100%;
-    height: 300px;
+    height: auto;
     align-items: center;
     justify-content: center;
+
+    image{
+        aspect-ratio: 1/1;
+        border-radius: 5px;
+        object-fit: contain;
+    }
 }
 
-.image{
-    padding: 1px;
-    width: 90%;
-    aspect-ratio: 16/9;
-    border: 1px solid grey;
-    border-radius: 5px;
-}
+
 
 .screen-shot{
     margin-left: 25px;

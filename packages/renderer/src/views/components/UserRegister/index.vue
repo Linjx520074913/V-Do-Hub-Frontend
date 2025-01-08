@@ -115,6 +115,13 @@ export default {
                 message: isSuccess? '注册成功!' : '注册失败',
                 type: isSuccess? 'success' : 'error',
             });
+
+            // 重新刷新页面
+            if(isSuccess){
+                console.log('FFFFFFFFFFFFFFFFF')
+                ipcRenderer.send(ObEvent.WINDOW_RELOAD, {})
+            }
+            
         }
         return { quit, Account, categories, form, register }
     },

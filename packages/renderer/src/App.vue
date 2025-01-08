@@ -60,7 +60,8 @@ body {
 //   font-family: "Microsoft YaHei";
     font-family: 'PingFang SC-Regular', 'PingFang SC';
     overflow: hidden;
-    color: #363E5C
+    color: #363E5C;
+    font-weight: normal;
 }
 
 html * {

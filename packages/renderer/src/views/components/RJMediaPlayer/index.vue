@@ -265,14 +265,16 @@ export default {
             const containerHeight = player.value.offsetHeight;
             console.log('=FFFF!!', containerWidth, containerHeight)
 
-            // 根据容器大小和视频比例调整
-            if (containerWidth / containerHeight > 4 / 3) {
-                player.value.firstElementChild.style.width = `${(containerHeight * 4) / 3}px`;
-                player.value.firstElementChild.style.height = `${containerHeight}px`;
-            } else {
-                player.value.firstElementChild.style.width = `${containerWidth}px`;
-                player.value.firstElementChild.style.height = `${(containerWidth * 3) / 4}px`;
-            }
+            // // 根据容器大小和视频比例调整
+            // if (containerWidth / containerHeight > 4 / 3) {
+            //     player.value.firstElementChild.style.width = `${(containerHeight * 4) / 3}px`;
+            //     player.value.firstElementChild.style.height = `${containerHeight}px`;
+            // } else {
+            //     player.value.firstElementChild.style.width = `${containerWidth}px`;
+            //     player.value.firstElementChild.style.height = `${(containerWidth * 3) / 4}px`;
+            // }
+            player.value.firstElementChild.style.width = `850px`;
+            player.value.firstElementChild.style.height = `850px`;
 
             player.value.firstElementChild.style.borderRadius = '5px'
         }
@@ -318,8 +320,8 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 1024px;
-  height: 768px;
+  width: 800px;
+  height: 800px;
   margin-left: auto;
   margin-right: auto;
 }

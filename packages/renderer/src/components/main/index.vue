@@ -1,6 +1,6 @@
 <template>
-    <div id="client">
-        <div id="app-main" class="flex flex-col">
+    <div id="client h-full">
+        <div id="app-main" class="flex flex-col h-full">
             <Header class="dragable"/>
             <div class="flex-1 flex justify-center items-center">
                 <HomePage class="flex flex-row justify-center items-center"/>
@@ -27,7 +27,7 @@ export default {
     setup() {
         // TODO: replace 'WECHAT-LOGIN-SUCCESS' with constant
         ipcRenderer.on("WECHAT-LOGIN-SUCCESS", (event, code) => {
-          router.push(`/Setting?code=${code}`);
+        //   router.push(`/Setting?code=${code}`);
         });
 
         init();

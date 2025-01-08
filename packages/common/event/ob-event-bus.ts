@@ -8,6 +8,7 @@ enum ObEvent{
     WINDOW_CLOSE = 'WINDOW_CLOSE',                        // 窗口关闭
     WINDOW_FULLSCREEN = 'WINDOW_FULLSCREEN',
     WINDOW_RESIZE = 'WINDOW_RESIZE',
+    WINDOW_RELOAD = 'WINDOW_RELOAD',
     
     UI_MOUNTED = "UI_MOUNTED",                            // UI 已挂载
 

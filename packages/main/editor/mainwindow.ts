@@ -62,10 +62,10 @@ export default class MainWindow{
         const { workArea } = screen.getPrimaryDisplay();
 
 		this.win = new BrowserWindow({
-			width: 1280,
-			height: 720,
-			minWidth: 1280,
-			minHeight: 720,
+			width: 1068,
+			height: 620,
+			minWidth: 1068,
+			minHeight: 620,
             resizable: false,
             transparent: true,
 			title: this.windowConfig.title,
@@ -369,6 +369,10 @@ export default class MainWindow{
 
 			return result;
 		});
+        
+        ipcMain.on(ObEvent.WINDOW_RELOAD, (event, any, args: any) => {
+            (this.win as BrowserWindow).reload();
+        });
 
         ipcMain.on(ObEvent.WINDOW_RESIZE, (event: any, args: any) => {
             const w: number = args.width as number

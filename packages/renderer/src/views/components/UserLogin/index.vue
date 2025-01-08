@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row bg-transparent  w-[1069px] h-[602px] justify-center items-center">
+    <div class="flex flex-row bg-transparent justify-center items-center">
         <div class="w-1/2 h-full login-bg"/>
         <div class="w-1/2 h-full relative bg-white">
             <div v-if="Account.data.loginMethod === LoginMethod.WECHAT" class="w-full h-full flex flex-col justify-center items-center">
@@ -55,7 +55,8 @@
                     登录
                 </button>
             </div>
-            <button :class="['absolute top-2 left-2 text-white p-2 text-sm', Account.data.loginMethod === LoginMethod.PHONE? 'login-with-qrcode' : 'login-with-phone']" @click="Account.methods.toggleLoginMethod"/>
+            <button :class="['absolute top-2 left-2 text-white p-5 text-sm', Account.data.loginMethod === LoginMethod.PHONE? 'login-with-qrcode' : 'login-with-phone']" @click="Account.methods.toggleLoginMethod"/>
+            <div class='absolute top-2 right-2 text-balck p-2 text-sm login-close w-[30px] h-[30px] cursor-pointer' @click="close"/>
         </div>
     </div>
     <!-- <UserRegister v-else/> -->
@@ -111,6 +112,7 @@ export default {
 
     onMounted(async () => {
 
+        // ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1506, height: 609 })
         Account.methods.loginWithToken().then((isSuccess: boolean) => {
             if(!isSuccess){
                 // 登录过期
@@ -158,6 +160,11 @@ export default {
         }
     })
 
+    function close(){
+        console.log('FFFFFFclose')
+        ipcRenderer.send(ObEvent.APP_FORCE_QUIT, '')
+    }
+
     async function sendPhoneVerificationCode(phone: string){
         smsCode.value = await Account.methods.sendPhoneVerificationCode(phone)
     }
@@ -169,7 +176,7 @@ export default {
         }
     }
 
-    return { loading, Account, LoginMethod, sendPhoneVerificationCode, loginWithPhoneNum, url, curLoginMethod, phoneNum, smsCode }
+    return { close, loading, Account, LoginMethod, sendPhoneVerificationCode, loginWithPhoneNum, url, curLoginMethod, phoneNum, smsCode }
   },
 };
 </script>
@@ -225,5 +232,9 @@ export default {
 
 .login-form input {
     margin-bottom: 10px;
+}
+
+.login-close{
+    background: url('@/assets/images/Swifaigo/login-close.png');
 }
 </style>
