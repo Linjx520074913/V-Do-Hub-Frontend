@@ -64,6 +64,14 @@
         </div>
         <div class="panel">
             <div class="item">
+                <p class="text-[18px]">磨皮 {{ Camera.data.smoothness }}</p>
+            </div>
+            <div class="flex flex-col w-5/6 px-2">
+                <el-slider v-model="Camera.data.smoothness" @input="Camera.methods.setSmoothness"></el-slider>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="item">
                 <p class="text-[18px]">调整</p>
             </div>
             <div class="px-4">

@@ -177,9 +177,7 @@ export default {
             console.log('FFAAAAAAAAA', filters)
         }
 
-        return { rjPlayer, filterLoad, active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
-             ChangeAngle, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init,
-              TakePhoto, autoExtract, enableBeautify };
+        return { ChangeAngle, rjPlayer, changeFilter, changeFilterValue, filterLoad, active, setting, source, cancel, confirm, isCameraMode, Camera, duration, ChangeSpeed, ToggleExtract, time, change, isVideo, close, player, init, TakePhoto, autoExtract, enableBeautify };
     },
 };
 </script>
