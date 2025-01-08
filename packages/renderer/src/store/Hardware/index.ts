@@ -8,9 +8,6 @@ import CameraDefaultConfig from "./camera_config.json"
 import { cur_angle } from '@/views/components/MediaCapture/SettingPanel'
 import { cur_speed } from '@/views/components/MediaCapture/SettingPanel'
 
-import { cur_angle } from '@/views/components/MediaCapture/SettingPanel'
-import { cur_speed } from '@/views/components/MediaCapture/SettingPanel'
-
 // TODO: 这里的 dataRootDir 要换成程序安装目录
 const GlobalRef = ref({
     dataRootDir: 'D://data//',
