@@ -1,9 +1,14 @@
 <template>
-    <div class="flex flex-row w-full h-full justify-center items-center">
+    <!-- <div class="flex flex-row w-full h-full justify-center items-center">
         <keep-alive>
             <component :is="currentComponent.value" class="w-full h-full" />
         </keep-alive>
-    </div>
+    </div> -->
+    <ul>
+        <li><router-link to="/login">/login</router-link></li>
+        <li><router-link to="/main">/main</router-link></li>
+      </ul>
+      <router-view></router-view>
 </template>
 
 <script>
@@ -15,7 +20,7 @@ import { Account, LoginMethod } from '@/store/index'
 import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone, AIScene } from './views/components/index'
 
 export default {
-    components: { Main, Header, Footer, UserLogin, AIScene, UserZone, UserRegister },
+    components: {  },
 
     setup() {
         onMounted(() => {

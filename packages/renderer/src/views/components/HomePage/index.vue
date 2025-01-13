@@ -85,7 +85,7 @@ import { showAccountZone } from './index'
 import { ObDropdownMenu } from '@/common/templates/index'
 import { onMounted, ref, watch } from 'vue'
 import { Account, LoginMethod } from '@/store/index'
-import { router, RouterPath } from '@/main'
+// import { router, RouterPath } from '@/main'
 import UserRegister from '../UserRegister/index.vue'
 import { MediaCapture, MediaLibrary, AIScene, MemberShip } from '../index'
 
@@ -116,7 +116,7 @@ export default {
                 text: '设置', 
                 click: () => { 
                     console.log('设置1')
-                    router.push(RouterPath.USER_ZONE)
+                    // router.push(RouterPath.USER_ZONE)
                 } 
             },
             { 

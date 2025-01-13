@@ -62,14 +62,15 @@ export default class MainWindow{
         const { workArea } = screen.getPrimaryDisplay();
 
 		this.win = new BrowserWindow({
-			width: 1068,
-			height: 620,
-			minWidth: 1068,
-			minHeight: 620,
+			width: 1920,
+			height: 1080,
+			minWidth: 1920,
+			minHeight: 1080,
             resizable: false,
             transparent: true,
 			title: this.windowConfig.title,
-			frame: browserWindowConfig.frame,
+			// frame: browserWindowConfig.frame,
+            frame: true,
 			titleBarStyle: browserWindowConfig.titleBarStyle,
 			trafficLightPosition: browserWindowConfig.trafficLightPosition,
 			icon: this.windowConfig.icon,
@@ -82,7 +83,6 @@ export default class MainWindow{
 				webSecurity: false,
 				contextIsolation: false,
 			}
-
 		});
 	
 		if (app.isPackaged) {

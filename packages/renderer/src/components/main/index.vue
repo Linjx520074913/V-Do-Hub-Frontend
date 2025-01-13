@@ -17,7 +17,7 @@ import { mount } from "./index";
 
 import { HomePage } from "@/views/index"
 import { ipcRenderer } from 'electron';
-import { router } from '@/main'
+// import { router } from '@/main'
 
 export default {
     name: "Main",
