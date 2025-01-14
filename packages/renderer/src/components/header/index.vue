@@ -7,17 +7,19 @@
         Platform.computed.isDarwin && MainWindow.computed.isFullScreen,
     }"
   >
-    <div id="header__left">
+    <!-- <div id="header__left">
       <div class="app-logo">
         <img :src="curLogoSrc" class="static-img" />
       </div>
       <div class="app-name">{{ Package.name }}</div>
       <div class="app-version">{{ packageVersion }}</div>
-    </div>
+    </div> -->
 
     <div />
 
-    <div id="header__middle"></div>
+    <div class="text-[28px] text-[#525151]">
+        影智速拍
+    </div>
 
     <Teleport v-if="!Platform.computed.isDarwin" to="body">
       <div id="unblockable-window-control">

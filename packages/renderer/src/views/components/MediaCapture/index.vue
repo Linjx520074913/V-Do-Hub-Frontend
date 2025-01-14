@@ -8,7 +8,7 @@
             />
         </teleport>
 
-        <div class="workspace dashed-border">
+        <div class="border-2 border-dashed border-black flex flex-col justify-center items-center bg-white h-[329px]">
             <div class="media-entry">
                 <p class="mb-8 text-[30px]">添加产品</p>
                 <div
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="tool flex flex-col justify-center items-center">
+        <div class="mt-[24px] flex flex-col justify-center items-center">
             <p class="text-[25px] mt-4 mb-2">工具箱</p>
             <div class="flex flex-row w-full h-[305px] space-x-2">
                 <div class="flex flex-col justify-end items-center tool-0 p-4 cursor-pointer text-center" @click="activeAIRemove">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col justify-center items-center">
+        <div class="mt-[46px] flex flex-col justify-center items-center">
             <p class="text-[25px] mt-2 mb-4">教程</p>
             <div class="flex flex-row space-x-4 w-full h-[60px]">
                 <div class="bg-white rounded-md flex-1 h-full flex flex-row items-center p-2 cursor-pointer" @click="playTutorialVideo">

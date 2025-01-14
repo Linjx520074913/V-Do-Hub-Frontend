@@ -19,7 +19,8 @@ $-header-bg-color-normal: $--bg-color-p3;
     justify-content: center;   /* 子元素主轴居中 */
     align-items: center;       /* 子元素辅轴居中 */
 
-    background-color: $-header-bg-color-normal;
+    background-color: #E6E6E6;
+    color: #2D2D2D;
 
     position: relative;
 
@@ -105,12 +106,6 @@ $-header-bg-color-normal: $--bg-color-p3;
         // margin-left: 10px;
     }
 };
-
-#header__middle {
-    position: absolute;
-    
-
-}
 
 .reserved-button {
     color: $--icon-color-p6;

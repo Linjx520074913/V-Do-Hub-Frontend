@@ -144,11 +144,8 @@ export default {
                     Router.methods.to(RouterPath.MAIN)
                     // TODO: 登录成功之后，修改窗口大小及位置
                     ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
-                    // Account.data.isLogin = true
-                    // Account.data.needRegister = true
                 })
             }else{
-                // router.push(`${RouterPath.MEDIA_CAPTURE}`)
                 Router.methods.to(RouterPath.MAIN)
                 ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
             }
@@ -163,7 +160,6 @@ export default {
     })
 
     function close(){
-        console.log('FFFFFFclose')
         ipcRenderer.send(ObEvent.APP_FORCE_QUIT, '')
     }
 
