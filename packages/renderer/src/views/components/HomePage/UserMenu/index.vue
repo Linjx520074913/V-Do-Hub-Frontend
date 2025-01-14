@@ -9,11 +9,12 @@
                 <div class="w-[65px] h-[29px] bg-cover mt-[18px]
                     bg-[url('@/assets/images/Swifaigo/VIP.png')]"/>
             </div>
-            <div class="m-auto w-[422px] h-[56px] bg-main-color text-white rounded-[30px] flex items-center justify-center">
+            <div class="m-auto w-[422px] h-[56px] bg-main-color text-white rounded-[30px] flex items-center justify-center"
+                @click="showUserZone(1)">
                 立即升级
             </div>
         </div>
-        <span class="text-[24px] mt-[37px] ml-[20px]">账户信息设置</span>
+        <span class="text-[24px] mt-[37px] ml-[20px] cursor-pointer" @click="showUserZone(0)">账户信息设置</span>
         <span class="text-[24px] mt-[37px] ml-[20px]">联系我们</span>
         <span class="border-b border-gray-300 mt-[30px]"/>
         <span class="text-[24px] flex flex-row justify-center items-center mt-auto mb-auto">退出登录</span>
@@ -22,17 +23,24 @@
 
 <script lang="ts">
 import { SetupContext, onMounted } from "vue"
+import { Menu } from '@/store/index'
 
 export default {
-  name: "UserMenu",
-  props: {},
+    name: "UserMenu",
+    props: {},
 
-  emits: [],
-  components: {},
+    emits: [ 'click' ],
+    components: {},
 
-  setup(props: any, context: SetupContext) {
-    return {};
-  },
+    setup(props: any, context: SetupContext) {
+
+        function showUserZone(param: number){
+            Menu.methods.activeAccountZone(param)
+            context.emit('click')
+        }
+
+        return { showUserZone }
+    }
 };
 </script>
 <style lang="scss" scoped>

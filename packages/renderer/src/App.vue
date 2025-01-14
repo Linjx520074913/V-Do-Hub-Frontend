@@ -1,9 +1,4 @@
 <template>
-    <!-- <div class="flex flex-row w-full h-full justify-center items-center">
-        <keep-alive>
-            <component :is="currentComponent.value" class="w-full h-full" />
-        </keep-alive>
-    </div> -->
     <router-view></router-view>
 </template>
 
