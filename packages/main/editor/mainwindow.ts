@@ -379,17 +379,15 @@ export default class MainWindow{
             const h: number = args.height as number
             const center: boolean = args.center as boolean
             
-            (this.win as BrowserWindow).hide();
-            if(center){
-                const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
-                const x = Math.round((screenWidth - w) / 2);
-                const y = Math.round((screenHeight - h) / 2);
-                console.log('@@@@@@@@@@@', w, h, screenWidth, screenHeight);
-                (this.win as BrowserWindow).setBounds({ x: 0, y: 0, width: screenWidth, height: screenHeight });
-                setTimeout(() => {
-                    (this.win as BrowserWindow).show();
-                }, 1500);
-            }
+            (this.win as BrowserWindow).hide()
+            const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().workAreaSize;
+            const x = Math.round((screenWidth - w) / 2);
+            const y = Math.round((screenHeight - h) / 2);
+            
+            (this.win as BrowserWindow).setBounds({ x: x, y: y, width: w, height: h });
+            setTimeout(() => {
+                (this.win as BrowserWindow).show();
+            }, 500)
         });
 
 		/** browser window event */

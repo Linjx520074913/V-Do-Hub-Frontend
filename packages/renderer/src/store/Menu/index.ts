@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import { router } from '@/main'
-import { RouterPath } from '../TypeDefine'
+// import { router } from '@/main'
+// import { RouterPath } from '../TypeDefine'
 
 interface MenuItem{
     title: string,
@@ -13,13 +13,13 @@ interface MenuItem{
 const MenuRef = ref({
     data:{
         slider: [
-            { title: '创建',   icon: 'icon-splice',  visible: true,  link: RouterPath.MEDIA_CAPTURE, component: "MediaCapture" },
-            { title: '图库',   icon: 'icon-texture', visible: true,  link: RouterPath.MEDIA_LIBRARY, component: 'MediaLibrary' },
-            { title: '设备',   icon: 'icon-setting', visible: false, link: RouterPath.SETTING,       component: '' },
-            { title: '商城',   icon: 'icon-mobile1', visible: false, link: RouterPath.MALL,          component: '' },
-            { title: '登录',   icon: 'icon-mobile1', visible: false, link: RouterPath.USER_LOGIN,    component: '' },
-            { title: '场景图', icon: 'icon-mobile1', visible: false, link: RouterPath.AISCENE,       component: 'AIScene' },
-            { title: '账户',   icon: 'icon-mobile1', visible: false, link: RouterPath.USER_ZONE,     component: '' },
+            { title: '创建',   icon: 'icon-splice',  visible: true,  link: 'RouterPath.MEDIA_CAPTURE', component: "MediaCapture" },
+            { title: '图库',   icon: 'icon-texture', visible: true,  link: 'RouterPath.MEDIA_LIBRARY', component: 'MediaLibrary' },
+            { title: '设备',   icon: 'icon-setting', visible: false, link: 'RouterPath.SETTING',       component: '' },
+            { title: '商城',   icon: 'icon-mobile1', visible: false, link: 'RouterPath.MALL',          component: '' },
+            { title: '登录',   icon: 'icon-mobile1', visible: false, link: 'RouterPath.USER_LOGIN',    component: '' },
+            { title: '场景图', icon: 'icon-mobile1', visible: false, link: 'RouterPath.AISCENE',       component: 'AIScene' },
+            { title: '账户',   icon: 'icon-mobile1', visible: false, link: 'RouterPath.USER_ZONE',     component: '' },
         ],
         activedItem: null as MenuItem | null
     },

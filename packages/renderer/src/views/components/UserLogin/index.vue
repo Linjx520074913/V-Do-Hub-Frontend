@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row bg-transparent justify-center items-center">
+    <div class="flex flex-row bg-transparent justify-center items-center w-full h-full">
         <div class="w-1/2 h-full login-bg"/>
         <div class="w-1/2 h-full relative bg-white">
             <div v-if="Account.data.loginMethod === LoginMethod.WECHAT" class="w-full h-full flex flex-col justify-center items-center">
@@ -65,8 +65,7 @@
 <script lang="ts">
 import { SetupContext, ref, onMounted, onUnmounted } from "vue"
 import QRCode from 'qrcode'
-import { Account, LoginMethod } from '@/store/index'
-import { router, RouterPath } from '@/main'
+import { Account, LoginMethod, Router, RouterPath } from '@/store/index'
 import UserRegister  from '../UserRegister/index.vue'
 import { ipcRenderer } from 'electron'
 import { ObEvent } from "@common/";
@@ -112,6 +111,8 @@ export default {
 
     onMounted(async () => {
 
+        ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1069, height: 602 })
+
         // ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1506, height: 609 })
         Account.methods.loginWithToken().then((isSuccess: boolean) => {
             if(!isSuccess){
@@ -129,7 +130,6 @@ export default {
                     }
                 }, 20000)
                 webview.addEventListener('dom-ready', async () => {
-                    console.log('!!!!!!!!!!!! dom-ready')
                     if(!Account.data.isLogin){
                         updateQRCode()
                     }
@@ -141,6 +141,7 @@ export default {
                     const code = match ? match[1] : null
                     console.log("#### will-navigate get wechat code : ", code)
                     await Account.methods.loginWithWechat(code)
+                    Router.methods.to(RouterPath.MAIN)
                     // TODO: 登录成功之后，修改窗口大小及位置
                     ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
                     // Account.data.isLogin = true
@@ -148,6 +149,7 @@ export default {
                 })
             }else{
                 // router.push(`${RouterPath.MEDIA_CAPTURE}`)
+                Router.methods.to(RouterPath.MAIN)
                 ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
             }
         })
@@ -172,6 +174,7 @@ export default {
     async function loginWithPhoneNum(phoneNum: string, smsCode: string){
         const user_profile = await Account.methods.loginWithPhoneNum(phoneNum, smsCode)
         if(user_profile){
+            Router.methods.to(RouterPath.MAIN)
             ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
         }
     }
@@ -197,7 +200,7 @@ export default {
 .login-bg{
     background-image: url('@/assets/images/login-bg.png');
     background-size: cover;
-    background-position: center;    
+    background-position: center;
 }
 .login-content{
     width: 350px;

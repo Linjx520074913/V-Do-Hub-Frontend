@@ -4,11 +4,7 @@
             <component :is="currentComponent.value" class="w-full h-full" />
         </keep-alive>
     </div> -->
-    <ul>
-        <li><router-link to="/login">/login</router-link></li>
-        <li><router-link to="/main">/main</router-link></li>
-      </ul>
-      <router-view></router-view>
+    <router-view></router-view>
 </template>
 
 <script>

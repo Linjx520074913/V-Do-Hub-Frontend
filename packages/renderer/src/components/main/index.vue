@@ -1,9 +1,9 @@
 <template>
-    <div id="client h-full">
+    <div class="flex-1">
         <div id="app-main" class="flex flex-col h-full">
             <Header class="dragable"/>
             <div class="flex-1 flex justify-center items-center">
-                <HomePage class="flex flex-row justify-center items-center"/>
+                <router-view/>
             </div>
         </div>
     </div>
@@ -16,8 +16,9 @@ import { init } from "@components/index";
 import { mount } from "./index";
 
 import { HomePage } from "@/views/index"
-import { ipcRenderer } from 'electron';
-// import { router } from '@/main'
+import { onMounted } from 'vue';
+import { Account, Router } from '@/store/index'
+import { RouterPath } from '../../store';
 
 export default {
     name: "Main",
@@ -25,10 +26,10 @@ export default {
     components: { Header, Footer, HomePage },
 
     setup() {
-        // TODO: replace 'WECHAT-LOGIN-SUCCESS' with constant
-        ipcRenderer.on("WECHAT-LOGIN-SUCCESS", (event, code) => {
-        //   router.push(`/Setting?code=${code}`);
-        });
+
+        onMounted(() => {
+            Router.methods.to(Account.data.needRegister? RouterPath.USER_REGISTER : RouterPath.HOMEPAGE)
+        })
 
         init();
         mount();
