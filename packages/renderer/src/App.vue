@@ -21,10 +21,7 @@ export default {
         
         const currentComponent = computed(() => { 
             return ref(!Account.data.isLogin ? 'UserLogin' : 'Main') }
-        );
-
-        // TODO: 这里要改
-        // const currentComponent = computed(() => Account.data.isLogin ? 'Main' : 'Main');
+        );  
 
         return { Account, currentComponent }
     },

@@ -1,8 +1,7 @@
-import { ref } from 'vue'
-import { router, RouterPath } from '@/main'
+import { ref, watch } from 'vue'
 import { AXIOS } from '@/api/index'
-import path from 'path'
 import { LocalStorage } from '@/components'
+import { Router } from '@/store/index'
 
 interface UserProfile{
     avatar: string,
@@ -207,9 +206,6 @@ const AccountRef = ref({
          * @returns 
          */
         async getUserProfileByToken(token: string): Promise<UserProfile | undefined>{
-            if(token == ''){
-                token = Account.data.curToken
-            }
 
             try{
                 const res = await AXIOS.request({
@@ -225,7 +221,6 @@ const AccountRef = ref({
                 Account.data.curToken = token
     
                 LocalStorage.methods.set('token', token)
-                console.log("[ Account ] getUserProfileByToken : ", Account.data.curUser)
              
                 return res.data
             }catch(err){
@@ -234,19 +229,18 @@ const AccountRef = ref({
         },
         logout(){
             LocalStorage.methods.set('token', '')
+            console.error('=#23254125 logout', LocalStorage.methods.get('token'))
             Account.data.isLogin = false
             Account.data.needRegister = false
             Account.data.curSmsCode = ''
-            // TODO：这个地方跳转有问题
-            // router.push(`${RouterPath.MEDIA_LIBRARY}`)
         },
         /**
          * 用缓存的 token 进行登录
          * @returns 登录成功返回 true, 否则返回 false
          */
         async loginWithToken(): Promise<boolean>{
-            console.log('[ Account ] : loginWithToken')
             const token = LocalStorage.methods.get('token') as string
+            console.log('[ Account ] : loginWithToken', token)
             const user_profile = await Account.methods.getUserProfileByToken(token)
             Account.methods.isRegistered(user_profile)
             return user_profile != undefined
@@ -379,5 +373,18 @@ const AccountRef = ref({
 })
 
 const Account = AccountRef.value
+
+watch(
+    () => Account.data.isLogin,
+    (newValue, oldValue) => {
+        console.error('=================', Account.data.isLogin)
+        if(Account.data.isLogin){
+            // 跳转到主页面
+        }else{
+            // 跳转到登录页面
+            Router.methods.toLogin()
+        }
+    }
+  );
 
 export { Account, LoginMethod, PaymentMethod }

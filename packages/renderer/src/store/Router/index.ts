@@ -49,6 +49,9 @@ const RouterRef = ref({
                 Router.data.router!.push({ path: to })
             }
             
+        },
+        toLogin(){
+            Router.data.router!.push( { path: '/login' })
         }
     }
 })

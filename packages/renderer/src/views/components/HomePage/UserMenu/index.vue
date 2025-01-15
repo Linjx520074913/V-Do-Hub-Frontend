@@ -9,7 +9,7 @@
                 <div class="w-[65px] h-[29px] bg-cover mt-[18px]
                     bg-[url('@/assets/images/Swifaigo/VIP.png')]"/>
             </div>
-            <div class="m-auto w-[422px] h-[56px] bg-main-color text-white rounded-[30px] flex items-center justify-center"
+            <div class="m-auto w-[422px] h-[56px] bg-main-color text-white rounded-[30px] flex items-center justify-center cursor-pointer"
                 @click="showUserZone(1)">
                 立即升级
             </div>
@@ -17,13 +17,13 @@
         <span class="text-[24px] mt-[37px] ml-[20px] cursor-pointer" @click="showUserZone(0)">账户信息设置</span>
         <span class="text-[24px] mt-[37px] ml-[20px]">联系我们</span>
         <span class="border-b border-gray-300 mt-[30px]"/>
-        <span class="text-[24px] flex flex-row justify-center items-center mt-auto mb-auto">退出登录</span>
+        <span class="text-[24px] flex flex-row justify-center items-center mt-auto mb-auto" @click="logout">退出登录</span>
     </div>
 </template>
 
 <script lang="ts">
-import { SetupContext, onMounted } from "vue"
-import { Menu } from '@/store/index'
+import { SetupContext } from "vue"
+import { Menu, Account } from '@/store/index'
 
 export default {
     name: "UserMenu",
@@ -39,7 +39,11 @@ export default {
             context.emit('click')
         }
 
-        return { showUserZone }
+        function logout(){
+            Account.methods.logout()
+        }
+
+        return { showUserZone, logout }
     }
 };
 </script>
