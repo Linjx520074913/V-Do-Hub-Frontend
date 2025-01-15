@@ -1,65 +1,70 @@
 <template>
-    <div class="flex flex-row bg-transparent justify-center items-center w-full h-full">
+    <div class="flex flex-row bg-transparent w-full h-full">
+        <!-- 背景图 -->
         <div class="w-1/2 h-full login-bg"/>
+        <!-- 登录 -->
         <div class="w-1/2 h-full relative bg-white">
-            <div v-if="Account.data.loginMethod === LoginMethod.WECHAT" class="w-full h-full flex flex-col justify-center items-center">
-                <p>微信登录</p>
-                <p>请扫描微信二维码登录</p>
-                <webview ref="webview" id="webview" :src="Account.data.wechatURL" style="width:0px;height:0px"/>
-                <div class="qrcode p-2" style="width:300px;height:300px">
+            <!-- 微信登录 -->
+            <div v-if="Account.data.loginMethod === LoginMethod.WECHAT" class="w-full h-full flex flex-col items-center">
+                <p class="text-[30px] font-bold mt-[100px]">微信登录</p>
+                <p class="text-[16px] mt-[13px] text-[#6A6A6A]">微信扫描即可完成注册登录</p>
+                <webview ref="webview" id="webview" :src="Account.data.wechatURL" class="w-[0px] h-[0px]"/>
+                <div class="qrcode p-2 w-[250px] h-[250px] mt-[28px]">
                     <img v-if="url != ''" :src="url" alt=""/>
                 </div>
-                <p class="text-xs">登录即表示同意《服务条款》和《个人信息保护政策》</p>
+                <p class="text-[14px] mt-[27px] font-bold">
+                    登录即表示同意 
+                    <a href="" class="text-[#0073FF]" target="_blank">《服务条款》</a> 和 
+                    <a href="" class="text-[#0073FF]" target="_blank">《个人信息保护政策》</a>
+                </p>
+                <p class="text-[14px]  font-bold">
+                    未注册微信号登录时会自动创建账号
+                </p>
             </div>
-            <div v-else class="w-full h-full p-20 login-form  max-w-sm mx-auto">
-                <div class="mb-6 flex items-center space-x-4">
-                    <!-- 手机号码输入框 -->
-                    <div class="flex-1">
-                        <label for="phone" class="block text-lg font-semibold text-gray-800">手机号码</label>
-                        <div class="flex flex-row justify-center items-center">
-                            <input 
-                            type="text" 
-                            id="phone"
-                            v-model="phoneNum"
-                            placeholder="请输入手机号码"
-                            class="mt-3 p-1 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out hover:border-blue-400"
-                            />
-                            <el-button 
-                                type="primary" 
-                                @click="sendPhoneVerificationCode(phoneNum)"
-                                class="w-32 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg shadow-md hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-out transform hover:scale-105 focus:ring-2 focus:ring-blue-500"
-                            >
-                                获取验证码
-                            </el-button>
-                        </div>
-                    </div>
+            <!-- 手机登录 -->
+            <div v-else class="w-full h-full flex flex-col items-center">
+                <p class="text-[30px] font-bold mt-[100px]">登录</p>
+                <div class="w-[359px] h-[45px] mt-[27px] flex flex-row border rounded-[5px]">
+                    <select v-model="countryCode" class="country-code w-[80px] h-full flex items-center justify-center ">
+                        <option value="+86">+86</option>
+                    </select>
+                    <input class="flex-1 border border-gray px-[10px]"
+                        type="text" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                        maxlength="11"
+                        v-model="phoneNum"
+                        placeholder="请输入您的手机号码">
                 </div>
-
-                <!-- 验证码 -->
-                <div class="mb-6">
-                    <label for="smsCode" class="block text-lg font-semibold text-gray-800">验证码</label>
-                    <input 
-                        type="password" 
-                        id="smsCode"
-                        v-model="smsCode" 
-                        placeholder="请输入验证码"
-                        class="mt-3 p-1 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out hover:border-blue-400"
-                    />
+                <div class="w-[359px] h-[45px] mt-[27px] flex flex-row border rounded-[5px]">
+                    <input class="flex-1 border-t-0 border-l-0 border-b-0 border-gray px-[10px]"
+                        type="text" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                        maxlength="6"
+                        v-model="smsCode"
+                        placeholder="请输入验证码">
+                        <button 
+                            class="px-3 text-sm text-blue-500 font-medium hover:text-blue-700 active:text-blue-900 focus:outline-none"
+                            @click="sendPhoneVerificationCode(phoneNum)"
+                        >
+                            获取验证码
+                        </button>
                 </div>
-
-                <!-- 登录按钮 -->
-                <button 
-                    @click="loginWithPhoneNum(phoneNum, smsCode)" 
-                    class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg shadow-md hover:from-blue-700 hover:to-indigo-700 transition duration-300 ease-out transform hover:scale-105 focus:ring-2 focus:ring-blue-500"
-                >
-                    登录
-                </button>
+                <!-- 登录 -->
+                <div class="w-[359px] h-[45px] rounded-3xl bg-main-color flex items-center justify-center text-white text-[30px] mt-[74px] cursor-pointer"
+                    @click="loginWithPhoneNum(phoneNum, smsCode)" >登录</div>
+                <!-- 服务条款 -->
+                <div class="flex flex-row h-[20px] mt-[93px] items-center justify-center">
+                    <el-checkbox/>
+                    <p class="text-[14px] font-bold ml-[5px]">
+                        登录即表示同意 
+                        <a href="" class="text-[#0073FF]" target="_blank">《服务条款》</a> 和 
+                        <a href="" class="text-[#0073FF]" target="_blank">《个人信息保护政策》</a>
+                    </p>
+                </div>
             </div>
+            <!-- 右上角关闭按钮 -->
             <button :class="['absolute top-2 left-2 text-white p-5 text-sm', Account.data.loginMethod === LoginMethod.PHONE? 'login-with-qrcode' : 'login-with-phone']" @click="Account.methods.toggleLoginMethod"/>
             <div class='absolute top-2 right-2 text-balck p-2 text-sm login-close w-[30px] h-[30px] cursor-pointer' @click="close"/>
         </div>
     </div>
-    <!-- <UserRegister v-else/> -->
 </template>
 
 <script lang="ts">
@@ -81,8 +86,10 @@ export default {
 
     const url = ref("")
     const curLoginMethod = ref(LoginMethod.WECHAT)
-    const phoneNum = ref('15019456440')
+    const phoneNum = ref('')
     const smsCode = ref('')
+
+    const countryCode = ref('+86')
 
     let qrcodeTimer: any = null
 
@@ -113,7 +120,6 @@ export default {
 
         ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1069, height: 602 })
 
-        // ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1506, height: 609 })
         Account.methods.loginWithToken().then((isSuccess: boolean) => {
             if(!isSuccess){
                 // 登录过期
@@ -164,10 +170,12 @@ export default {
     }
 
     async function sendPhoneVerificationCode(phone: string){
-        smsCode.value = await Account.methods.sendPhoneVerificationCode(phone)
+        await Account.methods.sendPhoneVerificationCode(phone)
     }
 
     async function loginWithPhoneNum(phoneNum: string, smsCode: string){
+        // TODO: 处理验证码输入错误的情况
+        // TODO: 处理点击发送验证码，然后验证码开始倒计时
         const user_profile = await Account.methods.loginWithPhoneNum(phoneNum, smsCode)
         if(user_profile){
             Router.methods.to(RouterPath.MAIN)
@@ -175,7 +183,7 @@ export default {
         }
     }
 
-    return { close, loading, Account, LoginMethod, sendPhoneVerificationCode, loginWithPhoneNum, url, curLoginMethod, phoneNum, smsCode }
+    return { countryCode, close, loading, Account, LoginMethod, sendPhoneVerificationCode, loginWithPhoneNum, url, curLoginMethod, phoneNum, smsCode }
   },
 };
 </script>

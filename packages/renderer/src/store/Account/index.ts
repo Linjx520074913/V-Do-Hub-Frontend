@@ -83,7 +83,7 @@ const AccountRef = ref({
         isLogin: false,
         needRegister: false,
         needLogin: false,
-        loginMethod: LoginMethod.WECHAT,
+        loginMethod: LoginMethod.PHONE,
         wechatURL: 'https://open.weixin.qq.com/connect/qrconnect?appid=wxa0d29e126c88138a&redirect_uri=http%3A%2F%2Fwww.swifaigo.cn&response_type=code&scope=snsapi_login&state=123456789#wechat_redirect'
     },
     methods:{
@@ -229,7 +229,6 @@ const AccountRef = ref({
         },
         logout(){
             LocalStorage.methods.set('token', '')
-            console.error('=#23254125 logout', LocalStorage.methods.get('token'))
             Account.data.isLogin = false
             Account.data.needRegister = false
             Account.data.curSmsCode = ''
@@ -377,7 +376,6 @@ const Account = AccountRef.value
 watch(
     () => Account.data.isLogin,
     (newValue, oldValue) => {
-        console.error('=================', Account.data.isLogin)
         if(Account.data.isLogin){
             // 跳转到主页面
         }else{

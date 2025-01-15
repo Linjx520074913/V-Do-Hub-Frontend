@@ -30,3 +30,9 @@
       src: url("./HarmonyOS_Sans_SC/HarmonyOS_Sans_SC_Bold.ttf");
       font-weight: bold;
 }
+
+@font-face{
+    font-family: 'AlibabaPuHuiTi-3-55-RegularL3';
+    src: url('./AlibabaPuHuiTi/AlibabaPuHuiTi.ttf');
+    font-weight: normal
+}

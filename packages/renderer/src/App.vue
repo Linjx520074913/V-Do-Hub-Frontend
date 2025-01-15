@@ -3,12 +3,8 @@
 </template>
 
 <script>
-import Main from "@/components/main/index.vue"
-import Header from "@components/header/index.vue";
-import Footer from "@components/footer/index.vue"
-import { onMounted, ref, watch, computed } from 'vue'
-import { Account, LoginMethod } from '@/store/index'
-import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone, AIScene } from './views/components/index'
+import { onMounted, ref, computed } from 'vue'
+import { Account } from '@/store/index'
 
 export default {
     components: {  },
@@ -44,16 +40,15 @@ html {
 }
 
 body {
-//   font-family: "Microsoft YaHei" !important;
     font-family: 'PingFang SC-Regular', 'PingFang SC'!important;
     background: transparent; 
 }
 
 #app {
 //   font-family: "Microsoft YaHei";
-    font-family: 'PingFang SC-Regular', 'PingFang SC';
+    font-family: 'AlibabaPuHuiTi-3-55-RegularL3';
     overflow: hidden;
-    color: #363E5C;
+    color: #000;
     font-weight: normal;
 }
 

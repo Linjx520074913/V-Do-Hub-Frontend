@@ -11,7 +11,7 @@ interface MenuItem{
 const MenuRef = ref({
     data:{
         slider: [
-            { title: '创建',           icon: 'icon-splice',  visible: true,  link: '/main/homepage/media_capture' },
+            { title: '创建',           icon: 'icon-open-up',  visible: true,  link: '/main/homepage/media_capture' },
             { title: '图库',           icon: 'icon-texture', visible: true,  link: '/main/homepage/media_library' },
             { title: '设备',           icon: 'icon-setting', visible: false, link: 'RouterPath.SETTING' },
             { title: '商城',           icon: 'icon-mobile1', visible: false, link: 'RouterPath.MALL' },

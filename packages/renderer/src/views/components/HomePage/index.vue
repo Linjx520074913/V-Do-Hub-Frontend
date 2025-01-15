@@ -12,7 +12,7 @@
                 <div class="menu mt-[106px]">
                     <div v-for="item in Menu.data.slider" :class="[ item.visible? 'item': 'hidden' ]" >
                         <div :class="['content h-[47px]', Menu.methods.isActived(item) ? 'highlight text-[#E94504]': '']" @click="Menu.methods.active(item)">
-                            <span :class="['icon', item.icon, 'text-[28px]']" />
+                            <span :class="['ml-[23px] icon text-[28px]', item.icon]" />
                             <span class="title text-[20px]">{{ item.title }}</span>
                         </div>
                     </div>
