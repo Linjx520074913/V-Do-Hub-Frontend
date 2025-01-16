@@ -263,7 +263,6 @@ export default {
             const container = document.getElementById('player')
             const containerWidth = player.value.offsetWidth;
             const containerHeight = player.value.offsetHeight;
-            console.log('=FFFF!!', containerWidth, containerHeight)
 
             // // 根据容器大小和视频比例调整
             // if (containerWidth / containerHeight > 4 / 3) {
@@ -278,6 +277,8 @@ export default {
 
             player.value.firstElementChild.style.borderRadius = '5px'
         }
+
+        // TODO：根据相机分辨率，自适应比例
 
         const initObserver = () => {
             frameWidth.value = app.value.width

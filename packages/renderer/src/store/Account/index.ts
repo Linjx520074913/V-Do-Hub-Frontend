@@ -83,7 +83,7 @@ const AccountRef = ref({
         isLogin: false,
         needRegister: false,
         needLogin: false,
-        loginMethod: LoginMethod.PHONE,
+        loginMethod: LoginMethod.WECHAT,
         wechatURL: 'https://open.weixin.qq.com/connect/qrconnect?appid=wxa0d29e126c88138a&redirect_uri=http%3A%2F%2Fwww.swifaigo.cn&response_type=code&scope=snsapi_login&state=123456789#wechat_redirect'
     },
     methods:{

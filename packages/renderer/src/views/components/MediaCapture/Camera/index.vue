@@ -1,29 +1,35 @@
 <template>
     <div class="floating-window flex">
-        <div v-if="Camera.data.isConnected" class="content">
-            <div class="camera-container">
-                <div class="absolute top-4 left-10 px-4 py-2 rounded cursor-pointer back" @click="close">
+        <div v-if="Camera.data.isConnected" class="w-full h-full flex flex-row">
+            <!-- 左侧相机数据显示区域 -->
+            <div class="relative flex flex-col flex-1 items-center">
+                <!-- 左上角关闭按钮 -->
+                <div class="absolute mt-[27px] left-10 w-[104px] h-[66px] px-4 py-2 rounded cursor-pointer
+                    bg-[url('@/assets/images/Swifaigo/back.png')]" @click="close">
                 </div>
-                <div class="top">
-                    <RJMediaPlayer ref="rjPlayer" 
+                <div class="flex w-[1200px] h-[860px] mt-[27px] bg-[#EEF0F4]">
+                    <RJMediaPlayer ref="rjPlayer" class="m-auto"
                     @load="filterLoad"/>
-                    <!-- <ObPlayer class="player" ref="player" /> -->
                 </div>
-                <div class="bottom flex items-center relative">
+                <div class="relative w-full flex-1 flex">
                     <!-- 居中按钮 -->
-                    <div class="green-circle-button absolute left-1/2 -translate-x-1/2" @click="TakePhoto">
+                    <div class="w-[100px] h-[100px] border border-black m-auto" @click="TakePhoto">
                         <p v-if="isVideo">{{ duration }}</p>
+                        a
+                        <ProgressTimer/>
                     </div>
+
 
                     <!-- 靠右开关 -->
                     <el-switch
-                        class="ml-auto self-center custom-switch"
+                        class="absolute right-[20px] top-1/2 transform -translate-y-1/2"
                         v-model="isVideo"
                         @change="change"
                         >
                     </el-switch>
                 </div>
             </div>
+            <!-- 右侧参数显示面板 -->
             <div class="right-panel">
                 <SettingPanel 
                 :filters="filters"
@@ -74,12 +80,14 @@ import MediaPreview from '../../MediaPreview/index.vue'
 
 import RJMediaPlayer from '../../RJMediaPlayer/index.vue'
 
+import ProgressTimer from './ProgressTimer/index.vue'
+
 export default {
     name: "Camera",
     props: {},
 
     emits: ["close"],
-    components: { ObPlayer, SettingPanel, MediaPreview, RJMediaPlayer },
+    components: { ObPlayer, SettingPanel, MediaPreview, RJMediaPlayer, ProgressTimer },
 
     setup(props: any, context: SetupContext) {
         const setting = ref({ bgRemoval: false, beauty: true })

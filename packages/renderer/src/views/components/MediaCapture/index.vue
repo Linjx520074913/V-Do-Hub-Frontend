@@ -77,7 +77,7 @@ export default {
     components: { ObButton, Camera },
 
     setup(props: any, context: SetupContext) {
-        const showCamera  = ref(false);
+        const showCamera  = ref(true);
         const showTutorial = ref(false)
         const videoURL = ref(path.join(process.resourcesPath, 'extraResources', 'asset', 'tutorial.mp4'))
         const modal = ref(true)
