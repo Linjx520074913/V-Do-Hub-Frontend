@@ -2,8 +2,8 @@
     <div class="create px-5">
         <teleport to=".home-page-root">
             <Camera
-                v-if="showCapture"
-                @close="() => { showCapture = false }
+                v-if="showCamera"
+                @close="() => { showCamera = false }
                 "
             />
         </teleport>
@@ -54,7 +54,6 @@
                     <p class="text-[20px] ml-4">Hub 内软件如何使用?</p>
                 </div>
             </div>
-            <!-- <img class="mt-2" src="@/assets/images/swifcam.png" style="width:160px;height: 100px" @click="playTutorialVideo"/> -->
         </div>
         <el-dialog v-model="showTutorial" title="使用教程" width="800px" :before-close="() => { showTutorial = false }">
 			<video-player ref="videoPlayerRef" :src="videoURL"  :options="playerOptions" :autoplay="false" />
@@ -71,14 +70,14 @@ import { Menu, Account } from '@/store/index'
 import { ElMessage } from 'element-plus'
 
 export default {
-    name: "CameraCapture",
+    name: "MediaCapture",
     props: {},
 
     emits: [],
     components: { ObButton, Camera },
 
     setup(props: any, context: SetupContext) {
-        const showCapture  = ref(false);
+        const showCamera  = ref(false);
         const showTutorial = ref(false)
         const videoURL = ref(path.join(process.resourcesPath, 'extraResources', 'asset', 'tutorial.mp4'))
         const modal = ref(true)
@@ -112,7 +111,7 @@ export default {
 
         function StartCapture() {
             console.log('StartCapture')
-            showCapture.value = true;
+            showCamera.value = true;
         }
         function UploadMedia() {
             // router.push(RouterPath.MEDIA_LIBRARY)
@@ -154,7 +153,7 @@ export default {
             playTutorialVideo,
             StartCapture,
             UploadMedia,
-            showCapture,
+            showCamera,
             Menu,
             activeAIScene,
             activeAIRemove,

@@ -62,7 +62,7 @@ const HardwareRef = ref({
 
 const CameraRef = ref({
     data:{
-        isConnected: true,
+        isConnected: false,
         smoothness: 0,      // 磨皮程度
         brightness: 50,     // 亮度
         saturation: 50,     // 饱和度

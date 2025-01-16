@@ -1,5 +1,5 @@
 <template>
-    <div class="floating-window">
+    <div class="floating-window flex">
         <div v-if="Camera.data.isConnected" class="content">
             <div class="camera-container">
                 <div class="absolute top-4 left-10 px-4 py-2 rounded cursor-pointer back" @click="close">
@@ -36,13 +36,13 @@
                 @changeFilter="changeFilter"/>
             </div>
         </div>
-        <div v-else class="no-camera-prompt">
-            <div class="popup">
-                <div class="device"/>
-                <p style="margin: 20px 0px 20px 0px">确保您的摄像头已正确连接到您的笔记本电脑</p>
-                <el-button class="media-btn" @click="Camera.methods.open">摄像头已连接</el-button>
-                <button class="fab icon-close" @click="close"></button> 
-            </div>
+        <!-- 设备未连接提示 -->
+        <div v-else class="relative  flex flex-col items-center w-[669px] h-[479px] m-auto bg-white filter drop-shadow-[0_0_10px_rgba(0,0,0,0.2)] rounded-lg">
+            <div class="w-[512px] h-[278px] bg-[url('@/assets/images/Swifaigo/prompt.png')] bg-cover"/>
+            <p class="text-[20px] text-black mt-[40px]">确保您的SwifCam已经正确连接到电脑</p>
+            <div class="mt-auto mb-[50px] w-[562px] h-[42px] rounded bg-main-color flex justify-center items-center text-white text-[20px] cursor-pointer" @click="Camera.methods.open"> SwifCam 已连接 </div>
+            <!-- 右上角关闭按钮 -->
+            <div class="absolute top-0 right-0 m-4 text-[#A7A7A7] px-2 py-1 rounded icon-close cursor-pointer" @click="close"/>
         </div>
     </div>
     <el-drawer
@@ -85,7 +85,7 @@ export default {
         const setting = ref({ bgRemoval: false, beauty: true })
         const active = ref(false)
         function close() {
-        context.emit("close");
+            context.emit("close");
         }
 
         function ToggleExtract(value: any){
