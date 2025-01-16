@@ -1,5 +1,5 @@
 <template>
-    <div class="create">
+    <div class="create px-5">
         <teleport to=".home-page-root">
             <Camera
                 v-if="showCapture"
@@ -56,16 +56,6 @@
             </div>
             <!-- <img class="mt-2" src="@/assets/images/swifcam.png" style="width:160px;height: 100px" @click="playTutorialVideo"/> -->
         </div>
-        <!-- <el-dialog
-            :model-value="showTutorial"
-            :visible.sync="showTutorial"
-            :modal="modal"
-            title="aaaaaaaaaa"
-            :append-to-body="appendToBody"
-            :before-close="() => { showTutorial = false }"
-            class="w-1/2 h-1/2 flex">
-            <video-player class="width: 200px;height: 200px" ref="videoPlayerRef" :src="videoURL" :poster="poster" :options="playerOptions" :autoplay="false" />
-        </el-dialog> -->
         <el-dialog v-model="showTutorial" title="使用教程" width="800px" :before-close="() => { showTutorial = false }">
 			<video-player ref="videoPlayerRef" :src="videoURL"  :options="playerOptions" :autoplay="false" />
 		</el-dialog>

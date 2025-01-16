@@ -2,7 +2,6 @@ import { ref } from 'vue'
 import { createMemoryHistory, createRouter } from 'vue-router';
 import Main from "@/components/main/index.vue"
 import { Setting, MediaLibrary, MediaCapture, Mall, UserLogin, UserRegister, UserZone, AIScene, HomePage } from '@/views/components/index';
-import { ElStep } from 'element-plus';
 
 enum RouterPath{
     BASE = '/',

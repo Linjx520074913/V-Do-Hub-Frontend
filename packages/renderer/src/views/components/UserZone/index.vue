@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full w-full">
+    <div class="h-full w-full px-5">
         <div class="flex flex-col h-full">
             <div class="flex flex-row">
                 <div :class="['mr-4 text-[24px] cursor-pointer', selected.text == item.text? 'text-[#E94902]':'']" 

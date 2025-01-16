@@ -48,7 +48,7 @@
                     </el-popover>
                 </div>
                 <!-- 与菜单对应的子路由 -->
-                <router-view class="px-[50px]"/>
+                <router-view/>
             </div>
         </div>
     </div>
@@ -89,6 +89,7 @@ export default {
         onMounted(() => {
             isReady.value = true
 
+            // Router.methods.to('/main/homepage/media_library')
             Router.methods.to('/main/homepage/media_capture')
             // Router.methods.to('/main/homepage/user_zone')
         })   
