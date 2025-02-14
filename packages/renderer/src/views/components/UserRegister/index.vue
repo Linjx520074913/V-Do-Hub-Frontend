@@ -54,20 +54,20 @@
             <!-- 右侧 -->
             <div class="flex flex-col  flex-1">
                 <p class="text-[26px]">商品品类*</p>
-                <div class="checkbox-group">
-                <label v-for="(category, index) in categories" :key="index">
-                <input 
-                    type="checkbox" 
-                    :value="category" 
-                    v-model="form.selectedCategories" 
-                />
-                {{ category }}
-                </label>
-            </div>
+                <div class="grid grid-cols-3 grid-rows-3 gap-4 mt-[10px]">
+                    <div v-for="(category, index) in categories" :key="index" class="flex flex-row">
+                        <svg class="mr-[10px]" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" @click="() => { category.checked = !category.checked }">
+                            <path v-if="!category.checked" d="M0.75 4C0.75 2.20507 2.20507 0.75 4 0.75H16C17.7949 0.75 19.25 2.20507 19.25 4V16C19.25 17.7949 17.7949 19.25 16 19.25H4C2.20507 19.25 0.75 17.7949 0.75 16V4Z" fill="#F3F3F3" stroke="#A7A7A7" stroke-width="1.5"/>
+                            <path v-if="category.checked" d="M0.75 4C0.75 2.20507 2.20507 0.75 4 0.75H16C17.7949 0.75 19.25 2.20507 19.25 4V16C19.25 17.7949 17.7949 19.25 16 19.25H4C2.20507 19.25 0.75 17.7949 0.75 16V4Z" fill="#E94902" stroke="#E94902" stroke-width="1.5"/>
+                            <path v-if="category.checked" d="M2.99999 10.2729L8.01042 15.1222L17.2028 5.92986" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        {{ category.title }}
+                    </div>
+                </div>
             </div>
         </div>
         <!-- 注册按钮 -->
-        <div class="w-[359px] h-[45px] rounded-3xl flex flex-row justify-center items-center bg-main-color mt-20 text-white hover:bg-orange-500 hover:border-orange-600 hover:shadow-lg cursor-pointer transition duration-200"
+        <div class="w-[359px] h-[45px] mt-auto mb-auto rounded-3xl flex flex-row justify-center items-center bg-main-color text-white hover:bg-orange-500 hover:border-orange-600 hover:shadow-lg cursor-pointer transition duration-200"
             @click="register">
             注册
         </div>
@@ -97,7 +97,14 @@ export default {
             selectedCategories: [] as string[],  // 用于存储勾选的商品品类
             otherCategory: '' as string      // 备注说明
         })
-        const categories = ref(['珠宝', '美妆', '饰品', '陶瓷', '电子产品', '其他'])
+        const categories = ref([
+            { title: '珠宝',     checked: false },
+            { title: '美妆',     checked: false },
+            { title: '饰品',     checked: false },
+            { title: '陶瓷',     checked: false },
+            { title: '电子产品', checked: false },
+            { title: '其他',     checked: false }
+        ])
 
         function quit(){
             Account.methods.logout()
@@ -105,12 +112,13 @@ export default {
         }
 
         async function register(){
-            if (form.value.selectedCategories.length == 0) {
+            const selected = categories.value.filter( item => item.checked )
+                                             .map(item => item.title)
+            if (selected.length == 0) {
                 alert('珠宝是必选项，请选择珠宝！');
                 return
             }
-            console.log('!!!!!!!!!!!!', form.value.selectedCategories)
-            const isSuccess = await Account.methods.register(form.value.email, form.value.company, form.value.selectedCategories, Account.data.curUser.phone, Account.data.curSmsCode)
+            const isSuccess = await Account.methods.register(form.value.email, form.value.company, selected, Account.data.curUser.phone, Account.data.curSmsCode)
             ElMessage({
                 message: isSuccess? '注册成功!' : '注册失败',
                 type: isSuccess? 'success' : 'error',
@@ -118,7 +126,6 @@ export default {
 
             // 重新刷新页面
             if(isSuccess){
-                console.log('FFFFFFFFFFFFFFFFF')
                 ipcRenderer.send(ObEvent.WINDOW_RELOAD, {})
             }
             

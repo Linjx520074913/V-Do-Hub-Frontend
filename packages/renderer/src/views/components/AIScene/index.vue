@@ -211,7 +211,7 @@ export default {
     width: 290px;
     background: #FFF;
     border: 1px solid #e5e7eb;
-    height: 90vh;
+    height: 85vh;
     .block-title {
       font-size: 16px;
       color: #2D2D2D;

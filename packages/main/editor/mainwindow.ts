@@ -384,7 +384,12 @@ export default class MainWindow{
             const x = Math.round((screenWidth - w) / 2);
             const y = Math.round((screenHeight - h) / 2);
             
-            (this.win as BrowserWindow).setBounds({ x: x, y: y, width: w, height: h });
+            if(w == 1920){
+                (this.win as BrowserWindow).maximize()
+            }else{
+                (this.win as BrowserWindow).setBounds({ x: x, y: y, width: w, height: h });
+            }
+            
             setTimeout(() => {
                 (this.win as BrowserWindow).show();
             }, 500)

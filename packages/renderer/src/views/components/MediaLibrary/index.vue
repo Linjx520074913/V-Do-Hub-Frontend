@@ -1,12 +1,13 @@
 <template>
     <div class="flex flex-col h-full bg-[#F1F1F1]">
-        <!-- <ObTab :options="Options"/> -->
-        <div class="grid grid-rows-3 grid-cols-5 gap-x-4 gap-y-6 p-4 w-[1480px] h-[849px]">
+        <!-- 图片展示 -->
+        <div class="grid grid-rows-3 grid-cols-5 gap-x-4 gap-y-6 p-4 w-full flex-1">
             <MediaCard v-for="(item, index) in data"
                 :data="item"
                 @click="showPreview"
             />
         </div>
+        <!-- 预览 -->
         <el-drawer
             class="drawer"
             :with-header="false"
@@ -19,9 +20,11 @@
                 @confirm="() => { source = '' }"
             />
         </el-drawer>
-        <div class='flex w-full h-full'>
+        <!-- 上一页 下一页 -->
+        <div class='flex w-full h-[35px] items-center'>
+            <p class="text-[18px] ml-[30px]">{{ totalCount }} 总计项目</p>
             <el-pagination
-                class="mt-auto mb-auto ml-auto mr-10"
+                class="mt-auto mb-[15px] ml-auto mr-10"
                 @current-change="activePage"
                 :current-page.sync="currentPageIndex"
                 :page-size="pageSize"
@@ -65,7 +68,6 @@ export default {
 
         function showPreview(item: any){
             source.value = item.filePath
-            console.error('@@@@@@@@@', item)
         }
 
         const root = "D://data";

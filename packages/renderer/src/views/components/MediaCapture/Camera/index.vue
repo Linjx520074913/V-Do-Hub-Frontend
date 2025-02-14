@@ -13,12 +13,8 @@
                 </div>
                 <div class="relative w-full flex-1 flex">
                     <!-- 居中按钮 -->
-                    <div class="w-[100px] h-[100px] border border-black m-auto" @click="TakePhoto">
-                        <p v-if="isVideo">{{ duration }}</p>
-                        a
-                        <ProgressTimer/>
-                    </div>
-
+                    <ProgressTimer v-if="isVideo" class="m-auto" @click="TakePhoto"/>
+                    <div v-else class="m-auto flex items-center justify-center w-[70px] h-[70px] bg-[#E94902] text-white text-xl rounded-full cursor-pointer" @click="TakePhoto"></div>
 
                     <!-- 靠右开关 -->
                     <el-switch
@@ -45,8 +41,8 @@
         <!-- 设备未连接提示 -->
         <div v-else class="relative  flex flex-col items-center w-[669px] h-[479px] m-auto bg-white filter drop-shadow-[0_0_10px_rgba(0,0,0,0.2)] rounded-lg">
             <div class="w-[512px] h-[278px] bg-[url('@/assets/images/Swifaigo/prompt.png')] bg-cover"/>
-            <p class="text-[20px] text-black mt-[40px]">确保您的SwifCam已经正确连接到电脑</p>
-            <div class="mt-auto mb-[50px] w-[562px] h-[42px] rounded bg-main-color flex justify-center items-center text-white text-[20px] cursor-pointer" @click="Camera.methods.open"> SwifCam 已连接 </div>
+            <p class="text-[20px] text-black mt-[40px]">确保您的SwifAICam已经正确连接到电脑</p>
+            <div class="mt-auto mb-[50px] w-[562px] h-[42px] rounded bg-main-color flex justify-center items-center text-white text-[20px] cursor-pointer" @click="Camera.methods.open"> SwifAICam 已连接 </div>
             <!-- 右上角关闭按钮 -->
             <div class="absolute top-0 right-0 m-4 text-[#A7A7A7] px-2 py-1 rounded icon-close cursor-pointer" @click="close"/>
         </div>

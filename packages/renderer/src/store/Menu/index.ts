@@ -16,7 +16,7 @@ const MenuRef = ref({
             { title: '设备',           icon: 'icon-setting', visible: false, link: 'RouterPath.SETTING' },
             { title: '商城',           icon: 'icon-mobile1', visible: false, link: 'RouterPath.MALL' },
             { title: '登录',           icon: 'icon-mobile1', visible: false, link: 'RouterPath.USER_LOGIN' },
-            { title: '场景图',         icon: 'icon-mobile1', visible: false, link: 'RouterPath.AISCENE' },
+            { title: '场景图',         icon: 'icon-mobile1', visible: false, link: '/main/homepage/ai_scene' },
             { title: '我的个人资料',   icon: 'icon-mobile1', visible: false, link: '/main/homepage/user_zone/:index' },
         ],
         activedItem: null as MenuItem | null
@@ -30,7 +30,7 @@ const MenuRef = ref({
             Router.methods.to( item.link, query )
         },
         activeIndex(index: number){
-            Menu.data.activedItem = Menu.data.slider[index]
+            Menu.methods.active(Menu.data.slider[index])
         },
         activeAccountZone(index: number){
             const item: MenuItem = Menu.data.slider[Menu.data.slider.length - 1]

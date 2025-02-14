@@ -1,22 +1,28 @@
 <template>
-    <div class="w-full h-full flex flex-col mt-5">
-        <p>用户名</p>
-        <input/>
-        <p>手机号码*</p>
-        <input/>
-        <p>公司名称</p>
-        <input/>
-        <p>电子邮件</p>
-        <input/>
-        <p>商品品类*</p>
-        <div class="flex flex-row space-x-3">
+    <div class="w-full h-full flex flex-col mt-[23px]">
+        <div class="flex flex-row">
+            <p class="text-[24px]">手机号码</p>
+            <p class="text-main-color text-[24px]">*</p>
+        </div>
+        <input class="h-[42px] text-[22px] bg-transparent" v-model="Account.data.curUser.phone"/>
+        <p class="text-[24px] mt-[60px]">公司名称</p>
+        <input class="h-[42px] text-[22px] bg-transparent" v-model="Account.data.curUser.companyName"/>
+        <p class="text-[24px] mt-[60px]">电子邮件</p>
+        <input class="h-[42px] text-[22px] bg-transparent" v-model="Account.data.curUser.email"/>
+        <div class="flex flex-row text-[24px] items-center space-x-2 mt-[60px]">
+            <p>商品品类</p>
+            <div class="text-main-color">*</div>
+        </div>
+        <div class="flex flex-row space-x-3 mt-[11px]">
             <div v-for="(item, index) in options" :key="index" class="flex flex-row items-center">
-                <input 
-                    type="checkbox" 
-                    id="icon-checkbox" 
-                    class="appearance-none w-[20px] h-[20px] bg-gray-200 checked:bg-[#E94902] checked:border-transparent focus:ring-bg-[#E94902] relative 
-                    before:content-['✔'] before:absolute before:inset-0 before:flex before:justify-center before:items-center before:text-white before:opacity-0 checked:before:opacity-100"
-                />
+                <svg v-if="!item.checked" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.75 4C0.75 2.20507 2.20507 0.75 4 0.75H16C17.7949 0.75 19.25 2.20507 19.25 4V16C19.25 17.7949 17.7949 19.25 16 19.25H4C2.20507 19.25 0.75 17.7949 0.75 16V4Z" fill="#F3F3F3" stroke="#A7A7A7" stroke-width="1.5"/>
+                </svg>
+                <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.75 4C0.75 2.20507 2.20507 0.75 4 0.75H16C17.7949 0.75 19.25 2.20507 19.25 4V16C19.25 17.7949 17.7949 19.25 16 19.25H4C2.20507 19.25 0.75 17.7949 0.75 16V4Z" fill="#E94902" stroke="#E94902" stroke-width="1.5"/>
+                    <path d="M2.99999 10.2729L8.01042 15.1222L17.2028 5.92986" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+
                 <label for="icon-checkbox" class="ml-2 text-[16px]">{{ item.title }}</label>
             </div>
         </div>
@@ -25,27 +31,34 @@
 
 <script lang="ts">
 import { SetupContext } from "vue"
+import { Account } from '@/store/index'
 
 export default {
-  name: "UserInfo",
-  props: {},
+    name: "UserInfo",
+    props: {},
 
-  emits: [],
-  components: {},
+    emits: [],
+    components: {},
 
-  setup(props: any, context: SetupContext) {
+    setup(props: any, context: SetupContext) {
+        const options = [
+            { title: '珠宝',     checked: false },
+            { title: '美妆',     checked: false },
+            { title: '饰品',     checked: false },
+            { title: '陶瓷',     checked: false },
+            { title: '电子产品', checked: false },
+            { title: '其他产品', checked: false }
+        ]
 
-    const options = [
-        { title: '珠宝' },
-        { title: '美妆' },
-        { title: '饰品' },
-        { title: '陶瓷' },
-        { title: '电子产品' },
-        { title: '其他产品' }
-    ]
+        const productCategory = Account.data.curUser.productCategory
+        for(let i = 0; i < options.length; i++){
+            if(productCategory.includes(options[i].title)){
+                options[i].checked = true
+            }
+        }
 
-    return { options };
-  },
+        return { options, Account };
+    },
 };
 </script>
 <style lang="scss" scoped>

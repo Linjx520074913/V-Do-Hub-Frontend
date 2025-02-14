@@ -3,7 +3,7 @@
         <div class="panel">
           <div class="item">
             <p class="text-[18px]">设备</p>
-            <p>SwifAI Camera</p>
+            <p>SwifAICam</p>
           </div>
           <div class="divider" />
           <div v-if="isVideoMode">

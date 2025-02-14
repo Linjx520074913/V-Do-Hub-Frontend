@@ -1,4 +1,4 @@
-import { app, protocol, BrowserWindow, ipcMain, screen, webFrame } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, shell, HandlerDetails } from 'electron'
 import MainWindow from './mainwindow'
 import { windowConfig } from '../config/config'
 import { ObEvent } from '../../common/index';
@@ -43,6 +43,15 @@ export default class Editor{
 			if (BrowserWindow.getAllWindows().length === 0) (this.mainWindow as MainWindow).createWindow(process.platform)
 
 		})
+
+        app.whenReady().then(() => {
+
+            (this.mainWindow as MainWindow).win!.webContents!.setWindowOpenHandler((details: HandlerDetails) => {
+                let url = (details.url as string)
+                shell.openExternal(url)
+                return { action: "deny" }
+            })
+        })
 
 		app.on('ready', async () => {
             app.commandLine.appendSwitch('force-device-scale-factor', '1');

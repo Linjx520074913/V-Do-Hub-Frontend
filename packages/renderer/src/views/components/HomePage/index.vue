@@ -21,14 +21,14 @@
                 <span class="border border-[#E6E6E6]"/>
                 <!-- 信息说明 -->
                 <div class="h-[50px] w-full flex items-center ml-[27px] text-[#6A6A6A]">
-                    @2024 SwifCam.app, Inc
+                    @2024 SwifAICam.app, Inc
                 </div>
             </div>
             <!-- 右侧工作区 -->
             <div class="middle h-full">
                 <!-- 右侧顶部信息栏，包含当前模块名，账号入口-->
                 <div class="flex flex-row justify-between mt-[10px] mb-[36px]">
-                    <div class="ml-[50px] text-[30px]">{{ Menu.data.activedItem.title }}</div>
+                    <div class="ml-[64px] text-[30px]">{{ Menu.data.activedItem.title }}</div>
                     <!-- VIP 信息提示框 -->
                     <el-popover
                         placement="bottom"
@@ -39,10 +39,10 @@
                     >
                         <UserMenu @click="() => { isPopoverVisible = false }"/>
                         <template #reference>
-                            <div class="flex flex-row mr-4 items-center">
+                            <div class="flex flex-row mr-4 items-center cursor-pointer" @click="showVIPPrompt">
                                 <div class="vip-0"/>
-                                <span class="avatar cursor-pointer" @click="showVIPPrompt"/>
-                                <div class=" ml-[15px] cursor-pointer" @click="showVIPPrompt">账号信息</div>
+                                <span class="avatar mr-[15px]"/>
+                                <p>{{ Account.data.curUser.name }}</p>
                             </div>
                         </template>
                     </el-popover>
@@ -79,7 +79,7 @@ export default {
             isPopoverVisible.value = !isPopoverVisible.value;
         }
         const dialogVisible = ref(false)
-        const isPopoverVisible = ref(false); // 控制弹窗显示状态
+        const isPopoverVisible = ref(false)
 
         function elevateMembership(){
             isPopoverVisible.value = false
@@ -91,7 +91,7 @@ export default {
 
             // Router.methods.to('/main/homepage/media_library')
             Router.methods.to('/main/homepage/media_capture')
-            // Router.methods.to('/main/homepage/user_zone')
+            // Router.methods.to('/main/homepage/user_zone/:index', { index: 1 })
         })   
 
         return {

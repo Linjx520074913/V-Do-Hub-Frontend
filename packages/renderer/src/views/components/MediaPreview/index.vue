@@ -18,9 +18,6 @@
         </div>
 
         <div class="flex flex-row h-[50px] px-5 mt-20 space-x-3" v-if="showButton">
-            <!-- <el-button class="button flex-1 bg-main-color" type="primary" @click="cancel">取消</el-button>
-            <el-button class="button flex-1 bg-main-color" type="primary" @click="confirm">保存到图库</el-button> -->
-
             <div class="flex-1 flex bg-main-color rounded-xl text-white justify-center items-center cursor-pointer"  @click="cancel">
                 取消
             </div>

@@ -21,7 +21,8 @@ const RouterRef = ref({
                 { path: '',                 component: MediaLibrary },
                 { path: 'media_capture',    component: MediaCapture },
                 { path: 'media_library',    component: MediaLibrary },
-                { path: 'user_zone/:index', component: UserZone }
+                { path: 'user_zone/:index', component: UserZone },
+                { path: 'ai_scene',         component: AIScene }
             ]
             
             const childRoutes = [

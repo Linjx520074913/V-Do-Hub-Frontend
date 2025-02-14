@@ -17,7 +17,7 @@
         <span class="text-[24px] mt-[37px] ml-[20px] cursor-pointer" @click="showUserZone(0)">账户信息设置</span>
         <span class="text-[24px] mt-[37px] ml-[20px]">联系我们</span>
         <span class="border-b border-gray-300 mt-[30px]"/>
-        <span class="text-[24px] flex flex-row justify-center items-center mt-auto mb-auto" @click="logout">退出登录</span>
+        <span class="text-[24px] flex flex-row justify-center items-center mt-auto mb-auto cursor-pointer" @click="logout">退出登录</span>
     </div>
 </template>
 

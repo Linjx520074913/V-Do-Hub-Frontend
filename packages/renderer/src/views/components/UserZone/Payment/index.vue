@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref, toRefs, SetupContext } from "vue"
+import { onMounted, ref, toRefs, SetupContext, watch } from "vue"
 import QRCode from 'qrcode'
 import { Account, PaymentMethod } from '@/store/index'
 import { ElMessage } from 'element-plus';
@@ -17,9 +17,11 @@ import { ElMessage } from 'element-plus';
 export default {
     name: "Payment",
     props: {
-        value:{
-            type: Object,
-            required: true
+        planId:{
+            type: String
+        },
+        payMethod: {
+            type: String
         }
     },
 
@@ -27,13 +29,11 @@ export default {
     components: {},
 
     setup(props: any, context: SetupContext) {
+        const { planId, payMethod } = toRefs(props)
+
         const paylink = ref('')
 
-        // TODO: 这个地方的planId要从外部传入
-        const planId = ref('670c2f21bfa34b09719a1af3')
-
         function test(){
-            console.log('FFFFFFFFtest')
             context.emit('success')
         }
 
@@ -50,21 +50,38 @@ export default {
                 context.emit('success')
             }else{
                 // 轮询支付状态
-                setTimeout(checkPaymentStatus, 1000); 
+                // setTimeout(checkPaymentStatus, 1000); 
             }
         }
 
-        onMounted(async () => {
-            const data = await Account.methods.createPaymentOrder(planId.value, PaymentMethod.WECHAT)
+        async function generateQrCodeForPay(id: string, methods: PaymentMethod){
+            const data = await Account.methods.createPaymentOrder(id, methods)
             // 使用 planId 生成支付订单
             QRCode.toDataURL(data.paymentLink, { margin: 2 }, (err: any, url: string) => {
                 paylink.value = url
             })
             // 检查支付状态
             checkPaymentStatus()
+        }
+
+        watch( payMethod, async (newValue, oldValue) => {
+            if(planId.value){
+                generateQrCodeForPay(planId.value, payMethod.value)
+            }
+        }, { immediate: true, deep: true })
+
+        watch( planId, async (newValue, oldValue) => {
+            if(planId.value){
+                generateQrCodeForPay(planId.value, payMethod.value)
+            }
+        }, { immediate: true, deep: true })
+
+        onMounted(async () => {
+            
+            
         })
         
-        return { paylink, checkPaymentStatus, test }
+        return { paylink, checkPaymentStatus, test, generateQrCodeForPay }
     },
 };
 </script>

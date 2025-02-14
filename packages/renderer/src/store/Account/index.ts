@@ -46,7 +46,8 @@ enum URL{
     LOGIN_PHONE             = '/api/auth/login/phone',
     USER_REGISTER           = '/api/user/register',
     USER_SUBSCRIPTIONS      = '/api/user/subscriptions',
-    PAYMENT                 = '/api/user/subscribe/payment'
+    PAYMENT                 = '/api/user/subscribe/payment',
+    ACTIVE_MEMBERSHIP       = '/api/user/subscribe/membership-code'
 }
 
 enum LoginMethod{
@@ -68,6 +69,7 @@ const AccountRef = ref({
             email: '',
             avatar: '',
             wechatId: '',
+            companyName: '',
             productCategory: [],
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -367,6 +369,29 @@ const AccountRef = ref({
             // TODO: 处理异常
             
             return res.data
+        },
+        async activeMembershipByCode(code: string): Promise<Boolean>{
+            console.error('!!!!!!!! activeMembershipByCode', code)
+            const data = new URLSearchParams();
+            data.append('membershipCode', code);
+            let isSuccess = false
+            try{
+                const res = await AXIOS.request({
+                    method: 'POST',
+                    url: URL.ACTIVE_MEMBERSHIP,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Bearer ${Account.data.curToken}`
+                    },
+                    data: data
+                })
+                console.log("[ Account ] activeMembershipByCode ", res, res.status, res.status == 200)
+                isSuccess = res.status && res.status == 200
+            }catch(error){
+                console.error(error)
+            }
+            
+            return isSuccess
         }
     }
 })

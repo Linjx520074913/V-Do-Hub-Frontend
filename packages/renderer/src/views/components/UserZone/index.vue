@@ -1,6 +1,6 @@
 <template>
-    <div class="h-full w-full px-5">
-        <div class="flex flex-col h-full">
+    <div class="h-full w-full">
+        <div class="flex flex-col h-full ml-[64px]">
             <div class="flex flex-row">
                 <div :class="['mr-4 text-[24px] cursor-pointer', selected.text == item.text? 'text-[#E94902]':'']" 
                     v-for="(item, index) in navItem" :key="index" @click="activeNavItem(item)">
@@ -8,7 +8,7 @@
                 </div>
             </div>
 
-            <span class="border border-[#A7A7A7] w-full mt-3 mb-4"/>
+            <span class="border border-[#A7A7A7] w-full mt-3"/>
             
             <keep-alive>
                 <component :is="selected.component"/>

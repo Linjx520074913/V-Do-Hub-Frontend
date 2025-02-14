@@ -5,7 +5,7 @@
         <!-- 登录 -->
         <div class="w-1/2 h-full relative bg-white">
             <!-- 微信登录 -->
-            <div v-if="Account.data.loginMethod === LoginMethod.WECHAT" class="w-full h-full flex flex-col items-center">
+            <div :class="['w-full h-full flex flex-col items-center', Account.data.loginMethod === LoginMethod.WECHAT? '' : 'hidden']">
                 <p class="text-[30px] font-bold mt-[100px]">微信登录</p>
                 <p class="text-[16px] mt-[13px] text-[#6A6A6A]">微信扫描即可完成注册登录</p>
                 <webview ref="webview" id="webview" :src="Account.data.wechatURL" class="w-[0px] h-[0px]"/>
@@ -14,15 +14,15 @@
                 </div>
                 <p class="text-[14px] mt-[27px] font-bold">
                     登录即表示同意 
-                    <a href="" class="text-[#0073FF]" target="_blank">《服务条款》</a> 和 
-                    <a href="" class="text-[#0073FF]" target="_blank">《个人信息保护政策》</a>
+                    <a href="https://www.baidu.com" class="text-[#0073FF]" target="_blank">《服务条款》</a> 和 
+                    <a href="https://www.baidu.com" class="text-[#0073FF]" target="_blank">《个人信息保护政策》</a>
                 </p>
                 <p class="text-[14px]  font-bold">
                     未注册微信号登录时会自动创建账号
                 </p>
             </div>
             <!-- 手机登录 -->
-            <div v-else class="w-full h-full flex flex-col items-center">
+            <div v-if="Account.data.loginMethod === LoginMethod.PHONE"  class="w-full h-full flex flex-col items-center">
                 <p class="text-[30px] font-bold mt-[100px]">登录</p>
                 <div class="w-[359px] h-[45px] mt-[27px] flex flex-row border rounded-[5px]">
                     <select v-model="countryCode" class="country-code w-[80px] h-full flex items-center justify-center ">
@@ -44,7 +44,7 @@
                             class="px-3 text-sm text-blue-500 font-medium hover:text-blue-700 active:text-blue-900 focus:outline-none"
                             @click="sendPhoneVerificationCode(phoneNum)"
                         >
-                            获取验证码
+                            {{ prompt }}
                         </button>
                 </div>
                 <!-- 登录 -->
@@ -52,11 +52,10 @@
                     @click="loginWithPhoneNum(phoneNum, smsCode)" >登录</div>
                 <!-- 服务条款 -->
                 <div class="flex flex-row h-[20px] mt-[93px] items-center justify-center">
-                    <el-checkbox/>
                     <p class="text-[14px] font-bold ml-[5px]">
                         登录即表示同意 
-                        <a href="" class="text-[#0073FF]" target="_blank">《服务条款》</a> 和 
-                        <a href="" class="text-[#0073FF]" target="_blank">《个人信息保护政策》</a>
+                        <a href="https://www.baidu.com" class="text-[#0073FF]" target="_blank">《服务条款》</a> 和 
+                        <a href="https://www.baidu.com" class="text-[#0073FF]" target="_blank">《个人信息保护政策》</a>
                     </p>
                 </div>
             </div>
@@ -68,12 +67,13 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, ref, onMounted, onUnmounted } from "vue"
+import { SetupContext, ref, onMounted, onUnmounted, watch } from "vue"
 import QRCode from 'qrcode'
 import { Account, LoginMethod, Router, RouterPath } from '@/store/index'
 import UserRegister  from '../UserRegister/index.vue'
 import { ipcRenderer } from 'electron'
 import { ObEvent } from "@common/";
+import { nextTick } from 'process'
 
 export default {
   name: "UserLogin",
@@ -91,7 +91,9 @@ export default {
 
     const countryCode = ref('+86')
 
-    let qrcodeTimer: any = null
+    let qrcodeTimer: NodeJS.Timeout | null = null
+
+    let prompt = ref('获取验证码')
 
     const loading = ref(true)
     
@@ -124,33 +126,6 @@ export default {
             if(!isSuccess){
                 // 登录过期
                 loading.value = false
-                
-                const webview = document.querySelector("webview") as any;
-                if(webview && curLoginMethod.value === LoginMethod.WECHAT){
-                    webview.reload()
-                }
-                
-                qrcodeTimer = setInterval(() => {
-                    if(webview && curLoginMethod.value === LoginMethod.WECHAT){
-                        webview.reload()
-                    }
-                }, 20000)
-                webview.addEventListener('dom-ready', async () => {
-                    if(!Account.data.isLogin){
-                        updateQRCode()
-                    }
-                })
-                // 微信扫码后的webView跳转监听
-                webview.addEventListener("will-navigate", async (e: any) => {
-                    // 匹配找到 code 字段数据
-                    const match = e.url.match(/[?&]code=([^&]+)/)
-                    const code = match ? match[1] : null
-                    console.log("#### will-navigate get wechat code : ", code)
-                    await Account.methods.loginWithWechat(code)
-                    Router.methods.to(RouterPath.MAIN)
-                    // TODO: 登录成功之后，修改窗口大小及位置
-                    ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
-                })
             }else{
                 Router.methods.to(RouterPath.MAIN)
                 ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
@@ -169,8 +144,22 @@ export default {
         ipcRenderer.send(ObEvent.APP_FORCE_QUIT, '')
     }
 
+    let time = 60
+
     async function sendPhoneVerificationCode(phone: string){
-        await Account.methods.sendPhoneVerificationCode(phone)
+        if(time != 60){
+            return
+        }
+
+        Account.methods.sendPhoneVerificationCode(phone)
+        let id = setInterval(() => {
+            prompt.value = `${time--}s`
+            if(time == 0){
+                clearInterval(id)
+                time = 60
+                prompt.value = '获取验证码'
+            }
+        }, 1000)
     }
 
     async function loginWithPhoneNum(phoneNum: string, smsCode: string){
@@ -183,7 +172,47 @@ export default {
         }
     }
 
-    return { countryCode, close, loading, Account, LoginMethod, sendPhoneVerificationCode, loginWithPhoneNum, url, curLoginMethod, phoneNum, smsCode }
+    watch(() => Account.data.loginMethod, (newValue) =>{
+        if(Account.data.loginMethod === LoginMethod.WECHAT){
+            nextTick(() => {
+                let timer = setInterval(() => {
+                    const webview = document.querySelector("webview") as any;
+                    if(webview){
+                        webview.reload()
+                        clearInterval(timer)
+                    }else{
+                        return
+                    }
+                    
+                    qrcodeTimer = setInterval(() => {
+                        webview.reload()
+                    }, 15000)
+                    webview.addEventListener('dom-ready', async () => {
+                        if(!Account.data.isLogin){
+                            updateQRCode()
+                        }
+                    })
+                    // 微信扫码后的webView跳转监听
+                    webview.addEventListener("will-navigate", async (e: any) => {
+                        // 匹配找到 code 字段数据
+                        const match = e.url.match(/[?&]code=([^&]+)/)
+                        const code = match ? match[1] : null
+                        console.log("#### will-navigate get wechat code : ", code)
+                        await Account.methods.loginWithWechat(code)
+                        Router.methods.to(RouterPath.MAIN)
+                        // TODO: 登录成功之后，修改窗口大小及位置
+                        ipcRenderer.send(ObEvent.WINDOW_RESIZE, { width: 1920, height: 1080, center: true })
+                    })
+                }, 100)
+            })
+        }else{
+            if(qrcodeTimer){
+                clearInterval(qrcodeTimer)
+            }
+        }
+    }, { immediate: true, deep: true })
+
+    return { prompt, countryCode, close, loading, Account, LoginMethod, sendPhoneVerificationCode, loginWithPhoneNum, url, curLoginMethod, phoneNum, smsCode }
   },
 };
 </script>
